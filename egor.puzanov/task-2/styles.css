@@ -4,7 +4,6 @@
     justify-content: start;
     align-items: center;
     height: 100vh;
-    /* font-size: 10px; /*Красивый шрифт*/
     font-family:'Segoe UI'; 
     background-color: rgb(241, 247, 252);
 
@@ -49,13 +48,11 @@ label{
 
 #input:hover{
     outline: none;
-    /* border: 2px solid #2e3939; */
     box-shadow: inset 0px 0px 0px 2px rgb(141, 174, 240);
 }
 
 #input:focus{
     outline: none;
-    /* border: 2px solid #2e3939; */
     box-shadow: inset 0px 0px 0px 2px rgb(71, 127, 238);
 }
 

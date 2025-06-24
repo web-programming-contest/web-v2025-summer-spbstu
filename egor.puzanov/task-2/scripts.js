@@ -16,13 +16,10 @@ function IsPerfectNumber(num){
 document.addEventListener("DOMContentLoaded", (e) => {
     const messageDiv = document.getElementById("forMessage");
     const errorDiv = document.getElementById("forError");
-    messageDiv.textContent = "dasadasd";
-    messageDiv.classList.add("errorDiv");
 
     const input = document.getElementById("input"); 
     input.addEventListener("change", (e) => {
         messageDiv.style.opacity=0;
-        //messageDiv.classList = [];
         setTimeout(() => { messageDiv.classList = []; }, 200);
         const num = e.target.value;
         if(Math.round(num) != num) {
