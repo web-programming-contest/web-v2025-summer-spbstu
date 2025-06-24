@@ -5,3 +5,5 @@
 товар должен содержать название, выделенное жирным шрифтом, краткое 
 описание и цену, выделенную курсивом. Пример отображения каталога 
 изображен на иллюстрации.
+
+![Image alt](https://github.com/Egor79437658/web-v2025-summer-spbstu/blob/master/egor.puzanov/task-1/illustration.png)
