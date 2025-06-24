@@ -1,0 +1,25 @@
+function zipArrays(...arrays) {
+  if (arrays.length === 0)
+    return [];
+
+  let maxLen = Math.max(...arrays.map(arr => arr.length));
+  let result = [];
+
+  for (let i = 0; i < maxLen; i++) {
+    let tmpArr = [];
+
+    for (const arr of arrays) {
+      tmpArr.push(i < maxLen ? arr[i] : null);
+    }
+
+    result.push(tmpArr);
+  }
+
+  return result;
+}
+
+console.log(JSON.stringify(zipArrays([1, 2], ['a', 'b'])));
+console.log(JSON.stringify(zipArrays([1, 2, 3], ['a', 'b'])));
+console.log(JSON.stringify(zipArrays([1, 2, 3], ['a', 'b', 'c'])));
+console.log(JSON.stringify(zipArrays([1, 2, 3], ['a', 'b', 'c'], ["qw", "er", "ty"])));
+console.log(JSON.stringify(zipArrays([1, 2], ['a', 'b'], ["qw", "er"])));
