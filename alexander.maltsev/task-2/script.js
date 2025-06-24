@@ -1,4 +1,13 @@
 function generateParentheses(n) {
+  if (
+    typeof n !== "number" ||
+    !Number.isInteger(n) ||
+    n < 1 ||
+    n > 10
+  ) {
+    throw new Error("n должно быть целым числом от 1 до 10");
+  }
+
   const result = [];
 
   function backtrack(current, open, close) {
@@ -16,12 +25,23 @@ function generateParentheses(n) {
 }
 
 function generate() {
-  const n = parseInt(document.getElementById("inputN").value);
-  if (n > 10) {
-    alert("Пожалуйста, введите n ≤ 10 — иначе страница может зависнуть.");
+  const input = document.getElementById("inputN");
+  const errorDiv = document.getElementById("error");
+  const rawValue = input.value.trim();
+
+  errorDiv.textContent = "";
+
+  if (!/^\d+$/.test(rawValue)) {
+    errorDiv.textContent = "Введите только натуральное число без лишних символов.";
     return;
   }
 
-  const output = generateParentheses(n);
-  document.getElementById("output").textContent = output.join("\n");
+  const n = Number(rawValue);
+
+  try {
+    const output = generateParentheses(n);
+    document.getElementById("output").textContent = output.join("\n");
+  } catch (error) {
+    errorDiv.textContent = error.message;
+  }
 }
