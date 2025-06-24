@@ -9,7 +9,8 @@ function zipArrays(...arrays) {
     let tmpArr = [];
 
     for (const arr of arrays) {
-      tmpArr.push(i < maxLen ? arr[i] : null);
+      if (i < arr.length)
+        tmpArr.push(arr[i]);
     }
 
     result.push(tmpArr);
@@ -23,3 +24,4 @@ console.log(JSON.stringify(zipArrays([1, 2, 3], ['a', 'b'])));
 console.log(JSON.stringify(zipArrays([1, 2, 3], ['a', 'b', 'c'])));
 console.log(JSON.stringify(zipArrays([1, 2, 3], ['a', 'b', 'c'], ["qw", "er", "ty"])));
 console.log(JSON.stringify(zipArrays([1, 2], ['a', 'b'], ["qw", "er"])));
+console.log(JSON.stringify(zipArrays([1, 2, 3, 4], ['a', 'b', 'c'], ["qw", "er"])));
