@@ -23,6 +23,27 @@ function intersection(arr1, arr2){
     return intersection;
 }
 
+function intersection1(arr1, arr2){ //Версия, сделанная на занятии
+    const intersection = [];
+    arr1.sort();
+    arr2.sort();
+    const len = Math.min(arr1.length, arr2.length);
+    let i = 0, j = 0;
+    while(i < arr1.length && j < arr2.length){
+        if(arr1[i] == arr2[j]){
+            intersection.push(arr1[i]);
+            ++i;
+            ++j;
+        }
+        else if (arr1[i] > arr2[j]){
+            ++j;
+        }
+        else{
+            ++i;
+        }
+    }
+    return intersection;
+}
 
 function binSearch(arr, x) {
 
@@ -81,10 +102,6 @@ document.addEventListener("DOMContentLoaded", (e) => {
             return;
         }
 
-        
-        // console.log(arr1, arr1.length);
-        // console.log(arr2, arr2.length);
-        // console.log(result, result.length);
         setTimeout(() => {
             document.getElementById("elementsDiv1").textContent=`['${arr1.join("\', \'")}']`;
             document.getElementById("elementsDiv2").textContent=`['${arr2.join("\', \'")}']`;
