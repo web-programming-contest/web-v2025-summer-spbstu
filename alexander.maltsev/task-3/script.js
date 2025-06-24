@@ -1,16 +1,7 @@
 function sortArrayByParity(arr) {
-  let even = [];
-  let odd = [];
-
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] % 2 === 0) {
-      even.push(arr[i]);
-    } else {
-      odd.push(arr[i]);
-    }
-  }
-
-  return even.concat(odd);
+  return [...arr].sort((a, b) => {
+    return a % 2 === b % 2 ? a - b : (a % 2) - (b % 2);
+  });
 }
 
 function sortAndShow() {
