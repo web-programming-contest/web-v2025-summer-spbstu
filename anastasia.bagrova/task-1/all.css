@@ -10,14 +10,16 @@ main{
 }
 
 form{
+    display: flex;
     width: 400px;
     background-color: #fff;
     border: 1px solid #ced4da;
+    flex-direction: column;
 }
 
 form input{
     box-sizing: border-box;
-    width: 390px;
+    width: auto;
     padding: 8px;
     margin: 5px;
     border: 1px solid #ced4da;
