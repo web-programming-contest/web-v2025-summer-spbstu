@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="style.css">
@@ -8,27 +8,27 @@
 <body>
   <div class="container">
     <label for="insertedLine">Enter data</label>
-    <input id="insertedLine" type="text" name="insertedLine">
+    <input id="insertedLine" type="text">
 
     <button onclick="
-      let result = analyzieString(document.getElementById('insertedLine').value);
-      document.getElementById('lettersLine').value = result.letters;
-      document.getElementById('digitsLine').value = result.digits;
-      document.getElementById('spacesLine').value = result.spaces;
-      document.getElementById('otherLine').value = result.other;
+      let result = analyzieString(insertedLine.value);
+      lettersLine.value = result.letters;
+      digitsLine.value = result.digits;
+      spacesLine.value = result.spaces;
+      otherLine.value = result.other;
     ">Count</button>
 
     <label for="lettersLine">Letters count:</label>
-    <input id="lettersLine" type="number" name="resultLine" readonly="readonly">
+    <input id="lettersLine" type="number" readonly>
 
     <label for="digitsLine">Digits count:</label>
-    <input id="digitsLine" type="number" name="resultLine" readonly="readonly">
+    <input id="digitsLine" type="number" readonly>
 
     <label for="spacesLine">Spaces count:</label>
-    <input id="spacesLine" type="number" name="resultLine" readonly="readonly">
+    <input id="spacesLine" type="number" readonly>
 
     <label for="otherLine">Other count:</label>
-    <input id="otherLine" type="number" name="resultLine" readonly="readonly">
+    <input id="otherLine" type="number" readonly>
   </div>
 </body>
 </html>
