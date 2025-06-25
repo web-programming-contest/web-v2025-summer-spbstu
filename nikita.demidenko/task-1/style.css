@@ -1,0 +1,20 @@
+.menu {
+    font-size: 20px;
+    font-family: Arial;
+}
+.menu ul {
+    width: 400px;
+}
+.menu ul li {
+    display: flex;
+    list-style-type: none;
+}
+.menu ul li span {
+    flex-grow: 1;
+}
+.menu hr {
+    height: 1px;
+    margin: 8px 0px;
+    background-color: black;
+    border: none;
+}
