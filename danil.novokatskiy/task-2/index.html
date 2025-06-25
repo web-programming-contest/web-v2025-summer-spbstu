@@ -3,48 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Task-2</title>
+  <script type="text/javascript" src="script.js"></script>
 </head>
 <body>
 <div>
   <input type="number" placeholder="Введите число" id="in"><br>
-  <button type="submit" id="but"> Отправить число</button>
+  <button type="submit" id="but" onclick="convertToRoman()"> Отправить число</button>
 </div>
-<script>
-    function toRoman(num) {
-        if (num < 1 || num > 3999) {
-            throw new Error("The number must be more than 1 and less than 3999");
-        }
-        const romanNumbers = [
-            {value: 1000, symbol: 'M'},
-            {value: 900, symbol: 'CM'},
-            {value: 500, symbol: 'D'},
-            {value: 400, symbol: 'CD'},
-            {value: 100, symbol: 'C'},
-            {value: 90, symbol: 'XC'},
-            {value: 50, symbol: 'L'},
-            {value: 40, symbol: 'XL'},
-            {value: 10, symbol: 'X'},
-            {value: 9, symbol: 'IX'},
-            {value: 5, symbol: 'V'},
-            {value: 4, symbol: 'IV'},
-            {value: 1, symbol: 'I'}
-        ];
-        let res = "";
-        for (const {value, symbol} of romanNumbers) {
-            while (num >= value) {
-                res += symbol;
-                num -= value;
-            }
-        }
-        return res;
-    }
-
-    const num = document.getElementById('in').value;
-    try {
-        console.log(toRoman(num));
-    } catch (e) {
-        console.error(e);
-    }
-</script>
 </body>
 </html>
