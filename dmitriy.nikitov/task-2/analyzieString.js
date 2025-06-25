@@ -18,8 +18,5 @@ function analyzieString(str) {
       ++other;
     }
   }
-  return { letters: letters,
-    digits: digits,
-    spaces: spaces,
-    other: other }
+  return { letters, digits, spaces, other }
 }
