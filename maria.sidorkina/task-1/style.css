@@ -1,0 +1,24 @@
+.flag {
+    position: relative;
+
+    box-sizing: border-box;
+
+    height: 200px;
+    aspect-ratio: 3 / 2;
+
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+}
+
+.flag_circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    height: 60%;
+    aspect-ratio: 1 / 1;
+
+    background: #BC002D;
+    border-radius: 50%;
+}
