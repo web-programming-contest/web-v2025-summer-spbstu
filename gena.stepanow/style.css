@@ -1,14 +1,15 @@
-tr.odd
+tbody tr:nth-child(odd)
 {
-    background-color: #f2f2f2;;
+    background-color: #f2f2f2;
 }
 
-tr.even
+tbody tr:nth-child(even)
 {
     background-color: #ffffff;
 }
 
-tr:hover
+tbody tr:hover, tfoot:hover
 {
     background-color: #d3d3d3;
 }
+
