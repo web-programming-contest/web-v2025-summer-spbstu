@@ -87,33 +87,33 @@ class Recipie {
     }
 }
 
-const a = new Recipie(title="рецепт 1", ingredients=['ингредиент 1', 'ингредиент 2'], steps=['шаг 1', 'шаг 2']);
+const a = new Recipie( "рецепт 1",  ['ингредиент 1', 'ингредиент 2'],  ['шаг 1', 'шаг 2']);
 console.log(a.toString());
 a.addIngredient("ингредиент 3");
 a.removeIngredient("ингредиент 1");
 console.log(a.toString());
 console.log(a.ingredientCount);
 try{
-    const b = new Recipie(title=4, ingredients=['ингредиент 1', 'ингредиент 2'], steps=['шаг 1', 'шаг 2']);
+    const b = new Recipie( 4,  ['ингредиент 1', 'ингредиент 2'],  ['шаг 1', 'шаг 2']);
 }
 catch (e) {
     console.log(e);
 }
 try{
-    const c = new Recipie(title="рецепт 1", ingredients=['ингредиент 1', 34], steps=['шаг 1', 'шаг 2']);
+    const c = new Recipie( "рецепт 1",  ['ингредиент 1', 34],  ['шаг 1', 'шаг 2']);
 }
 catch (e) {
     console.log(e);
 }
 try{
-    const d = new Recipie(title="рецепт 1", ingredients=['ингредиент 1', 'ингредиент 2'], steps=['шаг 1', 'шаг 2']);
+    const d = new Recipie( "рецепт 1",  ['ингредиент 1', 'ингредиент 2'],  ['шаг 1', 'шаг 2']);
     d.addIngredient(4);
 }
 catch (e) {
     console.log(e);
 }
 try{
-    const e = new Recipie(title="рецепт 1", ingredients=['ингредиент 1', 'ингредиент 2'], steps=['шаг 1', 'шаг 2']);
+    const e = new Recipie( "рецепт 1",  ['ингредиент 1', 'ингредиент 2'],  ['шаг 1', 'шаг 2']);
     e.removeIngredient("asdasd");
 }
 catch (e) {
