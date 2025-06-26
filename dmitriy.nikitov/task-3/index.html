@@ -6,16 +6,18 @@
   <script src="removeDuplicates.js"></script>
 </head>
 <body>
-  <label class="line">Input array:<input id="inputLine" type="text" placeholder="1, 2, 3"></label>
+  <div class="container">
+    <label>Input array:<input id="inputLine" type="text" placeholder="1, 2, 3"></label>
 
-  <button id="processButton" onclick="
-    let arr = inputLine.value.split(',')
-      .map(element => element.trim())
-      .filter(element => /^\d+$/.test(element))
-      .map(Number);
-    resultLine.value = removeDuplicates(arr).toString();
-  ">Process</button>
+    <button id="processButton" onclick="
+      let arr = inputLine.value.split(',')
+        .map(element => element.trim())
+        .filter(element => /^\d+$/.test(element))
+        .map(Number);
+      resultLine.value = removeDuplicates(arr).toString();
+    ">Process</button>
 
-  <label class="line">Result array:<input id="resultLine" type="text" readonly></label>
+    <label>Result array:<input id="resultLine" type="text" readonly></label>
+  </div>
 </body>
 </html>
