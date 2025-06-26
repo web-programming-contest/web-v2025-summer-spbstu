@@ -2,6 +2,7 @@ table {
     width: 30%;
     font-family: Arial, sans-serif;
     margin: auto;
+    border-collapse: collapse;
 }
 
 caption {
@@ -12,7 +13,7 @@ caption {
 
 th, td {
     padding: 12px 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #000000;
 }
 
 th {
