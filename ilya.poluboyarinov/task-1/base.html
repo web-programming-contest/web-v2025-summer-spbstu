@@ -1,12 +1,56 @@
-<!DOCTYPE html>
-<html>
-  <head>
+<!doctype html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <title>task-1</title>
     <!-- <link rel="stylesheet" href="style.css"> -->
   </head>
-
-  <body>
+<body>
     <h1>Форма регистрации</h1>
+    <form action="" method="POST" target="_blank">
+        <label for="input_name">Имя:</label>
+        <input type="text" placeholder="Введите имя" id="input_name">
+    
+        <br>
+        <br>
+    
+        <label for="input_surname">Фамилия:</label>
+        <input type="text" placeholder="Введите фамилию" id="input_surname">
+
+        <br>
+        <br>
+        
+        <label>Пол:</label>
+        <br>
+        <label>- мужской</label>
+        <input type="radio" name="sex" value="male">
+        <br>
+        <label>- женский</label>
+        <input type="radio" name="sex" value="female">
+        
+        <br>
+        <br>
+        
+        <label for="languages">Владение языками:</label>
+        <br>
+        <label for="languages">- english</label>
+        <input type="checkbox" id="languages">
+        <br>
+        <label for="languages">- deutsch</label>
+        <input type="checkbox" id="languages">
+        <br>
+        <label for="languages">- français</label>
+        <input type="checkbox" id="languages">
+        <br>
+        <label for="languages">- русский</label>
+        <input type="checkbox" id="languages">
+        
+        <br>
+        <br>
+        
+        <button type="reset">Очистить форму</button>
+        <br>
+        <button type="submit">Отправить</button>
+    </form>
   </body>
 </html>
