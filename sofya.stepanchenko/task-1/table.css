@@ -1,0 +1,28 @@
+table {
+    width: 30%;
+    font-family: Arial, sans-serif;
+    margin: auto;
+}
+
+th, td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background: #f2f2f2;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+tr:hover {
+    background: #d3d3d3;
+}
+
+tfoot td {
+    font-weight: bold;
+    background: #f2f2f2;
+}
