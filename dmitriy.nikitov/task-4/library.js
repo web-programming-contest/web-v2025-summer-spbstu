@@ -21,7 +21,15 @@ class Library {
 }
 
 function groupByGenre(libs) {
-
+  let map = new Map();
+  for (let i = 0; i !== libs.length(); ++i) {
+    for (let j = 0; j !== libs[i].length(); ++j) {
+      if (!map.has(libs[i][j].genre)) {
+        map.set(libs[i][j].genre, []);
+      }
+      map.get(libs[i][j].genre).push(libs[i][j]);
+    }
+  }
 }
 
 function groupByYear(libs) {
