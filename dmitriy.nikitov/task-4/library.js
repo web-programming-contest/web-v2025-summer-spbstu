@@ -33,7 +33,15 @@ function groupByGenre(libs) {
 }
 
 function groupByYear(libs) {
-  
+  let map = new Map();
+  for (let i = 0; i !== libs.length(); ++i) {
+    for (let j = 0; j !== libs[i].length(); ++j) {
+      if (!map.has(libs[i][j].year)) {
+        map.set(libs[i][j].year, []);
+      }
+      map.get(libs[i][j].year).push(libs[i][j]);
+    }
+  }
 }
 
 function getAuthors(libs) {
