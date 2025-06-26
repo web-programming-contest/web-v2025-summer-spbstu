@@ -38,10 +38,16 @@ function getAuthors(libs) {
   return Array.from(authors);
 }
 
-function getBooksByAuthor(libs) {
-
+function getYears(libs) {
+  let years = new Set();
+  for (let i = 0; i !== libs.length(); ++i){
+    for (let j = 0; j !== libs[i].length(); ++j){
+      years.add(libs[i][j].years);
+    }
+  }
+  return Array.from(years);
 }
 
-function getYears(libs) {
+function getBooksByAuthor(libs) {
 
 }
