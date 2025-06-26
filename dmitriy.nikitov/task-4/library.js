@@ -19,3 +19,29 @@ class Library {
     return this.books.length();
   }
 }
+
+function groupByGenre(libs) {
+
+}
+
+function groupByYear(libs) {
+
+}
+
+function getAuthors(libs) {
+  let authors = new Set();
+  for (let i = 0; i !== libs.length(); ++i){
+    for (let j = 0; j !== libs[i].length(); ++j){
+      authors.add(libs[i][j].author);
+    }
+  }
+  return Array.from(authors);
+}
+
+function getBooksByAuthor(libs) {
+
+}
+
+function getYears(libs) {
+
+}
