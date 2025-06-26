@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+.task-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.task-list li {
+    padding: 8px 0 8px 30px;
+    position: relative;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.task-completed::before {
+    content: "✅";
+    position: absolute;
+    left: 0;
+}
+
+.task-in-progress::before {
+    content: "⏳";
+    position: absolute;
+    left: 0;
+}
+
+.task-cancelled::before {
+    content: "❌";
+    position: absolute;
+    left: 0;
+}
