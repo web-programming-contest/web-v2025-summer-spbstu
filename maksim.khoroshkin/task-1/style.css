@@ -20,7 +20,7 @@ ul.breadcrumbs li {
 }
 	
 ul.breadcrumbs li:not(:last-child)::after {
-	padding: 8px;
+	padding-left: 8px;
 	content: ">";
 	color: black;
 }
