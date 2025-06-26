@@ -28,7 +28,7 @@ tr:hover {
     background: #d3d3d3;
 }
 
-tfoot td {
+tfoot tr {
     font-weight: bold;
     background: #f2f2f2;
 }
