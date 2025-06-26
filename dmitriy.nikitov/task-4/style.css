@@ -1,0 +1,10 @@
+.container, .libraryForms, .bookForms {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+}
