@@ -25,13 +25,13 @@ function groupByGenre(libs) {
 }
 
 function groupByYear(libs) {
-
+  
 }
 
 function getAuthors(libs) {
   let authors = new Set();
-  for (let i = 0; i !== libs.length(); ++i){
-    for (let j = 0; j !== libs[i].length(); ++j){
+  for (let i = 0; i !== libs.length(); ++i) {
+    for (let j = 0; j !== libs[i].length(); ++j) {
       authors.add(libs[i][j].author);
     }
   }
@@ -40,14 +40,22 @@ function getAuthors(libs) {
 
 function getYears(libs) {
   let years = new Set();
-  for (let i = 0; i !== libs.length(); ++i){
-    for (let j = 0; j !== libs[i].length(); ++j){
+  for (let i = 0; i !== libs.length(); ++i) {
+    for (let j = 0; j !== libs[i].length(); ++j) {
       years.add(libs[i][j].years);
     }
   }
   return Array.from(years);
 }
 
-function getBooksByAuthor(libs) {
-
+function getBooksByAuthor(libs, author) {
+  let books = new Set();
+  for (let i = 0; i !== libs.length(); ++i) {
+    for (let j = 0; j !== libs[i].length(); ++j) {
+      if (libs[i][j].author == author) {
+        books.add(libs[i][j]);
+      }
+    }
+  }
+  return Array.from(books);
 }
