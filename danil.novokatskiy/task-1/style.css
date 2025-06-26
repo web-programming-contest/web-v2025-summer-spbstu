@@ -1,13 +1,16 @@
-.Text{
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    max-height: 100px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 16px;
-    font-family: Arial, serif;
-    white-space: nowrap;
-    border: 5px solid #ccc;
-    padding: 10px;
+.Text {
+  height: 100px;
+  width: 150px;
+  overflow: hidden;
+  font-size: 16px;
+  font-family: Arial, serif;
+  border: 5px solid #ccc;
+  padding: 10px;
+  position: relative;
+}
+
+.body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
