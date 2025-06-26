@@ -97,6 +97,19 @@
         return items.filter((item) => item.colorsCount > n);
     }
 
+    function mapGroupBySize(items) {
+      let result = new Map();
+
+      for (let item of items) {
+        if (result.has(item.size)) {
+          result.get(item.size).push(item);
+        } else {
+          result.set(item.size, [item]);
+        }
+      }
+      return result;
+    }
+
     function groupBySize(items) {
         items.sort((itemA, itemB) => {
             let sizeMap = {
