@@ -14,7 +14,7 @@
         .map(element => element.trim())
         .filter(element => /^\d+$/.test(element))
         .map(Number);
-      resultLine.value = removeDuplicates(arr).toString();
+      resultLine.value = removeDuplicates(arr).join(', ');
     ">Process</button>
 
     <label>Result array:<input id="resultLine" type="text" readonly></label>
