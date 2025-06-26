@@ -1,0 +1,109 @@
+.main{
+    display: flex; /*Список по центру*/
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    height: 100vh;
+    font-family:'Segoe UI'; 
+    background-color: rgb(241, 247, 252);
+
+}
+
+/* заголовок */
+h1{
+    font-size: 25px; 
+    margin-top: 20vh;
+}
+
+/* поле с вводом */
+.outerDiv{
+    margin-top: 30px;
+}
+
+label{
+    float: left;
+    margin-right: 10px;
+}
+
+.labelText{
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* сам ввод */
+#input{
+    position: relative;
+    top: 4px;
+    height: 20px;
+    padding: 3px;
+    padding-left: 5px;
+    text-align: center;
+
+    outline: none;
+    box-shadow: inset 0px 0px 0px 1px black;
+    border: transparent;
+    border-radius: 5px;
+}
+
+#input:hover{
+    outline: none;
+    box-shadow: inset 0px 0px 0px 2px rgb(141, 174, 240);
+}
+
+#input:focus{
+    outline: none;
+    box-shadow: inset 0px 0px 0px 2px rgb(71, 127, 238);
+}
+
+/* сообщение об ошибке */
+#forError{
+    opacity: 0;
+    transition: opacity 1s;
+    margin-top: 20px;
+    height: 20px;
+    color: rgb(205, 15, 15);
+}
+
+/* сообщение совершенно ли число */
+#forMessage{
+    opacity: 0;
+    transition: opacity 0.2s;
+    margin-top: 8vh;
+    height: 30vh;
+    width: 50vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid transparent;
+    font-size: 25px;
+    border-radius: 30px;
+}
+
+/* два стиля для чисел */
+.inperfDiv{
+    border: 5px solid rgb(213, 32, 32) !important ;
+    background-color: rgb(242, 112, 112);
+}
+
+.perfDiv{
+    border: 5px solid rgb(32, 213, 53) !important ;
+    background-color: rgb(112, 242, 166);
+}
+
+#check{
+    margin-top: 15vh;
+    margin-bottom: 20px;
+    border: 2px solid  rgb(241, 247, 252);
+    border-radius: 10px;
+    background-color: rgb(190, 187, 187);
+    height: 40px;
+    width: 200px;
+
+}
+
+#check:hover{
+    border: 2px solid rgb(190, 187, 187);
+    transition: border 0.2s;
+}
