@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="libraryForms">
+      <div class="formGroup">
+        <input type="text" id="libraryName" placeholder="Library name">
+        <button id="addLibButton">Add library</button>
+      </div>
+      <div class="formGroup">
+        <select id="librarySelect" title="Selected library"></select>
+        <button id="removeLibButton">Remove library</button>
+      </div>
+    </div>
+
+    <div class="bookForms">
+      <div class="formGroup">
+        <input type="text" id="bookTitle" placeholder="Title">
+        <input type="text" id="bookAuthor" placeholder="Author">
+        <input type="number" id="bookYear" placeholder="Year">
+        <input type="text" id="bookGenre" placeholder="Genre">
+        <button id="addBookButton">Add book</button>
+      </div>
+    </div>
+
+    <div class="booksContainer" id="booksContainer">
+    </div>
+  </div>
+</body>
+</html>
