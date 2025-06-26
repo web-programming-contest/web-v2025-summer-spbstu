@@ -1,5 +1,5 @@
 function rotateArray(arr, steps) {
-  if (arr.length === 0) {
+  if (!arr.length) {
     return arr;
   }
   for (let i = 0; i < steps; i++) {
