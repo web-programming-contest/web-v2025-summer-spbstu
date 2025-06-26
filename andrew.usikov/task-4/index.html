@@ -5,6 +5,53 @@
   <meta charset="UTF-8" />
   <title>Clothing Store</title>
   <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Clothing Store</h1>
+    <div class="forms">
+      <form id="add-item-form">
+        <h3>Add New Item</h3>
+        <label for="item-id">ID</label>
+        <input type="number" id="item-id" required />
+        <label for="item-name">Name</label>
+        <input type="text" id="item-name" required />
+        <label for="item-size">Size</label>
+        <select id="item-size" required>
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
+        </select>
+        <button type="submit">Add Item</button>
+      </form>
+      <form id="add-color-form">
+        <h3>Add Color to Item</h3>
+        <label for="color-item-id">Item ID</label>
+        <input type="number" id="color-item-id" required />
+        <label for="item-color">Color</label>
+        <input type="text" id="item-color" required />
+        <button type="submit">Add Color</button>
+      </form>
+      <div class="actions-menu">
+        <h3>Additional actions</h3>
+        <label>Sort items</label>
+        <button onclick="groupBySize(items)">Sort by size</button>
+        <button onclick="groupByColorsNum(items)">Sort by colors amount</button>
+        <label>Filter by colors</label>
+        <select id="color-select"></select>
+        <label>Filter by mimimal colors amount</label>
+        <input type="number" id="color-amount-id">
+        <button onclick="applyFilters()">Show items</button>
+        <button onclick="resetFilters()">Reset filters</button>
+        </select>
+      </div>
+    </div>
+    <div class="cards" id="cards-container">
+      <!-- Clothes will be here -->
+    </div>
+  </div>
 
   <script type="text/javascript">
     
@@ -190,53 +237,6 @@
     render();
     window.addEventListener('beforeunload', saveItems);
   </script>
-</head>
-
-<body>
-  <div class="container">
-    <h1>Clothing Store</h1>
-    <div class="forms">
-      <form id="add-item-form">
-        <h3>Add New Item</h3>
-        <label for="item-id">ID</label>
-        <input type="number" id="item-id" required />
-        <label for="item-name">Name</label>
-        <input type="text" id="item-name" required />
-        <label for="item-size">Size</label>
-        <select id="item-size" required>
-          <option value="S">S</option>
-          <option value="M">M</option>
-          <option value="L">L</option>
-          <option value="XL">XL</option>
-        </select>
-        <button type="submit">Add Item</button>
-      </form>
-      <form id="add-color-form">
-        <h3>Add Color to Item</h3>
-        <label for="color-item-id">Item ID</label>
-        <input type="number" id="color-item-id" required />
-        <label for="item-color">Color</label>
-        <input type="text" id="item-color" required />
-        <button type="submit">Add Color</button>
-      </form>
-      <div class="actions-menu">
-        <h3>Additional actions</h3>
-        <label>Sort items</label>
-        <button onclick="groupBySize(items)">Sort by size</button>
-        <button onclick="groupByColorsNum(items)">Sort by colors amount</button>
-        <label>Filter by colors</label>
-        <select id="color-select"></select>
-        <label>Filter by mimimal colors amount</label>
-        <input type="number" id="color-amount-id">
-        <button onclick="applyFilters()">Show items</button>
-        <button onclick="resetFilters()">Reset filters</button>
-        </select>
-      </div>
-    </div>
-    <div class="cards" id="cards-container">
-      <!-- Clothes will be here -->
-    </div>
-  </div>
 </body>
 
 </html>
