@@ -1,10 +1,10 @@
-.line {
+.container, .container label {
   display: flex;
   flex-direction: column;
   width: 600px;
 }
 
-#processButton, .line, .line input {
+#processButton, .container label, .container input {
   font-family: "Consolas";
   font-size: 20pt;
 }
