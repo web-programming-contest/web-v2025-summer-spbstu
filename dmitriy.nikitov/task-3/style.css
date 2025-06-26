@@ -1,0 +1,10 @@
+.line {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}
+
+#processButton, .line, .line input {
+  font-family: "Consolas";
+  font-size: 20pt;
+}
