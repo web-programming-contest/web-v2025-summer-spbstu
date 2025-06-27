@@ -28,28 +28,107 @@ body{
     background-color: rgb(255, 248, 248);
 }
 
+/* управление */
 header{
     background-color: rgb(255, 248, 248);
     position: sticky;
-    /* border-bottom: 3px solid black; */
+    border-bottom: 3px solid black;
     top: 0;
     left: 0;
     width: 100%;
     height: 15vh;
     z-index: 4;
 
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+
 }
+
+h1{
+    margin-top: 10px;
+    text-align: center;
+}
+
+#addRecepie{
+    position: absolute;
+    /* top: 10px; */
+    bottom: 10px;
+    left: 10px;
+    background-color: transparent;
+    border: 3px solid transparent;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 10px;
+    transition: all 0.2s ease-in-out;
+}
+#addRecepie:hover {
+    background-color: rgb(255, 252, 252);
+    box-shadow: 6px 6px 10px 0 rgba(0,0,0,0.24) ;
+    
+}
+
+/* Для красивых закруглений под header */
+.forDecorOut{
+    background-color: rgb(245, 245, 220);;
+    position: sticky;
+    top: calc(15vh + 3px);
+    z-index: 5;
+    height: 1px;
+}
+
+
+.forDecorIn{
+    background-color:rgb(245, 245, 220);
+    width: calc(5% + 3px);
+    height: 17px;
+}
+
+
+.right, .left{
+    position: absolute;
+    top: -3px;
+}
+
+
+.right{
+    right: 0;
+}
+
+
+.left{
+    left: 0;
+}
+
+
+.leftBorder, .rightBorder{
+    border-top: 3px solid black;
+    height: 100%;
+    background-color: rgb(245, 245, 220);
+}
+
+.leftBorder{
+    border-radius: 10px 0 0 0;
+}
+
+.rightBorder{
+    border-radius: 0 10px 0  0;
+}
+
+/* конец красивых закруглений */
 
 /* Основной контейнер */
 main{
     background-color: rgb(245, 245, 220);
     display: flex;
     justify-content: center;
-    border-radius: 15px 15px 0 0;
-    border-top: 3px solid black;
-    min-height: calc(85vh - 15px);
+    /* border-radius: 15px 15px 0 0;
+    border-top: 3px solid black; */
+    min-height: calc(85vh - 23px);
+    padding: 10px;
 }
-#forTable{
+#forTable1{
     margin: 20px 0;
     min-height: 78vh;
     width: 80vw;
@@ -60,189 +139,3 @@ main{
     justify-content: center;
 }
 
-/* Все для карточки рецепта */
-.card{
-    background-color: white;
-    height: calc(100% - 40px);
-    padding: 20px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    /* overflow-x: hidden; */
-    overflow-y: auto !important;
-}
-.OuterCard{
-    border-radius: 10px;
-    width: 100%;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 7px 7px 5px lightgrey;
-    transition: all 0.5s;
-    min-height: 40vh;
-    max-height: 60vh;
-    background-color: white;
-    /* transform: all 0.5s; */
-        background: 10vw;
-
-}
-.OuterCard:hover:not(.cardClicked){
-    box-shadow: 7px 7px 10px rgb(170, 170, 170);
-    transform: scale(1.05);
-    transition: all 0.5s;
-    z-index: 1;
-
-}
-
-/* заголовок */
-h3{
-    font-size: 22px;
-    margin-bottom: 10px;
-}
-   
-img{
-    max-width: 90%;
-    max-height: 40%;
-    /* overflow-y: auto; */
-    align-content: center;
-    min-height: 200px;
-}
-
-label{
-    float: left;
-    margin-right: 10px;
-    margin-top: 8px;
-}
-
-.cardClicked label{
-    margin-top: 0;
-}
-
-/* весь заголовки списков */
-.card p {
-    display: flex;
-    margin-top: 10px;
-    margin-left: 20px;
-    align-self: flex-start;
-    font-weight: 400;
-    height: 30px;
-    width: auto;
-    align-items: center;
-}
-
-/* списки */
-.card ul, .card ol{
-    margin-top: 5px;
-    margin-left: 40px;
-    align-self: flex-start;
-    font-weight: 400;
-}
-
-/* Когда нажали на карточку */
-
-#GrayScreen{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    z-index: -1;
-    opacity: 0.0;
-}
-
-.unhidden{
-    opacity: 0.7 !important;
-    z-index: 6 !important ;
-    transition: 
-        opacity 1s,
-}
-.OuterCard.cardClicked{
-    font-size: 20px;
-    width: 80vw;
-    height: 90vh;
-    /* overflow: visible; */
-    background-color: white;
-    z-index: 7;
-    transform: translate(var(--val), var(--val2));
-    transition: 
-        z-index 0s ease-in-out,
-        width  0.8s cubic-bezier(0.4, 0, 0.2, 1),
-        height  0.8s cubic-bezier(0.4, 0, 0.2, 1),
-        transform 0.7s ease-in-out;
-
-}
-
-.cardClicked.part2{
-    position: fixed;
-    /* top: calc(var(--top)); */
-    top: calc(var(--top) - var(--val2));
-    left: calc(var(--left) - var(--val));
-    max-height: 100%;
-    transition: 
-        max-height 2s cubic-bezier(0.4, 0, 0.2, 1);
-        /* transform 0.7s ease-in-out; */
-
-}
-
-.cardClicked .card{
-    /* height: calc(100% - 20px); */
-    max-height: calc(var(--height) * 2 - 60px);
-
-}
-
-.hiddenButton{
-    /* display: none; */
-    visibility: hidden;
-    background-color: transparent;
-    border: 2px solid transparent;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-}
-
-.cardClicked .hiddenButton{
-    /* display: inline; */
-    /* display: block; */
-    cursor: pointer;
-    visibility: visible;
-    opacity: 1;
-}
-
-.bottomButton{
-    position: absolute;
-    bottom: 40px;
-    font-size: 16px;
-}
-
-.iconAdd{
-    fill: rgb(54, 188, 87);
-    position: relative;
-    top: 4px;
-}
-
-.card input{
-    margin-left: 10px;
-    position: relative;
-    top: 4px;
-    visibility: hidden;
-    opacity: 0;
-    transition: 
-        opacity 0.5s ease-in-out,
-        visibility 0.5s ease-in-out;
-    height: 20px;
-    width: 10px;
-    padding: 2px;
-    padding-left: 5px;
-}
-
-.cardClicked input{
-    width: 40vw !important;
-    transition: width 2s linear;
-}
-
-input.add{
-    visibility: visible;
-    opacity: 1;
-
-}
