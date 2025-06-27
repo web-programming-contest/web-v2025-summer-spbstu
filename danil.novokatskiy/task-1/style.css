@@ -14,13 +14,12 @@
   bottom: 0;
   right: 0;
   background: white;
-  padding-left: 20px;
 }
 
 .Text-ellipsis {
   max-width: 90px;
-  max-height: 100px;
+  height: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  line-clamp: 3;
 }
