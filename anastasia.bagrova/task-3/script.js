@@ -1,21 +1,12 @@
 'use strict';
 
 function removeDuplicates(arr){
-    let arrWithoutDupl = [];
-    for (let elem of arr){
-        if (!arrWithoutDupl.includes(Number(elem))){
-            arrWithoutDupl.push(Number(elem));
-        }
-    }
-    return arrWithoutDupl;
+    return Array.from(new Set(arr));
 }
 
 let str = prompt(`Введите, пожалуйста, исходный массив в формате:
 [число, число, ..., число]`);
 let strArr = str.slice(1,str.length-1).split(', ');
-let numArr = [];
-for (const elem of strArr){
-    numArr.push(Number(elem));
-}
+let numArr = strArr.map((str) => Number(str));
 console.log('Исходный массив:', numArr);
 console.log('Массив без дубликатов:', removeDuplicates(numArr));
