@@ -1,42 +1,62 @@
 body {
-    font-family: Arial, sans-serif;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    line-height: 1.6;
-}
-
-h1 {
-    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0px 300px 20px 300px;
+    background-color: #f0f7ff;
     text-align: center;
 }
 
-.task-list {
-    list-style-type: none;
-    padding: 0;
+h1 {
+    color: rgb(77, 100, 141);
 }
 
-.task-list li {
-    padding: 8px 0 8px 30px;
-    position: relative;
-    margin-bottom: 5px;
-    font-size: 18px;
+ul {
+    font-size: large;
+    width: auto; 
+    height: auto; 
+    margin: 10px;
+    padding: 10px 15px 10px 40px;
+    position: relative; 
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
 }
 
-.task-completed::before {
+.completed {
+    color: rgb(105, 158, 98);
+    background-color: rgba(115, 255, 0, 0.1);
+}
+
+.process {
+    color: sandybrown;
+    background-color: rgba(255, 238, 0, 0.1);
+}
+
+.cancelled {
+    color: crimson;
+    background-color: rgba(216, 121, 140, 0.1);
+}
+
+.completed::before {
     content: "✅";
     position: absolute;
-    left: 0;
+    left: 8px; 
+    font-size: 1.2em;
 }
 
-.task-in-progress::before {
+.process::before {
     content: "⏳";
     position: absolute;
-    left: 0;
+    left: 8px;
+    font-size: 1.2em;
 }
 
-.task-cancelled::before {
+.cancelled::before {
     content: "❌";
     position: absolute;
-    left: 0;
+    left: 8px;
+    font-size: 1.2em;
+}
+
+
+::selection {
+    background-color: rgb(77, 100, 141);
+    color: white; 
 }
