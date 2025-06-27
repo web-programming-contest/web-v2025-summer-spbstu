@@ -1,15 +1,20 @@
 .Text {
   max-height: 100px;
-  max-width: 50px;
+  max-width: 80px;
   overflow: hidden;
-  text-overflow: ellipsis;
   font-size: 16px;
   font-family: Arial, serif;
-  border: 5px solid #ccc;
+  position: relative;
+  line-height: 1.5;
 }
 
 .Text::after {
   content: "...";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: white;
+  padding-left: 20px;
 }
 
 .Text-ellipsis {
