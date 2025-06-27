@@ -4,6 +4,26 @@
     font-family:'Segoe UI'; 
     /* color: #444; */
 }
+
+/* загрузка */
+#loader {
+  position: absolute;
+  top: 50%;
+  margin: auto;
+  border: 10px solid #EAF0F6;
+  border-radius: 50%;
+  border-top: 10px solid #FF7A59;
+  width: 50px;
+  height: 50px;
+  animation: spinner 2s ease-in-out infinite;
+  transition: opacity 0.5s ease-in-out;
+}
+
+@keyframes spinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 header{
     background-color: rgb(255, 248, 248);
     position: sticky;
@@ -66,13 +86,12 @@ main{
     gap: 20px;
     grid-template-columns: repeat(auto-fit, minmax(300px, 0.5fr));
     justify-content: center;
-    position: relative; /* Needed for absolute positioning of children */
 }
 
 /* Все для карточки рецепта */
 .card{
     background-color: white;
-    height: 100%;
+    height: calc(100% - 40px);
     padding: 20px;
 
     display: flex;
@@ -84,6 +103,7 @@ main{
 }
 .OuterCard{
     border-radius: 10px;
+    width: 100%;
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 7px 7px 5px lightgrey;
@@ -92,6 +112,7 @@ main{
     max-height: 60vh;
     background-color: white;
     /* transform: all 0.5s; */
+        background: 10vw;
 
 }
 .OuterCard:hover:not(.cardClicked){
@@ -102,6 +123,7 @@ main{
 
 }
 
+/* заголовок */
 h3{
     font-size: 22px;
     margin-bottom: 10px;
@@ -115,13 +137,24 @@ img{
     min-height: 200px;
 }
 
+label{
+    float: left;
+    margin-right: 10px;
+}
+
+/* весь заголовки списков */
 .card p {
+    display: flex;
     margin-top: 10px;
     margin-left: 20px;
     align-self: flex-start;
     font-weight: 400;
+    height: 30px;
+    width: auto;
+    align-items: center;
 }
 
+/* списки */
 .card ul, .card ol{
     margin-top: 5px;
     margin-left: 40px;
@@ -147,24 +180,83 @@ img{
     opacity: 0.7 !important;
     z-index: 6 !important ;
 }
-.cardClicked{
-    position: fixed;
-    top: var(--top);
-    left: var(--left);
-    width: calc(var(--width) * 2);
-    height: calc(var(--height) * 2);
-    background-color: white;
-    /* box-shadow: 0, 0 10px; */
-    /* transform: translate(calc(50vw - 142px - 157px), calc(50vh - 153px)); */
-    transform: translate(calc(50vw - var(--left) - var(--width)), calc(50vh - var(--top) - var(--height)));
-    z-index: 7;
-    transition:  1s;
+.OuterCard.cardClicked{
+    font-size: 20px;
+    width: 80vw;
+    height: 90vh;
     /* overflow: visible; */
+    background-color: white;
+    z-index: 7;
+    transform: translate(var(--val), var(--val2));
+    transition: 
+        z-index 0s ease-in-out,
+        width  0.8s cubic-bezier(0.4, 0, 0.2, 1),
+        height  0.8s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.7s ease-in-out;
+
+}
+
+.cardClicked.part2{
+    position: fixed;
+    /* top: calc(var(--top)); */
+    top: calc(var(--top) - var(--val2));
+    left: calc(var(--left) - var(--val));
+    max-height: 100%;
+    transition: 
+        max-height 2s cubic-bezier(0.4, 0, 0.2, 1);
+        /* transform 0.7s ease-in-out; */
+
 }
 
 .cardClicked .card{
+    /* height: calc(100% - 20px); */
     max-height: calc(var(--height) * 2 - 60px);
+
 }
 
+.hiddenButton{
+    display: none;
+    visibility: hidden;
+    background-color: transparent;
+    border: 2px solid transparent;
+}
 
+.cardClicked .hiddenButton{
+    /* display: inline; */
+    display: block;
+    cursor: pointer;
+    visibility: visible;
+}
 
+.bottomButton{
+    position: absolute;
+    bottom: 40px;
+    font-size: 16px;
+}
+
+.iconAdd{
+    fill: rgb(54, 188, 87);
+    position: relative;
+    top: 4px;
+}
+
+.card input{
+    margin-left: 10px;
+    position: relative;
+    top: 4px;
+    visibility: hidden;
+    opacity: 0;
+    transition: 
+        opacity 0.5s ease-in-out,
+        visibility 0.5s ease-in-out;
+    height: 20px;
+    width: 35vw;
+    padding: 2px;
+    padding-left: 5px;
+}
+
+input.add{
+    visibility: visible;
+    opacity: 1;
+
+}
