@@ -33,5 +33,51 @@
     </div>
 </div>
 
+<script src="index.js"></script>
+<script>
+    function parseInput(str) {
+        return str
+            .split(',')
+            .map(s => s.trim())
+            .filter(s => s !== '');
+    }
+
+    function renderList(container, items, highlightSet = null) {
+        container.innerHTML = '';
+        items.forEach(x => {
+            const li = document.createElement('li');
+            li.textContent = x;
+            li.classList.add('item');
+            if (highlightSet) {
+                if (highlightSet.has(x)) {
+                    li.classList.add('filtered');
+                } else {
+                    li.classList.add('kept');
+                }
+            }
+            container.append(li);
+        });
+    }
+
+    function updateVisualization() {
+        const arr1 = parseInput(document.getElementById('input-arr1').value);
+        const arr2 = parseInput(document.getElementById('input-arr2').value);
+        const result = difference(arr1, arr2);
+
+        const ul1 = document.getElementById('arr1-list');
+        const ul2 = document.getElementById('arr2-list');
+        const ulRes = document.getElementById('result-list');
+
+        renderList(ul1, arr1, new Set(arr2));
+        renderList(ul2, arr2);
+        renderList(ulRes, result);
+    }
+
+    document.getElementById('btn-render')
+        .addEventListener('click', updateVisualization);
+
+    updateVisualization();
+</script>
+
 </body>
 </html>
