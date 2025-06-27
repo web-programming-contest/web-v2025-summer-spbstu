@@ -35,3 +35,19 @@ function intersection(arr1, arr2) {
     }
     return res;
 }
+
+console.log("Базовая проверка на адекватность:");
+console.log(intersection([1,2,3], [4,3,2]));
+console.log("Пустые массивы:");
+console.log(intersection([], [4,3,2]));
+console.log(intersection([1,2,3], []));
+console.log(intersection([], []));
+console.log("Разная длина:");
+console.log(intersection([1,2,3], [4,3,2,1]));
+console.log("Строки:");
+console.log(intersection(["a", "b", "c"], ["d", "c", "c", "a"]));
+console.log("Сохранение порядка в исходных массивах:");
+let a = [1, 2, 3];
+let b = [4, 3, 2];
+console.log(intersection(a, b));
+console.log(a, b);
