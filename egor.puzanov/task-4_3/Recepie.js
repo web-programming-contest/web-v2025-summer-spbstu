@@ -1,4 +1,4 @@
-class Recipie {
+class Recepie {
     #title = "Заголовок";
     #ingredients = [];
     #steps = [];
