@@ -1,22 +1,45 @@
-class Library {
+export class Library {
   constructor(name) {
+    if (typeof name !== "string") {
+      throw new Error("Name of the library is not a string.");
+    }
     this.name = name;
     this.books = [];
   }
 
+  getBooksCount() {
+    return this.books.length;
+  }
+
   addBook(book) {
+    if (typeof book !== "object" || book === null || !book.hasOwnProperty("title") ||
+      !book.hasOwnProperty("author") || !book.hasOwnProperty("year") || !book.hasOwnProperty("genre")) {
+      throw new Error("The book does not contain all the necessary fields.");
+    }
+    if (this.books.some(existingBook => existingBook.title === book.title)) {
+      throw new Error("A book with that title already exists.");
+    }
     this.books.push(book);
   }
 
   removeBook(title) {
-    let index = this.books.findIndex(book => book.title === title);
-    if (index !== -1) {
-      this.books.splice(index, 1);
+    if (!this.books.find(book => book.title === title)) {
+      throw new Error("A book with that title does not exists.");
     }
+    this.books = this.books.filter(book => book.title !== title);
   }
 
-  getBooksCount() {
-    return this.books.length();
+  toJSON() {
+    return {
+      name: this.name,
+      books: this.books
+    };
+  }
+
+  static fromJSON(json) {
+    const library = new Library(json.name);
+    library.books = json.books || [];
+    return library;
   }
 }
 
@@ -58,7 +81,7 @@ function getYears(libs) {
   let years = new Set();
   for (let i = 0; i !== libs.length(); ++i) {
     for (let j = 0; j !== libs[i].length(); ++j) {
-      years.add(libs[i][j].years);
+      years.add(libs[i][j].year);
     }
   }
   return Array.from(years);
