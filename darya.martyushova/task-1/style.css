@@ -1,0 +1,18 @@
+dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-width: thin;
+    border-radius: 5px;
+}
+
+button {
+    background: #ffc4e8;
+    border: 1px solid #ffb8e4;
+    border-radius: 4px;
+}
+
+button:hover {
+    background: #cf86fc;
+}
