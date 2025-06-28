@@ -1,13 +1,15 @@
+import { Library } from "./library.js";
+
 class LibraryManager {
   constructor() {
-    this.libraries = JSON.parse(localStorage.getItem('libraries')) || [];
-      this.currentLibraryId = localStorage.getItem('currentLibraryId') || null;
+    this.librariesData = JSON.parse(localStorage.getItem('libraries')) || [];
+    this.libraries = this.librariesData.map(lib => Library.fromJSON(lib));
+    this.currentLibraryName = localStorage.getItem('currentLibraryName') || null;
 
-      this.initElements();
-      this.renderLibrariesSelect();
-      this.renderBooks();
-
-      this.setupEventListeners();
+    this.initElements();
+    this.setupEventListeners();
+    this.renderLibrariesSelect();
+    this.renderBooks();
   }
 
   initElements() {
@@ -30,8 +32,8 @@ class LibraryManager {
     this.elements.removeLibButton.addEventListener("click", () => this.removeLibrary());
     this.elements.addBookButton.addEventListener("click", () => this.addBook());
     this.elements.librarySelect.addEventListener("change", (e) => {
-      this.currentLibraryId = e.target.value;
-      localStorage.setItem("currentLibraryId", this.currentLibraryId);
+      this.currentLibraryName = e.target.value;
+      localStorage.setItem("currentLibraryName", this.currentLibraryName);
       this.renderBooks();
     });
   }
@@ -39,48 +41,42 @@ class LibraryManager {
   async addLibrary() {
     const name = this.elements.libraryName.value.trim();
     if (!name) {
-      return alert("Enter library name");
+      return alert("Enter library name.");
     }
     try {
       await new Promise(resolve => setTimeout(resolve, 10));
-
-      const newLibrary = {
-        id: Date.now().toString(),
-        name,
-        books: []
-      };
+      if (this.libraries.find(lib => lib.name === name)) {
+        throw new Error("Library with current name already exist.");
+      }
+      const newLibrary = new Library(name);
       this.libraries.push(newLibrary);
       this.saveToLocalStorage();
       this.renderLibrariesSelect();
       this.elements.libraryName.value = "";
-      this.currentLibraryId = newLibrary.id;
-      localStorage.setItem("currenLibraryId", this.currentLibraryId);
+      this.currentLibraryName = newLibrary.name;
+      localStorage.setItem("currentLibraryName", this.currentLibraryName);
       this.renderBooks();
     } catch (error) {
-      alert("Error. The library was not added: "  + error.message);
+      alert("Error: " + error.message);
     }
-  }
-
-  saveToLocalStorage() {
-    localStorage.setItem("libraries", JSON.stringify(this.libraries));
   }
 
   async removeLibrary() {
     try {
       await new Promise(resolve => setTimeout(resolve, 10));
 
-      this.libraries = this.libraries.filter(lib => lib.id !== this.currentLibraryId);
-      if (this.libraries.length > 0) {
-        this.currentLibraryId = this.libraries[0].id;
+      this.libraries = this.libraries.filter(lib => lib.name !== this.currentLibraryName);
+      if (this.libraries.length !== 0) {
+        this.currentLibraryName = this.libraries[0].name;
       } else {
-        this.currentLibraryId = null;
+        this.currentLibraryName = null;
       }
-      localStorage.setItem("currenLibraryId", this.currentLibraryId);
+      localStorage.setItem("currentLibraryName", this.currentLibraryName);
       this.saveToLocalStorage();
       this.renderLibrariesSelect();
       this.renderBooks();
     } catch (error) {
-      alert("Error. The library was not removed: " + error.message);
+      alert("Error:" + error.message);
     }
   }
 
@@ -91,20 +87,22 @@ class LibraryManager {
     const genre = this.elements.bookGenre.value.trim();
 
     if (!title || !author || !year || !genre) {
-      return alert("Fill in all fields of the form");
+      return alert("Fill in all fields of the form.");
     }
     try {
       await new Promise(resolve => setTimeout(resolve, 10));
       const newBook = {
-        id: Date.now().toString(),
         title,
         author,
         year: parseInt(year),
         genre
       };
 
-      const library = this.libraries.find(lib => lib.id === this.currentLibraryId);
-      library.books.push(newBook);
+      const library = this.libraries.find(lib => lib.name === this.currentLibraryName);
+      if (!library) {
+        throw new Error("The book was not added.");
+      }
+      library.addBook(newBook);
       this.saveToLocalStorage();
       this.renderBooks();
 
@@ -114,20 +112,20 @@ class LibraryManager {
       this.elements.bookGenre.value = "";
 
     } catch (error) {
-      alert("Error. The book was not added: " + error.message);
+      alert("Error:" + error.message);
     }
   }
 
-  async removeBook(bookId) {
+  async removeBook(title) {
     try {
       await new Promise(resolve => setTimeout(resolve, 10));
 
-      const library = this.libraries.find(lib => lib.id === this.currentLibraryId);
-      library.books = library.books.filter(book => book.id !== bookId);
+      const library = this.libraries.find(lib => lib.name === this.currentLibraryName);
+      library.removeBook(title);
       this.saveToLocalStorage();
       this.renderBooks();
     } catch (error) {
-      alert("Error. The book was not removed: " + error.message);
+      alert("Error: " + error.message);
     }
   }
 
@@ -146,17 +144,17 @@ class LibraryManager {
 
     this.libraries.forEach(library => {
       const option = document.createElement("option");
-      option.value = library.id;
+      option.value = library.name;
       option.textContent = library.name;
       select.appendChild(option);
     });
 
-    if (this.currentLibraryId && this.libraries.some(lib => lib.id === this.currentLibraryId)) {
-      select.value = this.currentLibraryId;
-    } else if (this.libraries.length > 0) {
-      this.currentLibraryId = this.libraries[0].id;
-      select.value = this.currentLibraryId;
-      localStorage.setItem("currentLibraryId", this.currentLibraryId);
+    if (this.currentLibraryName && this.libraries.some(lib => lib.name === this.currentLibraryName)) {
+      select.value = this.currentLibraryName;
+    } else if (this.libraries.length !== 0) {
+      this.currentLibraryName = this.libraries[0].name;
+      select.value = this.currentLibraryName;
+      localStorage.setItem("currentLibraryName", this.currentLibraryName);
     }
   }
 
@@ -164,15 +162,15 @@ class LibraryManager {
     const container = this.elements.booksContainer;
     container.innerHTML = "";
 
-    if (!this.currentLibraryId) {
+    if (!this.currentLibraryName) {
       container.innerHTML = "<p>Select or create library</p>";
       return;
     }
 
-    const library = this.libraries.find(lib => lib.id === this.currentLibraryId);
+    const library = this.libraries.find(lib => lib.name === this.currentLibraryName);
     if (!library) return;
 
-    if (library.books.length === 0) {
+    if (library.getBooksCount() === 0) {
       container.innerHTML = "<p>Library is empty</p>";
       return;
     }
@@ -181,7 +179,7 @@ class LibraryManager {
       const card = document.createElement("div");
       card.className = "bookCard";
       card.innerHTML = `
-        <button class="removeButton" dataBookId="${ book.id }">×</button>
+        <button class="removeButton" data-book-title="${ book.title }">×</button>
         <h3>${ book.title }</h3>
         <p><strong>Author:</strong> ${ book.author }</p>
         <p><strong>Year:</strong> ${ book.year }</p>
@@ -190,12 +188,16 @@ class LibraryManager {
       container.appendChild(card);
     });
 
-    document.querySelectorAll(".removeButton").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        const bookId = e.target.getAttribute("dataBookId");
-        this.removeBook(bookId);
+    document.querySelectorAll(".removeButton").forEach(button => {
+      button.addEventListener("click", (e) => {
+        const title = e.target.getAttribute("data-book-title");
+        this.removeBook(title);
       });
     });
+  }
+
+  saveToLocalStorage() {
+    localStorage.setItem("libraries", JSON.stringify(this.libraries));
   }
 }
 
