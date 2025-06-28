@@ -1,0 +1,26 @@
+ul.breadcrumbs li a {
+	color: #0056ff;
+	text-decoration: none;
+}
+
+ul.breadcrumbs li a:hover {
+	text-decoration: underline;
+}
+	
+ul.breadcrumbs li span {
+	color: #333;
+	text-decoration: none;
+}
+
+ul.breadcrumbs li {
+	display: inline;
+	list-style-type: none;
+	font-size: 20px;
+	font-family: sans-serif;
+}
+	
+ul.breadcrumbs li:not(:last-child)::after {
+	padding-left: 8px;
+	content: ">";
+	color: black;
+}
