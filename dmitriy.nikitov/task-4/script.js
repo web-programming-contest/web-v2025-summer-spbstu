@@ -26,8 +26,8 @@ class LibraryManager {
   }
 
   setupEventListeners() {
-    this.elements.addLibButton.addEventListener('click', () => this.addLib());
-    this.elements.removeLibButton.addEventListener('click', () => this.removeLib());
+    this.elements.addLibButton.addEventListener('click', () => this.addLibrary());
+    this.elements.removeLibButton.addEventListener('click', () => this.removeLibrary());
     this.elements.addBookButton.addEventListener('click', () => this.addBook());
     this.elements.librarySelect.addEventListener('change', (e) => {
       this.currentLibraryId = e.target.value;
@@ -60,5 +60,24 @@ class LibraryManager {
 
   saveToLocalStorage() {
     localStorage.setItem('libraries', JSON.stringify(this.libraries));
+  }
+
+  async removeLibrary() {
+    try {
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      this.libraries = this.libraries.filter(lib => lib.id !== this.currentLibraryId);
+      if (this.libraries.length > 0) {
+        this.currentLibraryId = this.libraries[0].id;
+      } else {
+        this.currentLibraryId = null;
+      }
+      localStorage.setItem('currenLibraryId', this.currentLibraryId);
+      this.saveToLocalStorage();
+      this.renderLibrariesSelect();
+      this.renderBooks();
+    } catch (error) {
+      alert("Error: The library was not removed");
+    }
   }
 }
