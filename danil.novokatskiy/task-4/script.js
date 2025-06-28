@@ -20,8 +20,16 @@ class Student {
   }
 
   addGrade(subject, grade) {
-    if (grade === undefined || subject === null) {
-      throw Error(`Grade ${grade} is not a number or subject ${subject} is not a string`);
+    if (grade === undefined) {
+      throw Error(`Grade ${grade} is not a number`);
+    }
+
+    if (grade <= 1 || grade >= 6) {
+      throw Error("Grade must be more than 1 and less than 6");
+    }
+
+    if (subject === null || subject === '' || !(typeof subject === 'string') ) {
+      throw Error(`subject is not a string or empty string`);
     }
 
     for (const tmpSubject in grades) {
@@ -58,5 +66,5 @@ let grades = {
 
 let student = new Student(1, "Danil", grades);
 
-console.log(student.getAverageGrade());
-console.log(student.summary);
+student.addGrade('dasdsa',3);
+console.log(student);
