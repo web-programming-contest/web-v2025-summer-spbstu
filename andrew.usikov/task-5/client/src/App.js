@@ -1,9 +1,13 @@
 import { useState } from 'react';
 
 function Square({ value, onSquareClick }) {
+  if (value == null) {
+    value = '';
+  }
+
   return (
     <button className="square" onClick={onSquareClick}>
-      {value}
+      {value !== '' ? <img className="figure" src={value === 'X' ? '/images/cross.png' : value === 'O' ? 'images/circle.png' : null}></img> : <></>}
     </button>
   );
 }
@@ -23,16 +27,19 @@ function Board({ xIsNext, squares, onPlay }) {
   }
 
   const winner = calculateWinner(squares);
+  const tie = detectFull(squares);
   let status;
   if (winner) {
     status = 'Winner: ' + winner;
+  } else if (tie) {
+    status = 'Tie!';
   } else {
     status = 'Next player: ' + (xIsNext ? 'X' : 'O');
   }
 
   return (
     <>
-      <div className="status">{status}</div>
+      <div className={winner != null ? "status winner" : tie ? "status tie" : "status"}>{status}</div>
       <div className="board-row">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
         <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
@@ -64,24 +71,6 @@ export default function Game() {
     setCurrentMove(nextHistory.length - 1);
   }
 
-  function jumpTo(nextMove) {
-    setCurrentMove(nextMove);
-  }
-
-  const moves = history.map((squares, move) => {
-    let description;
-    if (move > 0) {
-      description = 'Go to move #' + move;
-    } else {
-      description = 'Go to game start';
-    }
-    return (
-      <li key={move}>
-        <button onClick={() => jumpTo(move)}>{description}</button>
-      </li>
-    );
-  });
-
   return (
     <div className="game">
       <div className="game-board">
@@ -89,6 +78,16 @@ export default function Game() {
       </div>
     </div>
   );
+}
+
+function detectFull(squares) {
+  for (let i = 0; i < 9; i++) {
+    if (squares[i] === '' || squares[i] == null) {
+      return false;
+    }
+  }
+  console.log(squares);
+  return true;
 }
 
 function calculateWinner(squares) {
