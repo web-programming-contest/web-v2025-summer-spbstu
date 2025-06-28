@@ -3,6 +3,7 @@
 function createCard(recepie){
     const div = document.createElement("div");
     div.classList = ["OuterCard"];
+    div.id = `card-${recepie.title.replace(" ", "_")}`;
     const image = images[recepie.title]
     //шаблон
     div.innerHTML = `
@@ -34,7 +35,7 @@ function createCard(recepie){
 
     //добавдение ингредиента
     div.querySelector(`#add-i-${recepie.title.replace(" ", "_")}`).addEventListener("click", async (e)=>{
-        // const ingredient = prompt("Введите новый ингридиент!", undefined);
+        // const ingredient = prompt("Введите новый ингредиент!", undefined);
         const input = div.querySelector("#input-i");
         if(input.classList.contains("add")){
             if(input.value){
@@ -45,7 +46,19 @@ function createCard(recepie){
                 const temp = data[recepie.title];
                 temp.addIngredient(input.value);
 
-                await PATCH(data)
+                await PATCHDATA(data);
+
+                const len = SetOfIngredients.size;
+                SetOfIngredients.add(input.value);
+                if(SetOfIngredients.size != len){
+                    const ingredientDiv = document.getElementById("objectOptions");
+                    const newObject = document.createElement("button");
+                    newObject.classList.add("dropdownBtn");
+                    newObject.classList.add("objectBtn");
+                    newObject.textContent = ingredient;
+                    addListenerIng(newObject);
+                    ingredientDiv.appendChild(newObject);
+                }
 
 
                 label.textContent = `Ингредиенты: ${temp.ingredientCount} шт.`
@@ -67,7 +80,20 @@ function createCard(recepie){
             const temp = data[recepie.title];
             temp.addIngredient(e.currentTarget.value);
             
-            await PATCH(data)
+            await PATCHDATA(data);
+            
+            const len = SetOfIngredients.size;
+            SetOfIngredients.add(e.currentTarget.value);
+            if(SetOfIngredients.size != len){
+                const ingredientDiv = document.getElementById("objectOptions");
+                const newObject = document.createElement("button");
+                newObject.classList.add("dropdownBtn");
+                newObject.classList.add("objectBtn");
+                newObject.textContent = e.currentTarget.value;
+                addListenerIng(newObject);
+                ingredientDiv.appendChild(newObject);
+            }
+
 
             console.log(data);
             label.textContent = `Ингредиенты: ${temp.ingredientCount} шт.`
@@ -76,7 +102,7 @@ function createCard(recepie){
 
     //добавдение шага
     div.querySelector(`#add-s-${recepie.title.replace(" ", "_")}`).addEventListener("click", async (e)=>{
-        // const ingredient = prompt("Введите новый ингридиент!", undefined);
+        // const ingredient = prompt("Введите новый ингредиент!", undefined);
         const input = div.querySelector("#input-s");
         if(input.classList.contains("add")){
             if(input.value){
@@ -88,7 +114,7 @@ function createCard(recepie){
                 temp.addStep(e.currentTarget.value);
 
 
-                await PATCH(data)
+                await PATCHDATA(data)
 
 
                 console.log(data);
@@ -112,7 +138,7 @@ function createCard(recepie){
             temp.addStep(e.currentTarget.value);
 
 
-            await PATCH(data)
+            await PATCHDATA(data)
 
 
             console.log(data);
@@ -121,7 +147,7 @@ function createCard(recepie){
      })
     
 
-    //Список ингридиентов
+    //Список ингредиентов
     const ul = div.querySelector("ul");
     recepie.ingredients.forEach(ingredient => {
         li = createLi(true, ingredient, recepie.title);
@@ -166,28 +192,39 @@ function createCard(recepie){
             div.classList.add("part2");
         }, 800);
         
-    }, )
-    return div;
-}
-
-function createLi(flag, value, title){
-    li = document.createElement("li");
-    li.id = `${flag ? "i" : "s"}-${title.replace(" ", "_")}-${value.replace(" ", "_")}`;
-    // li.innerHTML = `<label for="del-${flag ? "i" : "s"}-${title.replace(" ", "_")}-${value.replace(" ", "_")}">${value}</label>
-    li.innerHTML = `<p for="del-${flag ? "i" : "s"}-${title.replace(" ", "_")}-${value.replace(" ", "_")}">${value}</p>
-    <button class="hiddenButton" id="del-${flag ? "i" : "s"}-${title.replace(" ", "_")}-${value.replace(" ", "_")}">
-        <svg class="iconDel" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-    </button class="hiddenButton">`
-    li.querySelector("button").addEventListener("click", async (e) => {
-            const temp = data[title];
-            flag ? temp.removeIngredient(value) : temp.removeStep(value);
-
-            await PATCH(data);
-
-            console.log(data);
-            const label = document.querySelector(`#label-${flag ? "i" : "s"}-${title.replace(" ", "_")}`);
-            label.textContent = `${flag ? "Ингредиенты" : "Шаги"}: ${flag ? temp.ingredientCount : temp.stepCount} шт.`
-        document.getElementById(`${flag ? "i" : "s"}-${title.replace(" ", "_")}-${value.replace(" ", "_")}`).remove();
     })
-    return li;
+    return div;
+    
+    function createLi(flag, value, title){
+        li = document.createElement("li");
+        li.id = `${flag ? "i" : "s"}-${title.replace(" ", "_")}-${value.replace(" ", "_")}`;
+        // li.innerHTML = `<label for="del-${flag ? "i" : "s"}-${title.replace(" ", "_")}-${value.replace(" ", "_")}">${value}</label>
+        li.innerHTML = `<p for="del-${flag ? "i" : "s"}-${title.replace(" ", "_")}-${value.replace(" ", "_")}">${value}</p>
+        <button class="hiddenButton" id="del-${flag ? "i" : "s"}-${title.replace(" ", "_")}-${value.replace(" ", "_")}">
+            <svg class="iconDel" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+        </button class="hiddenButton">`
+        li.querySelector("button").addEventListener("click", async (e) => {
+                if(flag){
+                    const tempArrayRec = fillterByIngredient(ArrayRecepies, value);
+                    if(tempArrayRec.length === 1){
+                        const tempArrayIng = div.querySelectorAll(`#del-i-${title.replace(" ", "_")}-${value.replace(" ", "_")}`)
+                        if(tempArrayIng.length === 1){
+                            SetOfIngredients.delete(value);
+                            document.querySelector(`#filterIng-${value.replace(" ", "_")}`).remove();
+                        }
+                    }
+                }
+                const temp = data[title];
+                flag ? temp.removeIngredient(value) : temp.removeStep(value);
+    
+                await PATCHDATA(data);
+    
+    
+                console.log(data);
+                const label = document.querySelector(`#label-${flag ? "i" : "s"}-${title.replace(" ", "_")}`);
+                label.textContent = `${flag ? "Ингредиенты" : "Шаги"}: ${flag ? temp.ingredientCount : temp.stepCount} шт.`
+            document.getElementById(`${flag ? "i" : "s"}-${title.replace(" ", "_")}-${value.replace(" ", "_")}`).remove();
+        })
+        return li;
+    }
 }

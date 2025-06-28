@@ -58,6 +58,18 @@ label{
     margin-top: 8px;
 }
 
+@media (max-width: 1000px){
+    p {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 600px){
+    p {
+        font-size: 10px;
+    }
+}
+
 .cardClicked label{
     margin-top: 3px;
 }
