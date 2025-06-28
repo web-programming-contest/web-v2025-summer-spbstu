@@ -41,12 +41,12 @@ class Student {
   }
 
   getAverageGrade() {
-    const values = Object.values(grades);
+    const values = Object.values(this.grades);
     let result = 0;
     for (let i = 0; i < values.length; i++) {
       result += values[i];
     }
-    return result / Object.keys(grades).length;
+    return +(result / Object.keys(this.grades).length).toFixed(2);
   }
 
   get summary() {
@@ -58,13 +58,75 @@ class Student {
   }
 }
 
-let grades = {
+function groupStudentsByAverageGrade(students) {
+  if (!students.length) {
+    return [];
+  }
+  let groups = [];
+  let allGrades = [];
+  for (const student of students) {
+    if (allGrades.includes(student.getAverageGrade())) {
+      continue
+    }
+    allGrades.push(student.getAverageGrade());
+  }
+
+}
+
+function getUniqueSubject(students) {
+  let result = [];
+  for (const student of students) {
+    for (const grade in student.grades) {
+      if (!result.includes(grade)) {
+        result.push(grade);
+      }
+    }
+  }
+  return result;
+}
+
+function getStudentsWithMaxAverageGrade(students) {
+  if (!students.length) {
+    return [];
+  }
+  let result = [];
+  let grades = [];
+  for (const student of students) {
+    grades.push(student.getAverageGrade());
+  }
+  const maxAverageGrade = Math.max(...grades);
+  for (const student of students) {
+    if (student.getAverageGrade() === maxAverageGrade) {
+      result.push(student);
+    }
+  }
+  return result;
+}
+
+let grades1 = {
   "math": 3,
   "history": 4,
   "computer science": 5,
 }
 
-let student = new Student(1, "Danil", grades);
+let student1 = new Student(1, "Danil", grades1);
 
-student.addGrade('dasdsa',3);
-console.log(student);
+let grades2 = {
+  "math": 4,
+  "russian": 5,
+  "pe": 5,
+}
+
+let student2 = new Student(2, "Serafim", grades2);
+
+let grades3 = {
+  "math": 4,
+  "english": 5,
+  "art": 5,
+}
+
+let student3 = new Student(3, "Artem", grades3);
+
+let students = [student1, student2, student3];
+
+console.log(getUniqueSubject(students));
