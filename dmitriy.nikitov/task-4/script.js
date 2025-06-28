@@ -127,4 +127,33 @@ class LibraryManager {
       alert("Error. The book was not removed: " + error.message);
     }
   }
+
+  renderLibrariesSelect() {
+    const select = this.elements.librarySelect;
+    select.innerHTML = '';
+
+    if (this.libraries.length === 0) {
+      select.disabled = true;
+      this.elements.removeLibraryBtn.disabled = true;
+      return;
+    }
+
+    select.disabled = false;
+    this.elements.removeLibraryBtn.disabled = false;
+
+    this.libraries.forEach(library => {
+      const option = document.createElement('option');
+      option.value = library.id;
+      option.textContent = library.name;
+      select.appendChild(option);
+    });
+
+    if (this.currentLibraryId && this.libraries.some(lib => lib.id === this.currentLibraryId)) {
+      select.value = this.currentLibraryId;
+    } else if (this.libraries.length > 0) {
+      this.currentLibraryId = this.libraries[0].id;
+      select.value = this.currentLibraryId;
+      localStorage.setItem('currentLibraryId', this.currentLibraryId);
+    }
+  }
 }
