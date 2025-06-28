@@ -180,6 +180,20 @@ function createForm(recepie = new Recepie()){
         });
 
         const newRecepie = new Recepie(title, ingredients, steps);
+        ArrayRecepies.push(newRecepie);
+        ingredients.forEach(ingredient => {
+            const len = SetOfIngredients.size;
+            SetOfIngredients.add(ingredient);
+            if(SetOfIngredients.size != len){
+                const ingredientDiv = document.getElementById("objectOptions");
+                const newObject = document.createElement("button");
+                newObject.classList.add("dropdownBtn");
+                newObject.classList.add("objectBtn");
+                newObject.textContent = ingredient;
+                addListenerIng(newObject);
+                ingredientDiv.appendChild(newObject);
+            }
+        });
         const image = div.querySelector("img").src;
 
         // const sep = image[Math.floor(image.length/2)]

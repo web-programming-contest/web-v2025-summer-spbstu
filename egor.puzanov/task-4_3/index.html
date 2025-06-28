@@ -12,6 +12,24 @@
     <header>
         <h1>Книга рецептов</h1>
         <button id="addRecepie">+ Добавить новый рецепт</button>
+
+        <div class="for-lists">
+        <div class="dropdown Source">
+          <div class="dropdown-content" id="sourceOptions">
+              <button class="dropdownBtn sourceBtn specialBtn">Без группировки</button>
+              <button class="dropdownBtn sourceBtn">Сгруппировать по кол-ву ингредиентов</button>
+              <button class="dropdownBtn sourceBtn">Сгруппировать по кол-ву шагов</button>
+          </div>
+          <button class="listSourceBtn" id="listSourceBtn" title="Отображать данные для выбранного источника">Без группировки</button>
+        </div>
+
+        <div class="dropdown">
+            <div class="dropdown-content" id="objectOptions">
+                <button class="dropdownBtn objectBtn specialBtn">Все ингрeдиенты</button>
+            </div>
+            <button class="listObjectBtn" id="listObjectBtn" title="Отображать данные для выбранного объекта">Все ингрeдиенты</button>
+        </div>
+      </div>
     </header>
 
     <div class="forDecorOut">
@@ -23,7 +41,7 @@
         </div>
     </div>
     <main>
-        <div id="forTable1">
+        <div id="forTable1" class="forTable">
         </div>
         <div id="loader"></div>
     </main>
