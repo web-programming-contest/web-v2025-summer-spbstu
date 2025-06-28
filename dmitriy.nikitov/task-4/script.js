@@ -33,6 +33,32 @@ class LibraryManager {
       this.currentLibraryId = e.target.value;
       localStorage.setItem('currenLibraryId', this.currentLibraryId);
       this.renderBooks();
-    })
+    });
+  }
+
+  async addLibrary() {
+    const name = this.elements.libraryName.value.trim();
+    try {
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      const newLibrary = {
+        id: Date.now().toString(),
+        name,
+        books: []
+      };
+      this.libraries.push(newLibrary);
+      this.saveToLocalStorage();
+      this.renderLibrariesSelect();
+      this.elements.libraryName.value = "";
+      this.currentLibraryId = newLibrary.id;
+      localStorage.setItem('currenLibraryId', this.currentLibraryId);
+      this.renderBooks();
+    } catch (error) {
+      alert("Error: The library was not added");
+    }
+  }
+
+  saveToLocalStorage() {
+    localStorage.setItem('libraries', JSON.stringify(this.libraries));
   }
 }
