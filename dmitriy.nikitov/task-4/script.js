@@ -54,7 +54,7 @@ class LibraryManager {
       localStorage.setItem('currenLibraryId', this.currentLibraryId);
       this.renderBooks();
     } catch (error) {
-      alert("Error: The library was not added");
+      alert("Error. The library was not added: "  + error.message);
     }
   }
 
@@ -77,7 +77,54 @@ class LibraryManager {
       this.renderLibrariesSelect();
       this.renderBooks();
     } catch (error) {
-      alert("Error: The library was not removed");
+      alert("Error. The library was not removed: " + error.message);
+    }
+  }
+
+  async addBook() {
+    const title = this.elements.bookTitle.value.trim();
+    const author = this.elements.bookAuthor.value.trim();
+    const year = this.elements.bookYear.value.trim();
+    const genre = this.elements.bookGenre.value.trim();
+
+    if (!title || !author || !year || !genre) {
+      return alert("Fill in all fields of the form");
+    }
+    try {
+      await new Promise(resolve => setTimeout(resolve, 500));
+      const newBook = {
+        id: Date.now().toString(),
+        title,
+        author,
+        year: parseInt(year),
+        genre
+      };
+
+      const library = this.libraries.find(lib => lib.id === this.currentLibraryId);
+      library.books.push(newBook);
+      this.saveToLocalStorage();
+      this.renderBooks();
+
+      this.elements.bookTitle.value = '';
+      this.elements.bookAuthor.value = '';
+      this.elements.bookYear.value = '';
+      this.elements.bookGenre.value = '';
+
+    } catch (error) {
+      alert("Error. The book was not added: " + error.message);
+    }
+  }
+
+  async removeBook(bookId) {
+    try {
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      const library = this.libraries.find(lib => lib.id === this.currentLibraryId);
+      library.books = library.books.filter(book => book.id !== bookId);
+      this.saveToLocalStorage();
+      this.renderBooks();
+    } catch (error) {
+      alert("Error. The book was not removed: " + error.message);
     }
   }
 }
