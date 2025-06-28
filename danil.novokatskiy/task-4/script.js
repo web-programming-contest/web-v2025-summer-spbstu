@@ -59,18 +59,28 @@ class Student {
 }
 
 function groupStudentsByAverageGrade(students) {
-  if (!students.length) {
+  if (!students.length || !Array.isArray(students)) {
     return [];
   }
-  let groups = [];
-  let allGrades = [];
-  for (const student of students) {
-    if (allGrades.includes(student.getAverageGrade())) {
-      continue
-    }
-    allGrades.push(student.getAverageGrade());
+  let groups  = {
+    'A' : [],
+    'B' : [],
+    'C' : [],
   }
-
+  for (const student of students) {
+    const grade = student.getAverageGrade();
+    if (grade === undefined) {
+      continue;
+    }
+    if (grade >= 4) {
+      groups['A'].push(student);
+    } else if (grade >= 3) {
+      groups['B'].push(student);
+    } else {
+      groups['C'].push(student);
+    }
+  }
+  return groups;
 }
 
 function getListOfStudentsWhoPassedSubject(students, subject) {
@@ -148,4 +158,4 @@ let student3 = new Student(3, "Artem", grades3);
 
 let students = [student1, student2, student3];
 
-console.log(getListOfStudentsWhoPassedSubject(students, "math"));
+console.log(groupStudentsByAverageGrade(students));
