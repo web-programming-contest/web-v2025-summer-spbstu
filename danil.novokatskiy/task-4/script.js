@@ -73,6 +73,25 @@ function groupStudentsByAverageGrade(students) {
 
 }
 
+function getListOfStudentsWhoPassedSubject(students, subject) {
+  if (subject === null || typeof(subject) !== 'string' || !students.length || subject === '') {
+    return [];
+  }
+
+  let result = [];
+  for (const student of students) {
+    if (!students.grades) continue;
+    for (const [key, value] of Object.entries(student.grades)) {
+      if (key === subject) {
+        if (value > 2) {
+          result.push(student);
+        }
+      }
+    }
+  }
+  return result;
+}
+
 function getUniqueSubject(students) {
   let result = [];
   for (const student of students) {
@@ -104,7 +123,7 @@ function getStudentsWithMaxAverageGrade(students) {
 }
 
 let grades1 = {
-  "math": 3,
+  "math": 2,
   "history": 4,
   "computer science": 5,
 }
@@ -129,4 +148,4 @@ let student3 = new Student(3, "Artem", grades3);
 
 let students = [student1, student2, student3];
 
-console.log(getUniqueSubject(students));
+console.log(getListOfStudentsWhoPassedSubject(students, "math"));
