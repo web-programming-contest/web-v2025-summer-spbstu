@@ -24,4 +24,15 @@ class LibraryManager {
       booksContainer: document.getElementById("booksContainer")
     }
   }
+
+  setupEventListeners() {
+    this.elements.addLibButton.addEventListener('click', () => this.addLib());
+    this.elements.removeLibButton.addEventListener('click', () => this.removeLib());
+    this.elements.addBookButton.addEventListener('click', () => this.addBook());
+    this.elements.librarySelect.addEventListener('change', (e) => {
+      this.currentLibraryId = e.target.value;
+      localStorage.setItem('currenLibraryId', this.currentLibraryId);
+      this.renderBooks();
+    })
+  }
 }
