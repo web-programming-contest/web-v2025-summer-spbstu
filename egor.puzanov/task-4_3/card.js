@@ -1,5 +1,7 @@
 // import {data, PATCH} from "main.js"
 
+//Все что связанно с карточкой ингредиента
+
 function createCard(recepie){
     const div = document.createElement("div");
     div.classList = ["OuterCard"];
@@ -34,6 +36,8 @@ function createCard(recepie){
     
 
     //добавдение ингредиента
+
+    //по кнопке
     div.querySelector(`#add-i-${recepie.title.replace(" ", "_")}`).addEventListener("click", async (e)=>{
         // const ingredient = prompt("Введите новый ингредиент!", undefined);
         const input = div.querySelector("#input-i");
@@ -50,26 +54,48 @@ function createCard(recepie){
 
                 const len = SetOfIngredients.size;
                 SetOfIngredients.add(input.value);
-                if(SetOfIngredients.size != len){
+                if(SetOfIngredients.size != len){ //добавление в выпадающий список
                     const ingredientDiv = document.getElementById("objectOptions");
                     const newObject = document.createElement("button");
                     newObject.classList.add("dropdownBtn");
                     newObject.classList.add("objectBtn");
-                    newObject.textContent = ingredient;
+                    newObject.id=`filterIng-${input.value.replace(" ", "_")}`;
+                    newObject.textContent = input.value;
                     addListenerIng(newObject);
                     ingredientDiv.appendChild(newObject);
                 }
 
 
                 label.textContent = `Ингредиенты: ${temp.ingredientCount} шт.`
+
+                rearangeCard(div, recepie, true); //подводка под фильтры
+
+                const filtering = document.getElementById("listObjectBtn").textContent;
+
+                //это условие по идее никогда не выполнится, но на всякий случай
+                if(filtering !== "Все ингрeдиенты" && div.style.display === "none"){
+
+                    div.style.display = "block";
+
+                    const currentTable = div.parentElement;
+                    
+                    if(currentTable.style.display === "none"){
+                        const header = document.createElement("h2");
+                        header.classList.add("FilterIngr");
+                        header.textContent = `Рецепты, содержащие: ${filtering}`;
+                        document.querySelector("main").insertBefore(header, currentTable);
+                    }
+                }
             }
             input.classList.remove("add");
         }
         else{
             input.value = null;
-            input.classList.add("add");
+            input.classList.add("add"); //показать ввод если спрятан
         }
     });
+
+    //по нажатии куда-то на экран или tab/enter
     div.querySelector("#input-i").addEventListener("change", async (e) => {
         if(e.currentTarget.value){
             const ul = div.querySelector("ul");
@@ -84,23 +110,42 @@ function createCard(recepie){
             
             const len = SetOfIngredients.size;
             SetOfIngredients.add(e.currentTarget.value);
-            if(SetOfIngredients.size != len){
+            if(SetOfIngredients.size != len){ //добавление в выпадающий список
                 const ingredientDiv = document.getElementById("objectOptions");
                 const newObject = document.createElement("button");
                 newObject.classList.add("dropdownBtn");
                 newObject.classList.add("objectBtn");
+                newObject.id=`filterIng-${e.currentTarget.value.replace(" ", "_")}`;
                 newObject.textContent = e.currentTarget.value;
                 addListenerIng(newObject);
                 ingredientDiv.appendChild(newObject);
             }
 
+            label.textContent = `Ингредиенты: ${temp.ingredientCount} шт.`;
 
-            console.log(data);
-            label.textContent = `Ингредиенты: ${temp.ingredientCount} шт.`
+            rearangeCard(div, recepie, true);//добавление в выпадающий список
+
+            const filtering = document.getElementById("listObjectBtn").textContent;
+
+            //это условие по идее никогда не выполнится, но на всякий случай
+            if(filtering !== "Все ингрeдиенты" && div.style.display === "none"){
+
+                div.style.display = "block";
+                const currentTable = div.parentElement;
+                
+                if(currentTable.style.display === "none"){
+                    const header = document.createElement("h2");
+                    header.classList.add("FilterIngr");
+                    header.textContent = `Рецепты, содержащие: ${filtering}`;
+                    document.querySelector("main").insertBefore(header, currentTable);
+                }
+            }
         }
     });
 
     //добавдение шага
+
+    //по кнопке
     div.querySelector(`#add-s-${recepie.title.replace(" ", "_")}`).addEventListener("click", async (e)=>{
         // const ingredient = prompt("Введите новый ингредиент!", undefined);
         const input = div.querySelector("#input-s");
@@ -119,14 +164,18 @@ function createCard(recepie){
 
                 console.log(data);
                 label.textContent = `Шаги: ${temp.stepCount} шт.`
+
+                rearangeCard(div, recepie, false); //подгонка под фильры
             }
             input.classList.remove("add");
         }
         else{
             input.value = null;
-            input.classList.add("add");
+            input.classList.add("add"); //показать ввод если спрятан
         }
     });
+
+    //по нажатии куда-то на экран или tab/enter
     div.querySelector("#input-s").addEventListener("change", async (e) => {
         if(e.currentTarget.value){
             const ol = div.querySelector("ol");
@@ -142,7 +191,9 @@ function createCard(recepie){
 
 
             console.log(data);
-            label.textContent = `Шаги: ${temp.stepCount} шт.`
+            label.textContent = `Шаги: ${temp.stepCount} шт.`;
+
+            rearangeCard(div, recepie, false); //подгонка под фильры
         }
      })
     
@@ -163,16 +214,49 @@ function createCard(recepie){
 
     //Удалить рецепт
     div.querySelector(`#del-r-${recepie.title.replace(" ", "_")}`).addEventListener("click", async (e) => {
-            delete data[recepie.title]
-            delete images[recepie.title]
+            
+        const currentTable = div.parentElement;
+        const ingredients = div.querySelector("ul").children;
+        Array.from(ingredients).forEach(li => { //удаление из выпадающего списка
+            value = li.querySelector("p").textContent;
+            const tempArrayRec = fillterByIngredient(ArrayRecepies, value);
+                if(tempArrayRec.length === 1){
+                    const tempArrayIng = div.querySelectorAll(`#del-i-${recepie.title.replace(" ", "_")}-${value.replace(" ", "_")}`)
+                    if(tempArrayIng.length === 1){ //если вдруг инредиенты на карточки дублируются
+                        SetOfIngredients.delete(value);
+                        document.querySelector(`#filterIng-${value.replace(" ", "_")}`).remove();
+                    }
+                }
+        })
 
-            await Promise.all([PATCHDATA(data), PATCHIMAGES(images)]).then(() => {return});
+        //удалить из всех локальных данных
+        const index = ArrayRecepies.indexOf(data[recepie.title]);
+        ArrayRecepies.splice(index, 1);
+        delete data[recepie.title];
+        delete images[recepie.title];
 
-            div.remove();
-            GrayScreenMain.classList.toggle("unhidden");
+        await Promise.all([PATCHDATA(data), PATCHIMAGES(images)]).then(() => {return});
+
+        div.remove();
+
+        //проверка пустой ли контейнер
+        if(Array.from(currentTable.children).every(el => el.style.display === "none")){
+        const possibleHeader = currentTable.previousSibling ;
+            if(possibleHeader.tagName === "H2" ){
+                if(possibleHeader.previousSibling.tagName  === "H2" ){
+                    possibleHeader.previousSibling.remove()
+                }
+                possibleHeader.remove();
+            }
+            currentTable.style.display = "none";
+        }
+        if(currentTable.children.length === 0){
+            currentTable.remove();
+        }
+        GrayScreenMain.classList.toggle("unhidden");
     });
 
-    //обработка
+    //обработка когда выбрали карточку
     div.addEventListener("click", (e) => {
         const div = e.currentTarget;
         if(Array.from(div.classList).includes("cardClicked")) {return;}
@@ -195,6 +279,7 @@ function createCard(recepie){
     })
     return div;
     
+    //элемент списка ингредиентов/шагов
     function createLi(flag, value, title){
         li = document.createElement("li");
         li.id = `${flag ? "i" : "s"}-${title.replace(" ", "_")}-${value.replace(" ", "_")}`;
@@ -203,28 +288,93 @@ function createCard(recepie){
         <button class="hiddenButton" id="del-${flag ? "i" : "s"}-${title.replace(" ", "_")}-${value.replace(" ", "_")}">
             <svg class="iconDel" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
         </button class="hiddenButton">`
-        li.querySelector("button").addEventListener("click", async (e) => {
-                if(flag){
-                    const tempArrayRec = fillterByIngredient(ArrayRecepies, value);
-                    if(tempArrayRec.length === 1){
-                        const tempArrayIng = div.querySelectorAll(`#del-i-${title.replace(" ", "_")}-${value.replace(" ", "_")}`)
-                        if(tempArrayIng.length === 1){
-                            SetOfIngredients.delete(value);
-                            document.querySelector(`#filterIng-${value.replace(" ", "_")}`).remove();
-                        }
+        li.querySelector("button").addEventListener("click", async (e) => { //кнопка удалить
+            if(flag){ //убирает из выпадающего списка
+                const tempArrayRec = fillterByIngredient(ArrayRecepies, value);
+                if(tempArrayRec.length === 1){
+                    const tempArrayIng = div.querySelectorAll(`#del-i-${title.replace(" ", "_")}-${value.replace(" ", "_")}`)
+                    if(tempArrayIng.length === 1){ //если дублируется ингредиент
+                        SetOfIngredients.delete(value);
+                        document.querySelector(`#filterIng-${value.replace(" ", "_")}`).remove();
                     }
                 }
-                const temp = data[title];
-                flag ? temp.removeIngredient(value) : temp.removeStep(value);
-    
-                await PATCHDATA(data);
-    
-    
-                console.log(data);
-                const label = document.querySelector(`#label-${flag ? "i" : "s"}-${title.replace(" ", "_")}`);
-                label.textContent = `${flag ? "Ингредиенты" : "Шаги"}: ${flag ? temp.ingredientCount : temp.stepCount} шт.`
+                
+            }
+            const temp = data[title];
+            flag ? temp.removeIngredient(value) : temp.removeStep(value);
+            
+            await PATCHDATA(data);
+            
+            const label = document.querySelector(`#label-${flag ? "i" : "s"}-${title.replace(" ", "_")}`);
+            label.textContent = `${flag ? "Ингредиенты" : "Шаги"}: ${flag ? temp.ingredientCount : temp.stepCount} шт.`
+            rearangeCard(document.querySelector(`#card-${title.replace(" ", "_")}`), data[title], flag);
             document.getElementById(`${flag ? "i" : "s"}-${title.replace(" ", "_")}-${value.replace(" ", "_")}`).remove();
         })
         return li;
+    }
+}
+
+//перемещает карточку в соответствии с группировкой
+function rearangeCard(div, recepie, isIngr) {
+    const currentTable = div.parentElement;
+    const grouping = document.getElementById("listSourceBtn").textContent;
+    const filtering = document.getElementById("listObjectBtn").textContent;
+    //обработка групп
+    if(grouping === `Сгруппировать по кол-ву ${isIngr ? "ингредиентов" :  "шагов"}`) {
+            const num = (isIngr ? recepie.ingredientCount : recepie.stepCount);
+            const table = document.querySelector(`#forTable-${num}`); //где должно в итоге быть
+            if(table){ //если уже такая таблица есть
+                table.appendChild(div);
+                if(div.style.display !== "none" && table.style.display === "none"){ //если она  спрятана
+                    table.style.display = "grid";
+                    const header = document.createElement("h2");
+                    header.classList.add("groupStep");
+                    header.textContent = `Количество ${isIngr ? "ингредиентов" :  "шагов"}: ${num}`;
+                    document.querySelector("main").insertBefore(header, table);
+                    if(filtering !== "Все ингрeдиенты"){ //дополнительные заголовки если есть второй фильтр
+                        const header = document.createElement("h2");
+                        header.classList.add("FilterIngr");
+                        header.textContent = `Рецепты, содержащие: ${filtering}`;
+                        document.querySelector("main").insertBefore(header, table);
+                    }
+                }
+            }
+            else{ //если таблицу надо создать
+                const table = document.createElement("div");
+                table.classList.add("forTable");
+                table.id = `forTable-${num}`;
+                table.appendChild(div);
+                if(div.style.display === "none"){ //если карточка не подходит под второй фильтр
+                    table.style.display = "none";
+                }
+                else{
+                    const header = document.createElement("h2");
+                    header.classList.add("groupStep");
+                    header.textContent = `Количество ${isIngr ? "ингредиентов" :  "шагов"}: ${num}`;
+                    document.querySelector("main").insertBefore(header, loader);
+                    if(filtering !== "Все ингрeдиенты"){//дополнительные заголовки если есть второй фильтр
+                        const header = document.createElement("h2");
+                        header.classList.add("FilterIngr");
+                        header.textContent = `Рецепты, содержащие: ${filtering}`;
+                        document.querySelector("main").insertBefore(header, loader);
+                    }
+                }
+                document.querySelector("main").insertBefore(table, loader);
+            }
+    }
+    
+    //чистим контейнер где карточка был до этого
+    if(Array.from(currentTable.children).every(el => el.style.display === "none")){
+        const possibleHeader = currentTable.previousSibling ;
+        if(possibleHeader.tagName === "H2" ){
+            if(possibleHeader.previousSibling.tagName  === "H2" ){
+                possibleHeader.previousSibling.remove()
+            }
+            possibleHeader.remove();
+        }
+        currentTable.style.display = "none";
+    }
+    if(currentTable.children.length === 0){
+        currentTable.remove();
     }
 }
