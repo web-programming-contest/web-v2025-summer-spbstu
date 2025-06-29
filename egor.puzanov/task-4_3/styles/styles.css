@@ -31,11 +31,12 @@ body{
 header{
     background-color: rgb(255, 248, 248);
     position: sticky;
-    border-bottom: 3px solid black;
+    /* border-bottom: 3px solid black; */
     top: 0;
     left: 0;
     width: 100%;
-    height: 15vh;
+    height: max(15vh, 150px);
+    /* height: max(15vh, 150px); */
     z-index: 4;
 
     display: flex;
@@ -80,6 +81,15 @@ h1{
 }
 
 /* Для красивых закруглений под header */
+
+.customBorder{
+  position: absolute;
+  bottom: -3px;
+  left: 5%;
+  border-bottom: 3px solid black;
+  width: 90%;
+}
+
 .forDecorOut{
     background-color: transparent;
     position: sticky;
@@ -90,15 +100,15 @@ h1{
 
 
 .forDecorIn{
-    background-color:rgb(245, 245, 220);
+    background-color: transparent;
     width: calc(5% + 3px);
     height: 17px;
 }
 
 
 .right, .left{
-    position: absolute;
-    top: -3px;
+    position: fixed;
+    top: max(15vh, 150px);
 }
 
 
@@ -115,7 +125,7 @@ h1{
 .leftBorder, .rightBorder{
     border-top: 3px solid black;
     height: 100%;
-    background-color: rgb(245, 245, 220);
+    background-color: transparent;
 }
 
 .leftBorder{

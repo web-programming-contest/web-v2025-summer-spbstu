@@ -27,6 +27,12 @@
         background: 10vw;
 
 }
+
+@media (max-width: 350px){
+    .OuterCard{
+        width: 90%;
+    }
+}
 /* если карточка не выбрана */
 .OuterCard:hover:not(.cardClicked){
     box-shadow: 7px 7px 10px rgb(170, 170, 170);

@@ -24,13 +24,14 @@ document.addEventListener("DOMContentLoaded", async (e) => {
 
     // получение данных
     const answer = await Promise.all([GETRECEPIES(),GETIMAGES()]).then((data) => {return data})
-    images = answer[1];
+    images = answer[1] || {};
+    const recepiesFromStorage = answer[0] || {};
     loader.style.opacity = 0;
     document.getElementById("addRecepie").style.opacity = 1;
     
     const grid = document.getElementById("forTable1");
-    Array.from(Object.keys(answer[0])).forEach(key =>{
-        const recepie = new Recepie(key, answer[0][key].ingredients, answer[0][key].steps)
+    Array.from(Object.keys(recepiesFromStorage)).forEach(key =>{
+        const recepie = new Recepie(key, recepiesFromStorage[key].ingredients, recepiesFromStorage[key].steps)
         ArrayRecepies.push(recepie);
         data[key] = recepie;
         grid.appendChild(createCard(recepie));
