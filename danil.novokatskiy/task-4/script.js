@@ -106,16 +106,14 @@ function groupStudentsBySubjects(students) {
   if (!students.length) {
     return [];
   }
-  let result = {};
+  const result = new Map();
   for (const student of students) {
-    for (const key in student.grades) {
-      result[key] = [];
-    }
-  }
-  for (const student of students) {
-    for (const [key, value] of Object.entries(student.grades)) {
-      if (value !== null && value !== undefined) {
-        result[key].push(student);
+    for (const [subject, grade] of Object.entries(student.grades)) {
+      if (grade !== undefined && grade !== null && typeof subject === 'string' && subject !== '') {
+        if (!result.has(subject)) {
+          result.set(subject, []);
+        }
+        result.get(subject).push(student);
       }
     }
   }
