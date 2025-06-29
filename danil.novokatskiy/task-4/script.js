@@ -32,12 +32,12 @@ class Student {
       throw Error(`subject is not a string or empty string`);
     }
 
-    for (const tmpSubject in grades) {
+    for (const tmpSubject in this.grades) {
       if (tmpSubject === subject) {
-        grades[tmpSubject] = grade;
+        this.grades[tmpSubject] = grade;
       }
     }
-    grades[subject] = grade;
+    this.grades[subject] = grade;
   }
 
   getAverageGrade() {
@@ -176,4 +176,3 @@ let student3 = new Student(3, "Artem", grades3);
 
 let students = [student1, student2, student3];
 
-console.log(groupStudentsBySubjects(students));
