@@ -1,3 +1,6 @@
+/* Все для формы создания рецепта */
+
+/* ввод названия рецепта */
 #input-t{
     visibility: visible;
     opacity: 1;
@@ -17,6 +20,7 @@
     /* border-bottom: 2px solid #444; */
 }
 
+/* сам контейнер формы */
 .formCreate{
     display: flex;
     flex-direction: column;
@@ -27,6 +31,7 @@
     opacity: 1;
 } */
 
+/* контейнер куда выводятся ошибки */
 #formError{
     align-self: center;
     margin-left: 0;
@@ -38,7 +43,7 @@
     bottom: 20px;
     
 }
-
+/* кнопка добавить файл */
 #fileInput{
     visibility: visible;
     opacity: 1;
@@ -47,6 +52,7 @@
     width: 105px;
 }
 
+/* поля ввода на форме */
 .card .formAdd{
     margin-left: 10px;
     position: relative;
@@ -70,6 +76,7 @@
     transition: opacity 0.5s;
 }
 
+/* кнопки добавить рецепт и отменить */
 .bottomButtonForm{
     width: 150px;
     padding: 5px;
@@ -79,10 +86,12 @@
     transition-delay: 1.5s;
 }
 
+/* когда собщение об ошибке выводится */
 #formError.display{
     opacity: 0.6;
 }
 
+/* контейнер нижних кнопок */
 .forButtons{
     display: flex;
     margin-bottom: 50px;
@@ -92,7 +101,7 @@
     padding-top: 10px;
 
 }
-
+/* для каждой кнопки отдельно */
 .delRecButton{
     margin-left: calc(10% - 20px);
 }
