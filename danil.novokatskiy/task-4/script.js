@@ -102,6 +102,26 @@ function getListOfStudentsWhoPassedSubject(students, subject) {
   return result;
 }
 
+function groupStudentsBySubjects(students) {
+  if (!students.length) {
+    return [];
+  }
+  let result = {};
+  for (const student of students) {
+    for (const key in student.grades) {
+      result[key] = [];
+    }
+  }
+  for (const student of students) {
+    for (const [key, value] of Object.entries(student.grades)) {
+      if (value !== null && value !== undefined) {
+        result[key].push(student);
+      }
+    }
+  }
+  return result;
+}
+
 function getUniqueSubject(students) {
   let result = [];
   for (const student of students) {
@@ -149,7 +169,7 @@ let grades2 = {
 let student2 = new Student(2, "Serafim", grades2);
 
 let grades3 = {
-  "math": 4,
+  "math": 3,
   "english": 5,
   "art": 5,
 }
@@ -158,4 +178,4 @@ let student3 = new Student(3, "Artem", grades3);
 
 let students = [student1, student2, student3];
 
-console.log(groupStudentsByAverageGrade(students));
+console.log(groupStudentsBySubjects(students));
