@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Товары и поставщики</title>
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <h1>Товары</h1>
+
+    <div class="form-block">
+      <h3>Добавить товар</h3>
+      <input
+        id="productNameInput"
+        placeholder="Название товара"
+        maxlength="100"
+      />
+      <button onclick="handleAddProduct()">Добавить</button>
+    </div>
+
+    <div class="filter-block">
+      <h3>Фильтры</h3>
+      <div class="filter-controls">
+        <select id="filterType" onchange="updateFilterInput()">
+          <option value="all">Все товары</option>
+          <option value="productsBySupplier">Товары по поставщику</option>
+          <option value="groupBySupplierCount">
+            По количеству поставщиков
+          </option>
+          <option value="maxSuppliers">С максимумом поставщиков</option>
+        </select>
+        <select id="supplierFilterInput" style="display: none" maxlength="50">
+          <option value="">Выберите поставщика</option>
+        </select>
+        <input
+          id="supplierCountInput"
+          placeholder="Количество поставщиков"
+          type="number"
+          min="0"
+          style="display: none"
+        />
+        <button id="applyFilterBtn" onclick="applyFilter()">Применить</button>
+        <button onclick="clearFilter()">Сбросить</button>
+      </div>
+      <div id="filterMessage" class="filter-message"></div>
+    </div>
+
+    <div id="productList" class="product-list"></div>
+
+    <script src="product.js"></script>
+    <script src="storage.js"></script>
+    <script src="ui.js"></script>
+  </body>
+</html>
