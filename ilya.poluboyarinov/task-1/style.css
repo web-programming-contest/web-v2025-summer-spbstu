@@ -1,0 +1,16 @@
+.container {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 10px;
+    max-width: 400px;
+    padding: 20px;
+    border: 1px solid;
+}
+.label {
+    text-align: right;
+    padding-right: 10px;
+}
+.list {
+    display: flex;
+    flex-direction: column;  
+}
