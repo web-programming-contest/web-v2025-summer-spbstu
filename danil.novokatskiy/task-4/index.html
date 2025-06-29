@@ -8,11 +8,39 @@
 </head>
 <body>
 <div class="container">
+
   <ul class = "students-list">
     <li>ID: </li>
     <li>Имя: </li>
     <li>Средний балл: </li>
   </ul>
+
+  <div class="add-delete-box">
+    <input type="number" placeholder="Введите свой ID">
+    <input type="text" placeholder="Введите свое имя">
+    <button>Добавить студента</button>
+    <button>Удалить студента</button>
+  </div>
+
+  <div class="add-grade-box">
+    <label>
+      <select required autocomplete="on">
+        <option value="PE">Физкультура</option>
+        <option value="Physics">Физика</option>
+        <option value="Math">Математика</option>
+        <option value="English">Английский язык</option>
+      </select>
+    </label>
+    <label>
+      <select required>
+        <option value="Five">5</option>
+        <option value="Four">4</option>
+        <option value="Three">3</option>
+        <option value="Two">2</option>
+      </select>
+    </label>
+  </div>
+
 </div>
 </body>
 </html>
