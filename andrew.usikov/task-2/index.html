@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Task 2</title>
+        <link rel="stylesheet" href="./index.css">
+
+        <script type="text/javascript">
+            function validateInput() {
+                let input = document.getElementById("phone-input").value;
+                let output = document.getElementById("result-phone");
+
+                if (/^7[0-9]{10}/.test(input) && input.length == 11) {
+                    output.innerText = "+7 (" + input.substring(1, 4) + ') ' +
+                                               input.substring(4, 7) + '-' +
+                                               input.substring(7, 9) + '-' +                    
+                                               input.substring(9, 11);                    
+                } else {
+                    output.innerText = "Error in input format!"
+                }
+            }            
+        </script>
+    </head>
+
+    <body>
+        <h1>Formatting the phone number</h1>
+        <h4>Input phone number in format 79012345678</h4>
+        <input type="text" id="phone-input" maxlength=11 placeholder="79001234567" onchange="validateInput()">
+        <h4>Formatted phone number</h4>
+        <p id="result-phone"></p>
+    </body> 
+
+</html>
