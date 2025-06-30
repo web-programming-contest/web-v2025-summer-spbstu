@@ -28,18 +28,18 @@ function PATCHIMAGES(images) {
 
 //передается один эл-нт
 async function POSTRECEPIE(recepie) {
-    data[recepie.title] = recepie;
-    await new Promise((resolve) => resolve(setTimeout(() => localStorage.setItem('data', JSON.stringify(data)), 1000))).then( () => {return} );
+    DictRecepies[recepie.title] = recepie;
+    await new Promise((resolve) => resolve(setTimeout(() => localStorage.setItem('data', JSON.stringify(DictRecepies)), 1000))).then( () => {return} );
     return
 }
 async function POSTIMAGE(image, title) {
     try {
-        images[title] = image;
-        await new Promise((resolve) => resolve(setTimeout(() => localStorage.setItem('images', JSON.stringify(images)), 1000))).then( () => {return} );
+        Images[title] = image;
+        await new Promise((resolve) => resolve(setTimeout(() => localStorage.setItem('images', JSON.stringify(Images)), 1000))).then( () => {return} );
     }
     catch (err){
-        images[title] = "";
-        await new Promise((resolve) => resolve(setTimeout(() => localStorage.setItem('images', JSON.stringify(images)), 1000))).then( () => {return} );
+        Images[title] = "";
+        await new Promise((resolve) => resolve(setTimeout(() => localStorage.setItem('images', JSON.stringify(Images)), 1000))).then( () => {return} );
     }
     return
 }
