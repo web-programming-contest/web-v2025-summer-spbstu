@@ -6,7 +6,7 @@ function createCard(recepie){
     const div = document.createElement("div");
     div.classList = ["OuterCard"];
     div.id = `card-${recepie.title.replace(" ", "_")}`;
-    const image = images[recepie.title]
+    const image = Images[recepie.title]
     //шаблон
     div.innerHTML = `
                 <div class="card">
@@ -47,10 +47,10 @@ function createCard(recepie){
                 li = createLi(true, input.value, recepie.title);
                 ul.appendChild(li);
                 const label = div.querySelector(`#label-i-${recepie.title.replace(" ", "_")}`);
-                const temp = data[recepie.title];
+                const temp = DictRecepies[recepie.title];
                 temp.addIngredient(input.value);
 
-                await PATCHDATA(data);
+                await PATCHDATA(DictRecepies);
 
                 const len = SetOfIngredients.size;
                 SetOfIngredients.add(input.value);
@@ -103,10 +103,10 @@ function createCard(recepie){
             ul.appendChild(li);
             e.currentTarget.classList.remove("add");
             const label = div.querySelector(`#label-i-${recepie.title.replace(" ", "_")}`);
-            const temp = data[recepie.title];
+            const temp = DictRecepies[recepie.title];
             temp.addIngredient(e.currentTarget.value);
             
-            await PATCHDATA(data);
+            await PATCHDATA(DictRecepies);
             
             const len = SetOfIngredients.size;
             SetOfIngredients.add(e.currentTarget.value);
@@ -155,14 +155,14 @@ function createCard(recepie){
                 li = createLi(false, input.value, recepie.title);
                 ol.appendChild(li);
                 const label = div.querySelector(`#label-s-${recepie.title.replace(" ", "_")}`);
-                const temp = data[recepie.title];
+                const temp = DictRecepies[recepie.title];
                 temp.addStep(e.currentTarget.value);
 
 
-                await PATCHDATA(data)
+                await PATCHDATA(DictRecepies)
 
 
-                console.log(data);
+                console.log(DictRecepies);
                 label.textContent = `Шаги: ${temp.stepCount} шт.`
 
                 rearangeCard(div, recepie, false); //подгонка под фильры
@@ -183,14 +183,14 @@ function createCard(recepie){
             ol.appendChild(li);
             e.currentTarget.classList.remove("add");
             const label = div.querySelector(`#label-s-${recepie.title.replace(" ", "_")}`);
-            const temp = data[recepie.title];
+            const temp = DictRecepies[recepie.title];
             temp.addStep(e.currentTarget.value);
 
 
-            await PATCHDATA(data)
+            await PATCHDATA(DictRecepies)
 
 
-            console.log(data);
+            console.log(DictRecepies);
             label.textContent = `Шаги: ${temp.stepCount} шт.`;
 
             rearangeCard(div, recepie, false); //подгонка под фильры
@@ -230,12 +230,12 @@ function createCard(recepie){
         })
 
         //удалить из всех локальных данных
-        const index = ArrayRecepies.indexOf(data[recepie.title]);
+        const index = ArrayRecepies.indexOf(DictRecepies[recepie.title]);
         ArrayRecepies.splice(index, 1);
-        delete data[recepie.title];
-        delete images[recepie.title];
+        delete DictRecepies[recepie.title];
+        delete Images[recepie.title];
 
-        await Promise.all([PATCHDATA(data), PATCHIMAGES(images)]).then(() => {return});
+        await Promise.all([PATCHDATA(DictRecepies), PATCHIMAGES(Images)]).then(() => {return});
 
         div.remove();
 
@@ -300,14 +300,14 @@ function createCard(recepie){
                 }
                 
             }
-            const temp = data[title];
+            const temp = DictRecepies[title];
             flag ? temp.removeIngredient(value) : temp.removeStep(value);
             
-            await PATCHDATA(data);
+            await PATCHDATA(DictRecepies);
             
             const label = document.querySelector(`#label-${flag ? "i" : "s"}-${title.replace(" ", "_")}`);
             label.textContent = `${flag ? "Ингредиенты" : "Шаги"}: ${flag ? temp.ingredientCount : temp.stepCount} шт.`
-            rearangeCard(document.querySelector(`#card-${title.replace(" ", "_")}`), data[title], flag);
+            rearangeCard(document.querySelector(`#card-${title.replace(" ", "_")}`), DictRecepies[title], flag);
             document.getElementById(`${flag ? "i" : "s"}-${title.replace(" ", "_")}-${value.replace(" ", "_")}`).remove();
         })
         return li;

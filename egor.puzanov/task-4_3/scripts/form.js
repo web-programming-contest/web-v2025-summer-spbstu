@@ -39,7 +39,7 @@ function createForm(recepie = new Recepie()){
             `;
     //ввод названия
     div.querySelector("#input-t").addEventListener("change", (e) => {
-        const titles = Array.from(Object.keys(data));
+        const titles = Array.from(Object.keys(DictRecepies));
         if(titles.includes(e.target.value)){
             showError("Рецепт с таким названием уже существует!");
             return;
@@ -148,7 +148,7 @@ function createForm(recepie = new Recepie()){
     //добавить рецепт
     div.querySelector(".addRecButton").addEventListener("click", (e) => {
         //проверка на название
-        const titles = Array.from(Object.keys(data));
+        const titles = Array.from(Object.keys(DictRecepies));
         const title = div.querySelector("#input-t").value;
         if(!title){
             showError("Введите название");
