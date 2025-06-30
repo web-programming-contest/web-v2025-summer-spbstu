@@ -76,7 +76,7 @@ class LibraryManager {
       this.renderLibrariesSelect();
       this.renderBooks();
     } catch (error) {
-      alert("Error:" + error.message);
+      alert("Error: " + error.message);
     }
   }
 
@@ -112,7 +112,7 @@ class LibraryManager {
       this.elements.bookGenre.value = "";
 
     } catch (error) {
-      alert("Error:" + error.message);
+      alert("Error: " + error.message);
     }
   }
 
@@ -179,7 +179,7 @@ class LibraryManager {
       const card = document.createElement("div");
       card.className = "bookCard";
       card.innerHTML = `
-        <button class="removeButton" data-book-title="${ book.title }">×</button>
+        <button class="removeButton" dataBookTitle="${ book.title }">×</button>
         <h3>${ book.title }</h3>
         <p><strong>Author:</strong> ${ book.author }</p>
         <p><strong>Year:</strong> ${ book.year }</p>
@@ -190,7 +190,7 @@ class LibraryManager {
 
     document.querySelectorAll(".removeButton").forEach(button => {
       button.addEventListener("click", (e) => {
-        const title = e.target.getAttribute("data-book-title");
+        const title = e.target.getAttribute("dataBookTitle");
         this.removeBook(title);
       });
     });
