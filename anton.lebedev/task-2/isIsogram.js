@@ -1,7 +1,7 @@
 "use strict";
 
 function isLetter(char) {
-    return char.toLowerCase() !== char.toUpperCase();
+    return !(char.toLowerCase() === char.toUpperCase());
 }
 
 function isIsogram(str) {
