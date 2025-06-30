@@ -28,3 +28,13 @@
   width: 159px;
   margin-bottom: 10px;
 }
+
+.add-grade-box {
+  display: flex;
+  flex-direction: column;
+}
+.add-grade-box button {
+  width: 150px;
+  height: 20px;
+  margin-bottom: 10px;
+}

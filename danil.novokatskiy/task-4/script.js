@@ -1,6 +1,6 @@
 "use strict";
 
-class Student {
+export class Student {
   constructor(id, name, grades) {
     if (Number.isInteger(id)) {
       this.id = id;

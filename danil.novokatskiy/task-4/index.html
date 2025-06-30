@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Task-4</title>
-  <script src="script.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,10 +15,10 @@
   </ul>
 
   <div class="add-delete-box">
-    <input type="number" placeholder="Введите свой ID">
-    <input type="text" placeholder="Введите свое имя">
-    <button>Добавить студента</button>
-    <button>Удалить студента</button>
+    <input type="number" id="ID" placeholder="Введите свой ID">
+    <input type="text" id="Name" placeholder="Введите свое имя">
+    <button id="add-student-btn">Добавить студента</button>
+    <button id="delete-student-btn">Удалить студента</button>
   </div>
 
   <div class="add-grade-box">
@@ -39,8 +38,12 @@
         <option value="Two">2</option>
       </select>
     </label>
+    <button class="add-grade-btn"> Добавить оценку</button>
+    <button class="delete-grade-btn">Удалить оценку</button>
   </div>
 
 </div>
+<script src="student.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
