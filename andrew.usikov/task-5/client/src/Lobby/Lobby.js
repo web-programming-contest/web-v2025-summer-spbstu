@@ -14,9 +14,10 @@ export default function Lobby({ onCreateGame, onJoinGame, onBackToMenu, socket }
   }, []);
 
   function init() {
+    socket.emit('get games');
     setInterval(() => {
       socket.emit('get games');
-    });
+    }, 1000);
   }
 
   socket.on('games list', games => {

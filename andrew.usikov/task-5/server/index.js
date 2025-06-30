@@ -5,20 +5,10 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const PORT = 8080;
 
-/*let lobbyGames = [
-    { id: '1', creator: 'Player1', players: [1] },
-    { id: '2', creator: 'Player2', players: [1] },
-    { id: '3', creator: 'Player3', players: [1] },
-    { id: '4', creator: 'Player4', players: [1] },
-    { id: '5', creator: 'Player5', players: [1, 2] }
-  ];
-let freeID = 6
-  */
-
 let lobbyGames = [];
 
 function getNextID() {
-  let nextID, tries = 0;
+  let nextID = 0;
   do {
     nextID = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
   } while (lobbyGames.filter((game => game.id === nextID)).length !== 0);
@@ -77,12 +67,12 @@ io.on('connection', (socket) => {
       return;
     }
 
-    io.emit('opponent connect', nickname);
+    io.emit('opponent connect', id, nickname);
     socket.emit('init responce', game.xIsFirst, game.creatorFigure === 'X' ? 'O' : 'X', game.creator);
   });
 
-  socket.on('game move', (i, figure) => {
-    io.emit('game move responce', i, figure);
+  socket.on('game move', (id, i, figure) => {
+    io.emit('game move responce', id, i, figure);
   });
 
   socket.on('re-init button pressed', (id, isCreator) => {
@@ -98,7 +88,7 @@ io.on('connection', (socket) => {
       game.reInitButtonState = [false, false];
       game.xIsFirst = Math.floor(Math.random() * 2) === 0;
       game.creatorFigure = ['X', 'O'][Math.floor(Math.random() * 2)];
-      io.emit('re-init approved');
+      io.emit('re-init approved', id);
     }
   });
 
