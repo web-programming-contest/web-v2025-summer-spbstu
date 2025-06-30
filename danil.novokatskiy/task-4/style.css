@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.students-list {
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.students-list li {
+
+}
+
+.add-delete-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-delete-box input {
+  width: 150px;
+  height: 20px;
+  margin-bottom: 10px;
+}
+
+.add-delete-box button {
+  width: 159px;
+  margin-bottom: 10px;
+}
