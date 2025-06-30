@@ -9,29 +9,56 @@ function Square({ value, onSquareClick, ifInWinCombo }) {
   );
 }
 
-function Board({ xIsNext, squares, userIsNext, onPlay }) {
+function Board({ xIsNext, squares, userIsNext, userFigure, nickname, opponent, onPlay, gameID, gameMode, socket }) {
   function handleClick(i) {
-    if (calculateWinner(squares)[0] || squares[i] || !userIsNext) {
+    if (calculateWinner(squares)[0] || squares[i] || !userIsNext || opponent === '') {
       return;
     }
-    const nextSquares = squares.slice();
-    if (xIsNext) {
-      nextSquares[i] = 'X';
+
+    if (gameMode === 'player') {
+      socket.emit('game move', i, userFigure);
     } else {
-      nextSquares[i] = 'O';
+      const nextSquares = squares.slice();
+
+      if (xIsNext) {
+        nextSquares[i] = 'X';
+      } else {
+        nextSquares[i] = 'O';
+      }
+      onPlay(nextSquares);
     }
-    onPlay(nextSquares);
   }
+
+  useEffect(() => {
+    socket.on('game move responce', (i, figure) => {
+      squares[i] = figure;
+      onPlay(squares);
+    });
+
+    return () => {
+      socket.off('game move responce');
+    }
+  });
 
   const [winner, combo] = calculateWinner(squares);
   const tie = detectFull(squares);
   let status;
   if (winner) {
-    status = 'Winner: ' + winner;
+    if (winner === userFigure) {
+      status = 'Winner: ' + nickname;
+    } else {
+      status = 'Winner: ' + opponent;
+    }
   } else if (tie) {
     status = 'Tie!';
   } else {
-    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+    const xUser = (userFigure === 'X' ? nickname : opponent);
+    const oUser = (userFigure === 'O' ? nickname : opponent);
+    status = 'Next player: ' + (xIsNext ? xUser : oUser);
+  }
+
+  if (opponent === '') {
+    status = 'Wait for another player...';
   }
 
   let buttonInCombo = Array(9).fill(false);
@@ -44,7 +71,9 @@ function Board({ xIsNext, squares, userIsNext, onPlay }) {
 
   return (
     <>
-      <div className={winner != null ? "status winner" : tie ? "status tie" : "status"}>{status}</div>
+      <div className={winner != null ? "status winner" : tie ? "status tie" : "status"}>
+        {status}
+      </div>
       <div className="board-row">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} ifInWinCombo={buttonInCombo[0]} />
         <Square value={squares[1]} onSquareClick={() => handleClick(1)} ifInWinCombo={buttonInCombo[1]} />
@@ -64,21 +93,102 @@ function Board({ xIsNext, squares, userIsNext, onPlay }) {
   );
 }
 
-export default function Game({gameMode, nickname}) {
+export default function Game({gameMode, nickname, onReturnToMainMenu, socket, id}) {
   const [boardState, setBoardState] = useState(Array(9).fill(''));
   const [currentMove, setCurrentMove] = useState(0);
   const [userFigure, setUserFigure] = useState('');
   const [xIsFirst, setFirstFigure] = useState(Math.floor(Math.random() * 2) === 0);
   const [gameOver, setGameOver] = useState(false);
+  const [opponent, setOpponent] = useState('');
+  const [isCreator, setIsCreator] = useState(false);
+  const [resetBtnDisabled, setResetBtnDisabled] = useState(false);
   const isInit = useRef(false);
   const xIsNext = (currentMove % 2 === 0 && xIsFirst) || (currentMove % 2 === 1 && !xIsFirst);
   const userIsNext = userFigure === '' ? true : ((userFigure === 'X' && xIsNext) || (userFigure === 'O' && !xIsNext));
+
+  console.log(id);
+
+  useEffect(() => {
+    socket.on('opponent connect', opponent => {
+      if (isCreator) {
+        setOpponent(opponent);
+        if (id === -1) {
+          console.log("Id is bad?!");
+        } else {
+          console.log("Opponent connected!");
+          socket.emit('init request', id, opponent);
+        }
+      }
+    });
+
+    socket.on('init responce', (xIsFirst, userFigure, opponent) => {
+      console.log("Init responce!");
+      setBoardState(Array(9).fill(''));
+      setUserFigure(userFigure);
+      setFirstFigure(xIsFirst);
+      setOpponent(opponent);
+      setResetBtnDisabled(false);
+    });
+
+    socket.on('re-init approved', () => {
+      if (id === -1) {
+        return;
+      }
+      socket.emit('re-init request', id, isCreator);
+      setTimeout(() => {
+        setCurrentMove(0);
+        setGameOver(false);
+      }, 500);
+    });
+
+    function localResetGame() {
+      setOpponent('');
+      setBoardState(Array(9).fill(''));
+      setCurrentMove(0);
+      setGameOver(false);
+      setResetBtnDisabled(false);
+    }
+
+    socket.on('give creator', (gameID) => {
+      if (id !== gameID) {
+        return;
+      }
+      setIsCreator(true);
+      localResetGame();
+    });
+
+    socket.on('player left', (gameID) => {
+      if (gameID === id) {
+        localResetGame();
+      }
+    });
+
+    return () => {
+      socket.off('init responce');
+      socket.off('re-init approved');
+      socket.off('opponent connect');
+      socket.off('give creator');
+      socket.off('player left');
+    };
+  });
+
+  useEffect(() => {
+    const handleBeforeUnload = (_) => {
+      socket.emit('leave', id, nickname);
+      return;
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  });
+
 
   useEffect(() => {
     if (isInit.current) {
       return;
     }
-    console.log("Init the game");
     isInit.current = true;
     init();
   }, []);
@@ -101,8 +211,11 @@ export default function Game({gameMode, nickname}) {
         makeAIMove(userFigure);
       }
       setUserFigure(userFigure);
-    } else {
-      /* тут надо ждать ответа от сервера, что он выбрал кому кем ходить (наверное) */
+    } else if (gameMode === 'player') {
+      setIsCreator(id === -1);
+      if (id !== -1) {
+        socket.emit('init request joined', id, nickname);
+      }
     }
   }
 
@@ -230,25 +343,42 @@ export default function Game({gameMode, nickname}) {
   }
 
   function resetGame() {
-    setBoardState(Array(9).fill(''));
-    setCurrentMove(0);
-    isInit.current = false;
-    setGameOver(false);
-    setFirstFigure(Math.floor(Math.random() * 2) === 0);
-    init();
+    if (gameMode === 'computer') {
+      setBoardState(Array(9).fill(''));
+      setCurrentMove(0);
+      setGameOver(false);
+      isInit.current = false;
+      setFirstFigure(Math.floor(Math.random() * 2) === 0);
+      init();
+    } else if (gameMode === 'player') {
+      setResetBtnDisabled(true);
+      socket.emit('re-init button pressed', id, isCreator);
+    }
   }
 
   return (
     <div className="game">
       <div className="game-board">
-        <Board xIsNext={xIsNext} squares={boardState} userIsNext={userIsNext} onPlay={handlePlay} />
-        {gameOver && (
-          <div className="game-controls">
-            <button className="reset-button" onClick={resetGame}>
-              Play Again
+        <Board xIsNext={xIsNext} squares={boardState} userIsNext={userIsNext} socket={socket} gameID = {id} gameMode={gameMode}
+               userFigure={userFigure} nickname={nickname} opponent={gameMode === 'computer' ? 'AI' : opponent} onPlay={handlePlay} />
+
+        <div className="game-controls">
+          {gameOver && (
+            <button className="reset-button" onClick={resetGame} disabled={resetBtnDisabled}>
+              <span className='reset-text'>Play Again</span>
             </button>
-          </div>
-        )}
+          )}
+        </div>
+
+        <div className="exit-container">
+          <button 
+            className="exit-button"
+            onClick={onReturnToMainMenu}
+          >
+            <span className="exit-text">Main Menu</span>
+          </button>
+        </div>
+
       </div>
     </div>
   );
