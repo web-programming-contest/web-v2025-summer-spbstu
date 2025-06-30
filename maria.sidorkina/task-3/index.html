@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="inputs">
+    <label>arr1
+        <input id="input-arr1" placeholder="1,2,3,4,5">
+    </label>
+    <label>arr2
+        <input id="input-arr2" placeholder="2,4,6">
+    </label>
+    <button id="btn-render">Посчитать</button>
+</div>
+
+<div class="columns">
+    <div class="array-container">
+        <h2>arr1</h2>
+        <ul id="arr1-list"></ul>
+    </div>
+
+    <div class="array-container">
+        <h2>arr2</h2>
+        <ul id="arr2-list"></ul>
+    </div>
+
+    <div class="array-container">
+        <h2>difference</h2>
+        <ul id="result-list"></ul>
+    </div>
+</div>
+
+<script src="index.js"></script>
+<script>
+    function parseInput(str) {
+        return str
+            .split(',')
+            .map(s => s.trim())
+            .filter(s => s !== '');
+    }
+
+    function renderList(container, items, highlightSet = null) {
+        container.innerHTML = '';
+        items.forEach(x => {
+            const li = document.createElement('li');
+            li.textContent = x;
+            li.classList.add('item');
+            if (highlightSet) {
+                if (highlightSet.has(x)) {
+                    li.classList.add('filtered');
+                } else {
+                    li.classList.add('kept');
+                }
+            }
+            container.append(li);
+        });
+    }
+
+    function updateVisualization() {
+        const arr1 = parseInput(document.getElementById('input-arr1').value);
+        const arr2 = parseInput(document.getElementById('input-arr2').value);
+        const result = difference(arr1, arr2);
+
+        const ul1 = document.getElementById('arr1-list');
+        const ul2 = document.getElementById('arr2-list');
+        const ulRes = document.getElementById('result-list');
+
+        renderList(ul1, arr1, new Set(arr2));
+        renderList(ul2, arr2);
+        renderList(ulRes, result);
+    }
+
+    document.getElementById('btn-render')
+        .addEventListener('click', updateVisualization);
+
+    updateVisualization();
+</script>
+
+</body>
+</html>
