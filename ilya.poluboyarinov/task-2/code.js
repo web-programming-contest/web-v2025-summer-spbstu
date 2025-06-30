@@ -53,5 +53,5 @@ function toBinary(num)
     }
 }
 
-let a = Number(prompt("Введите a: "));
-console.log(toBinary(a));
+let dec = Number(prompt("Введите целое десятичное число: "));
+console.log(toBinary(dec));
