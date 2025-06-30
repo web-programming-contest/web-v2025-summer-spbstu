@@ -1,3 +1,4 @@
+// Solution 1
 function findPairsWithSum(arr, sum) {
     let prefixes = {}
     let res = []
@@ -12,6 +13,26 @@ function findPairsWithSum(arr, sum) {
     return res
 }
 
+
+// Solution 2
+function findPairsWithSum(arr, sum) {
+    let i = 0
+    let j = arr.length - 1
+    let res = []
+    arr = arr.sort((a,b) => a - b)
+    while (i < j) {
+        if (arr[i] + arr[j] === sum) {
+            res.push([arr[i], arr[j]])
+            j--
+            i++
+        } else if (arr[i] + arr[j] > sum) {
+            j--
+        } else {
+            i++
+        }
+    }
+    return res
+}
 
 console.log(findPairsWithSum([1, 2, 7, 4, 5, 6], 7))
 console.log(findPairsWithSum([1, 2, 3, 4, 5, 6], 6))
