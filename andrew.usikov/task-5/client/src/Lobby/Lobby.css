@@ -1,0 +1,163 @@
+.lobby-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 25px;
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  backdrop-filter: blur(12px);
+}
+
+.lobby-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 30px;
+  background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+.games-list {
+  margin-bottom: 40px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.game-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  box-shadow: 
+    0 5px 15px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(0, 0, 0, 0.03) inset;
+  transition: all 0.3s ease;
+}
+
+.game-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.game-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-creator {
+  font-weight: 700;
+  color: #504e70;
+  margin-bottom: 5px;
+}
+
+.game-players {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.join-button {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #11998e 0%, #38ef7d 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.join-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(17, 153, 142, 0.3);
+}
+
+.join-button:disabled {
+  background: linear-gradient(to right, #cccccc 0%, #aaaaaa 100%);
+  color: #888888;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: 
+    0 3px 10px rgba(0, 0, 0, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.join-button:hover:disabled {
+  background: linear-gradient(to right, #cccccc 0%, #aaaaaa 100%);
+  box-shadow: 
+    0 3px 10px rgba(0, 0, 0, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.no-games {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+  font-style: italic;
+}
+
+.lobby-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.create-game-button {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  border: none;
+  border-radius: 18px;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.back-button {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;    
+  background: rgba(255, 255, 255, 0.85);
+  color: #504e70;
+  border: none;
+  border-radius: 18px;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  box-shadow: 
+    0 5px 15px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(0, 0, 0, 0.03) inset;
+}
+
+.create-game-button:hover,
+.back-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 600px) {
+  .lobby-container {
+    padding: 20px;
+  }
+  
+  .lobby-actions {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .create-game-button,
+  .back-button {
+    width: 100%;
+  }
+}

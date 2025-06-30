@@ -1,0 +1,278 @@
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 500px;
+  width: 100%;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 25px;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.game::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.6);
+  z-index: -1;
+  border-radius: 25px;
+}
+
+.status {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: center;
+  padding: 15px 30px;
+  border-radius: 15px;
+  background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  box-shadow: 0 5px 15px rgba(37, 117, 252, 0.3);
+  width: 100%;
+  min-height: 120px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status.winner {
+  background: linear-gradient(to right, #11998e 0%, #38ef7d 100%);
+  animation: pulse 1.5s infinite;
+}
+
+.status.tie {
+  background: linear-gradient(to right, #ff416c 0%, #ff4b2b 100%);
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+.game-board {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(0, 0, 0, 0.05) inset;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.board-row {
+  display: flex;
+  justify-content: center;
+}
+
+.square {
+  width: 90px;
+  height: 90px;
+  margin: 8px;
+  border: none;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    0 5px 15px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(0, 0, 0, 0.03) inset;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.square:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.square:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.square.win-highlight {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 241, 135, 0.7) 100%);
+  animation: highlight 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes highlight {
+  0% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 215, 0, 0.5); }
+  100% { transform: scale(1.05); box-shadow: 0 0 15px rgba(255, 215, 0, 0.8); }
+}
+
+.figure {
+  width: 70%;
+  height: 70%;
+  filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.2));
+  animation: appear 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes appear {
+  0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+.figure[src*="cross"] {
+  filter: drop-shadow(2px 2px 3px rgba(255, 0, 0, 0.2));
+}
+
+.figure[src*="circle"] {
+  filter: drop-shadow(2px 2px 3px rgba(0, 0, 255, 0.2));
+}
+
+.game-controls {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.reset-button {
+  background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  border: none;
+  border-radius: 18px;
+  padding: 15px 30px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  position: relative;
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  min-width: 200px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.reset-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 12px 30px rgba(37, 117, 252, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+}
+
+.reset-button:active {
+  transform: translateY(1px);
+}
+
+.reset-button:disabled {
+  content: 'Wait for an opponent';
+  background: linear-gradient(to right, #8e9eab 0%, #eef2f3 100%);
+  cursor: not-allowed;
+  animation: pulse 1.5s infinite;
+  box-shadow: 
+    0 0 0 rgba(142, 158, 171, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.reset-button:hover:disabled {
+  transform: none;
+  box-shadow: 
+    0 0 0 rgba(142, 158, 171, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 
+      0 0 0 0 rgba(142, 158, 171, 0.4),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 
+      0 0 0 10px rgba(142, 158, 171, 0),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 
+      0 0 0 0 rgba(142, 158, 171, 0.4),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  }
+}
+
+.exit-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.exit-button {
+  background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(245,245,255,0.85) 100%);
+  border: none;
+  border-radius: 18px;
+  padding: 15px 30px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #504e70;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(0, 0, 0, 0.05) inset;
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+  min-width: 200px;
+  justify-content: center;
+}
+
+.exit-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 12px 30px rgba(37, 117, 252, 0.25),
+    inset 0 0 0 1px rgba(37, 117, 252, 0.2);
+  color: #6a11cb;
+}
+
+.exit-button:active {
+  transform: translateY(2px);
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.15),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.exit-text, .reset-text {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 2;
+}
+
+.exit-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(106, 17, 203, 0.1) 0%, rgba(37, 117, 252, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.exit-button:hover::before {
+  opacity: 1;
+}
