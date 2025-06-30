@@ -15,6 +15,7 @@ export default function HomePage({ onSelectMode }) {
             placeholder="Enter your nickname..."
             className="nickname-input"
             value={nickname}
+            maxLength={13}
             onChange={(e) => setNickname(e.target.value)}
           />
         </div>
