@@ -9,14 +9,14 @@ function Square({ value, onSquareClick, ifInWinCombo }) {
   );
 }
 
-function Board({ xIsNext, squares, userIsNext, userFigure, nickname, opponent, onPlay, gameID, gameMode, socket }) {
+function Board({ xIsNext, squares, userIsNext, userFigure, nickname, opponent, onPlay, gameMode, gameID, socket }) {
   function handleClick(i) {
     if (calculateWinner(squares)[0] || squares[i] || !userIsNext || opponent === '') {
       return;
     }
 
     if (gameMode === 'player') {
-      socket.emit('game move', i, userFigure);
+      socket.emit('game move', gameID, i, userFigure);
     } else {
       const nextSquares = squares.slice();
 
@@ -30,7 +30,10 @@ function Board({ xIsNext, squares, userIsNext, userFigure, nickname, opponent, o
   }
 
   useEffect(() => {
-    socket.on('game move responce', (i, figure) => {
+    socket.on('game move responce', (id, i, figure) => {
+      if (id !== gameID) {
+        return;
+      }
       squares[i] = figure;
       onPlay(squares);
     });
@@ -109,7 +112,10 @@ export default function Game({gameMode, nickname, onReturnToMainMenu, socket, id
   console.log(id);
 
   useEffect(() => {
-    socket.on('opponent connect', opponent => {
+    socket.on('opponent connect', (gameID, opponent) => {
+      if (gameID !== id) {
+        return;
+      }
       if (isCreator) {
         setOpponent(opponent);
         if (id === -1) {
@@ -130,8 +136,8 @@ export default function Game({gameMode, nickname, onReturnToMainMenu, socket, id
       setResetBtnDisabled(false);
     });
 
-    socket.on('re-init approved', () => {
-      if (id === -1) {
+    socket.on('re-init approved', (gameID) => {
+      if (id === -1 || id !== gameID) {
         return;
       }
       socket.emit('re-init request', id, isCreator);

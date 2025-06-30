@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import HomePage from './HomePage/HomePage';
 import Game from './Game/Game';
 import Lobby from './Lobby/Lobby';
