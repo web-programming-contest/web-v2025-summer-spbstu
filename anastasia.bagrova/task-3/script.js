@@ -8,5 +8,5 @@ let str = prompt(`Введите, пожалуйста, исходный мас�
 [число, число, ..., число]`);
 let strArr = str.slice(1,str.length-1).split(', ');
 let numArr = strArr.map((str) => Number(str));
-console.log('Исходный массив:', numArr);
-console.log('Массив без дубликатов:', removeDuplicates(numArr));
+console.log('Исходный массив: ', numArr);
+console.log('Массив без дубликатов: ', removeDuplicates(numArr));
