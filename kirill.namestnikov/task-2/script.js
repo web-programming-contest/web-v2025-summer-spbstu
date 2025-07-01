@@ -1,6 +1,6 @@
 function findLongestPalindrome(str){
     if ((!str) || (str.length === 0)){
-        return "";
+        throw new Error("String should not be empty");
     }
     let start = 0;
     let end = 0;
@@ -24,7 +24,12 @@ function countPalindromeLength(str, left, right){
     return right - left - 1;
 }
 
-console.log(findLongestPalindrome("abba"));
-console.log(findLongestPalindrome("acacac"));
-console.log(findLongestPalindrome("a"));
-console.log(findLongestPalindrome(""));
+try{
+    console.log(findLongestPalindrome("abba"));
+    console.log(findLongestPalindrome("acacac"));
+    console.log(findLongestPalindrome("a"));
+    console.log(findLongestPalindrome(""));
+}
+catch (e){
+    console.log(e.message);
+}
