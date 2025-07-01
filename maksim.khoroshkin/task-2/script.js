@@ -49,6 +49,26 @@ function processInput() {
   dayInput = parseInt(dayInput);
   monthInput = parseInt(monthInput);
 
+  const daysInMonth = {
+    1: 31,
+    2: 29,
+    3: 31,
+    4: 30,
+    5: 31,
+    6: 30,
+    7: 31,
+    8: 31,
+    9: 30,
+    10: 31,
+    11: 30,
+    12: 31,
+  };
+
+  if (dayInput > daysInMonth[monthInput]) {
+    resultWindow.textContent = "incorrect input";
+    return;
+  }
+
   let result = defineZodiacSign(dayInput, monthInput);
 
   resultWindow.textContent = result;
