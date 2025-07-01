@@ -3,10 +3,10 @@ let n = 6;
 
 function findMaxSubarray(arr, n){
     let result = 0;
-    for (let i = 0; i < arr.length; ++i)
+    for (let i = 0; i <= arr.length - n; ++i)
     {
         let sum = 0;
-        for (let j = i; j < arr.length - n; ++j)
+        for (let j = i; j < i + n; ++j)
         {
             sum += arr[j];            
         }
@@ -14,7 +14,7 @@ function findMaxSubarray(arr, n){
     }
     return result
 }
-let result = findMaxSubarray(arr,n);
+let maxSum = findMaxSubarray(arr,n);
 
 console.log(maxSum)
 
