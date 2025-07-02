@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+        <h1><u>Моя Кулинарная Книга</u></h1>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="bgrnd" style="z-index: -5;">
+            <div style="z-index : -4; width : 100vw; height : 100vw"></div>
+            <div style="z-index : -3; width : 80vw; height : 80vw;"></div>
+            <div style="z-index : -2; width : 60vw; height : 60vw;"></div>
+            <div style="z-index : -1; width : 40vw; height : 40vw;"></div>
+        </div>
+        <div id="recipes">
+            <form class="parent">
+                <div class="section" id="child1">
+                    <label for="Name">НАЗВАНИЕ РЕЦЕПТА</label>
+                    <div class="field">
+                        <input type="text" id="recipeName">
+                    </div>
+                </div>
+                <div class="section" id="child2">
+                    <label for="ingr">ИНГРЕДИНЕТЫ</label>
+                    <div class="field">
+                        <input type="text" id="ingrd">
+                        <button type="button" id="addIngr">Добавить</button>
+                    </div>
+                </div>
+                <div class="section" id="child3">
+                    <label for="step">ШАГ ПРИГОТОВЛЕНИЯ</label>
+                    <div class="field">
+                        <input type="text" id="prepstep">
+                        <button type="button" id="addStep">Добавить</button>
+                    </div>
+                </div>
+                <button type="button" id="create">Создать</button>
+            </form>
+            <div id="recipes-list">
+            </div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
