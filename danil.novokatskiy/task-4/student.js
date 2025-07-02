@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         `).join('')}
         <div class="add-grade-form">
-          <input type="text" placeholder="Новый предмет" class="new-subject">
+          <input type="text" autocomplete="on" placeholder="Новый предмет" class="new-subject">
           <select class="new-grade-select">
             <option value="">Выберите оценку</option>
             <option value="2">2</option>
@@ -143,12 +143,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelectorAll('.delete-grade-btn').forEach(btn => {
       btn.addEventListener("click", async e => {
-        const id = parseInt(e.target.closest(".add-grade-form").dataset.id);
-        const subject = e.target.dataset.subject;
+        const studentCard = e.target.closest(".student-card");
+        const id = parseInt(studentCard.dataset.id);
+        const newSubject = studentCard.querySelector(".new-subject");
+        const newGrade = studentCard.querySelector(".new-grade-select");
 
-        await deleteGrade(id, subject);
-        saveStudentsToLocalStorage();
-        renderStudents();
+        const subject = newSubject.value.trim();
+        const grade = newGrade.value ? parseInt(newGrade.value) : null;
+        try {
+          await deleteGrade(id, subject, grade);
+          newSubject.value = "";
+          newGrade.value = "";
+        } catch (e) {
+          alert(e);
+        }
       })
     })
 
@@ -227,19 +235,19 @@ document.addEventListener("DOMContentLoaded", () => {
           if (!student.grades[subject]) {
             throw new Error("Subject is not found");
           }
-          student.grades[subject] = student.grades[subject].filter(g => g !== grade);
-
-          if (!student.grades[subject].length) {
-            delete student.grades[subject];
+          if (confirm("Are you sure you want to delete this grade?")) {
+            student.grades[subject] = student.grades[subject].filter(g => g !== grade);
+            if (!student.grades[subject].length) {
+              delete student.grades[subject];
+            }
+            saveStudentsToLocalStorage();
+            renderStudents();
           }
-          saveStudentsToLocalStorage();
-          renderStudents();
         } catch (e) {
           alert(e);
         }
       }, 1000)
     })
   }
-
 });
 
