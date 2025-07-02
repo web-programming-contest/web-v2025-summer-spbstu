@@ -12,11 +12,7 @@ export class Student {
     } else {
       throw Error(`Name ${name} is not a string`);
     }
-    if (grades === null) {
-      this.grades = {};
-    } else {
-      this.grades = grades;
-    }
+    this.grades = grades || {};
   }
 
   addGrade(subject, grade) {
@@ -34,19 +30,21 @@ export class Student {
 
     for (const tmpSubject in this.grades) {
       if (tmpSubject === subject) {
-        this.grades[tmpSubject] = grade;
+        this.grades[tmpSubject].push(grade);
       }
     }
-    this.grades[subject] = grade;
+    this.grades[subject].push(grade);
   }
 
   getAverageGrade() {
-    const values = Object.values(this.grades);
-    let result = 0;
-    for (let i = 0; i < values.length; i++) {
-      result += values[i];
+    const allGrades = [];
+    for (const subject in this.grades) {
+      allGrades.push(...this.grades[subject]);
     }
-    return +(result / Object.keys(this.grades).length).toFixed(2);
+    if (!allGrades.length) {
+      return undefined;
+    }
+    return +(allGrades.reduce((a,b) => a + b, 0) / allGrades.length).toFixed(2);
   }
 
   get summary() {
