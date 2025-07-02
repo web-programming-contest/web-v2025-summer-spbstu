@@ -1,0 +1,293 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI";
+}
+
+/* загрузка */
+#loader {
+  position: absolute;
+  top: 50%;
+  margin: auto;
+  border: 10px solid #eaf0f6;
+  border-radius: 50%;
+  border-top: 10px solid #ff7a59;
+  width: 50px;
+  height: 50px;
+  animation: spinner 2s ease-in-out infinite;
+  transition: opacity 0.5s ease-in-out;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+body {
+  background-color: rgb(255, 248, 248);
+}
+
+/* управление */
+header {
+  background-color: rgb(255, 248, 248);
+  position: sticky;
+  /* border-bottom: 3px solid black; */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: max(15vh, 150px);
+  /* height: max(15vh, 150px); */
+  z-index: 4;
+
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+}
+
+h1 {
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* кнопка добавить рецепт */
+#addRecepie {
+  position: absolute;
+  /* top: 10px; */
+  bottom: 10px;
+  left: 10px;
+  background-color: transparent;
+  border: 3px solid transparent;
+  border-radius: 10px;
+  font-size: 16px;
+  padding: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+@media (max-width: 800px) {
+  #addRecepie {
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    padding: 0;
+  }
+}
+
+#addRecepie:hover {
+  background-color: rgb(255, 252, 252);
+  box-shadow: 6px 6px 10px 0 rgba(0, 0, 0, 0.24);
+}
+
+/* Для красивых закруглений под header */
+
+.customBorder {
+  position: absolute;
+  bottom: -3px;
+  left: 5%;
+  border-bottom: 3px solid black;
+  width: 90%;
+}
+
+.forDecorOut {
+  background-color: transparent;
+  position: sticky;
+  top: calc(15vh + 3px);
+  z-index: 5;
+  height: 0px;
+}
+
+.forDecorIn {
+  background-color: transparent;
+  width: calc(5% + 3px);
+  height: 17px;
+}
+
+.right,
+.left {
+  position: fixed;
+  top: max(15vh, 150px);
+}
+
+.right {
+  right: 0;
+}
+
+.left {
+  left: 0;
+}
+
+.leftBorder,
+.rightBorder {
+  border-top: 3px solid black;
+  height: 100%;
+  background-color: transparent;
+}
+
+.leftBorder {
+  border-radius: 10px 0 0 0;
+}
+
+.rightBorder {
+  border-radius: 0 10px 0 0;
+}
+
+/* конец красивых закруглений */
+
+/* Основной контейнер */
+main {
+  background-color: rgb(245, 245, 220);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* border-radius: 15px 15px 0 0;
+    border-top: 3px solid black; */
+  min-height: calc(85vh - 23px);
+  padding: 10px;
+}
+.forTable {
+  margin: 20px 0;
+  min-height: 78vh;
+  width: 80vw;
+
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 0.5fr));
+  justify-content: center;
+}
+
+label {
+  font-size: 120%;
+  font-weight: bold;
+  overflow-x: hidden;
+}
+
+/* Выпадающие списки  */
+.for-lists {
+  display: flex;
+  margin-top: 35px;
+  justify-content: center;
+  align-items: end;
+  width: 60vw;
+  height: 50px;
+}
+
+/* контейнер со всей конструкцией */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: 20px;
+}
+
+/* отступ у левого списка */
+.Source {
+  margin-right: 60px;
+}
+
+/* кнопка с выбранным вариантом */
+.listObjectBtn,
+.listSourceBtn {
+  width: 15vw;
+  height: 70px;
+  overflow: hidden;
+  padding: 10px;
+  background-color: transparent;
+  border: 3px solid transparent;
+  border-radius: 10px;
+  font-size: 16px;
+  padding: 10px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+@media (max-width: 1220px) {
+  .listObjectBtn,
+  .listSourceBtn {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 800px) {
+  .listObjectBtn,
+  .listSourceBtn {
+    width: 40vw;
+  }
+  .dropdown-content {
+    width: 40vw !important;
+  }
+  .Source {
+    margin-right: 1%;
+  }
+}
+
+.listObjectBtn:hover,
+.listSourceBtn:hover {
+  background-color: rgb(255, 252, 252);
+  box-shadow: 6px 6px 10px 0 rgba(0, 0, 0, 0.24);
+}
+
+/* кнопки со всеми вариантами */
+.sourceBtn:hover,
+.objectBtn:hover {
+  background-color: #e9e9e9;
+  border: 2px solid transparent;
+}
+
+/* контейнер этих кнопок */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  background-color: white;
+  width: 15vw;
+  max-height: 250px; /* максимальная высота списка*/
+  overflow-y: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 7;
+  overflow-x: hidden;
+  left: 50%;
+  transform: translateX(-50%);
+  flex-direction: column;
+  border-radius: 10px;
+}
+
+/* сами кнопки */
+.dropdownBtn {
+  background: none;
+  background-color: white;
+  border: 2px solid transparent;
+  cursor: pointer;
+  font-size: 14px;
+  color: #1f1f1f;
+  border-radius: 0;
+  padding: 10px 16px;
+  font-family: "IBM Plex Sans", sans-serif;
+  margin-top: 3px;
+}
+
+/* первая кнопка */
+.specialBtn {
+  font-weight: 600;
+  color: #1a73e8;
+  border-bottom: 2px solid #1a73e88e;
+  background-color: #ffffff;
+  margin-top: 3px;
+}
+
+.dropdown-content {
+  animation: fadeInDown 0.2s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-5%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
