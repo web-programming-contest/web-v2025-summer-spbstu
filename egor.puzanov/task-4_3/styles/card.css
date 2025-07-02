@@ -1,0 +1,255 @@
+/* Все для карточки рецепта */
+
+/* карточка внутри */
+.card {
+  background-color: white;
+  height: calc(100% - 40px);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  overflow-x: hidden;
+  overflow-y: auto !important;
+}
+/* внешний контейнер */
+.OuterCard {
+  border-radius: 10px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 7px 7px 5px lightgrey;
+  transition: all 0.5s;
+  min-height: 40vh;
+  max-height: 60vh;
+  background-color: white;
+  /* transform: all 0.5s; */
+  background: 10vw;
+}
+
+@media (max-width: 350px) {
+  .OuterCard {
+    width: 90%;
+  }
+}
+/* если карточка не выбрана */
+.OuterCard:hover:not(.cardClicked) {
+  box-shadow: 7px 7px 10px rgb(170, 170, 170);
+  transform: scale(1.05);
+  transition: all 0.5s;
+  z-index: 1;
+}
+
+/* заголовок карточки*/
+h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+/* картинка на карточке */
+
+img {
+  display: block;
+  aspect-ratio: auto;
+  /* min-height: 15vw; */
+  max-width: 90%;
+  margin: 10px 0;
+  align-content: center;
+}
+
+.cardClicked img {
+  /* max-width: none; */
+  min-height: 25vw;
+}
+/* заголовки списков */
+label {
+  float: left;
+  margin-right: 10px;
+  margin-top: 8px;
+}
+
+@media (max-width: 1000px) {
+  p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  p {
+    font-size: 12px;
+  }
+}
+
+.cardClicked label {
+  margin-top: 3px;
+}
+
+p {
+  text-align: justify;
+}
+
+.card > p {
+  display: flex;
+  margin-top: 10px;
+  margin-left: 20px;
+  align-self: flex-start;
+  font-weight: 400;
+  height: 30px;
+  width: auto;
+  align-items: center;
+}
+
+/* списки */
+.card ul,
+.card ol {
+  margin-top: 5px;
+  margin-left: 40px;
+  align-self: flex-start;
+  font-weight: 400;
+}
+
+.cardClicked .card > p {
+  margin-left: calc(10% - 20px);
+}
+
+.cardClicked ul,
+.cardClicked ol {
+  margin-top: 5px;
+  margin-left: 10%;
+  align-self: flex-start;
+  font-weight: 400;
+}
+
+/* текст ингридиентов и шагов */
+li > p {
+  display: inline;
+  /* width: auto; */
+}
+
+li {
+  padding-left: 10px;
+}
+
+/* Когда нажали на карточку */
+
+.GrayScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: -1;
+  opacity: 0;
+}
+
+.unhidden {
+  opacity: 0.7 !important;
+  z-index: 7 !important ;
+  transition: opacity 1s;
+}
+.OuterCard.cardClicked {
+  font-size: 20px;
+  width: 80vw;
+  height: 90vh;
+  /* overflow: visible; */
+  background-color: white;
+  z-index: 8;
+  transform: translate(var(--val), var(--val2));
+  transition: z-index 0s ease-in-out, width 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s ease-in-out;
+}
+
+.cardClicked.part2 {
+  position: fixed;
+  /* top: calc(var(--top)); */
+  top: calc(var(--top) - var(--val2));
+  left: calc(var(--left) - var(--val));
+  max-height: 100%;
+  transition: max-height 2s cubic-bezier(0.4, 0, 0.2, 1);
+  /* transform 0.7s ease-in-out; */
+}
+
+.cardClicked .card {
+  /* height: calc(100% - 20px); */
+  min-height: calc(var(--height) * 2 - 60px);
+}
+/* кнопки на карточке */
+.hiddenButton {
+  display: inline;
+  visibility: hidden;
+  background-color: transparent;
+  border: 2px solid transparent;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.cardClicked .hiddenButton {
+  border-radius: 10%;
+  cursor: pointer;
+  visibility: visible;
+  opacity: 1;
+}
+
+.cardClicked .hiddenButton:hover {
+  background-color: rgb(250, 250, 255);
+  box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.24);
+  scale: 1.05;
+  transition: all 0.2s ease-in-out;
+}
+
+/* кнопка удалить рецепт */
+.bottomButton {
+  width: 150px;
+  position: relative;
+  padding: 5px;
+  bottom: 50px;
+  left: calc(50% - (150px / 2));
+  font-size: 16px;
+  transition: opacity 1s;
+  transition-delay: 1.5s;
+}
+
+/* иконки для добавления/удаления ингредиентов/шагов */
+.iconAdd {
+  fill: rgb(54, 188, 87);
+  position: relative;
+  top: 4px;
+}
+
+.iconDel {
+  fill: #ff7a59;
+  position: relative;
+  top: 4px;
+}
+
+@media (max-width: 600px) {
+  svg {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+/* поля ввода на карточке */
+.card .cardInput {
+  margin-left: 10px;
+  position: relative;
+  top: 4px;
+  visibility: hidden;
+  opacity: 0;
+  transition: 
+        /* opacity 0.5s ease-in-out, */ visibility 0.5s
+    ease-in-out;
+  height: 20px;
+  width: 10px;
+  padding: 2px;
+  padding-left: 5px;
+}
+
+.cardInput.add {
+  width: 40vw !important;
+  transition: width 2s linear;
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s;
+}
