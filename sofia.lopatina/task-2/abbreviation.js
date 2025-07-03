@@ -1,4 +1,8 @@
 "use strict";
 
-function convert_to_abbr() {}
+let button = document.querySelector('#button');
+button.addEventListener('click', convertToAbbr);
 
+function convertToAbbr() {
+    console.log('y');
+}
