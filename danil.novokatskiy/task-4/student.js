@@ -58,7 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
-
   function saveStudentsToLocalStorage() {
     localStorage.setItem("students", JSON.stringify(students));
   }

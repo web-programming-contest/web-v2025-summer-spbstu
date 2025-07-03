@@ -16,7 +16,7 @@ export class Student {
   }
 
   addGrade(subject, grade) {
-    if (grade === undefined) {
+    if (grade === undefined || grade === null) {
       throw Error(`Grade ${grade} is not a number`);
     }
 
@@ -58,7 +58,7 @@ export class Student {
 
 function groupStudentsByAverageGrade(students) {
   if (!students.length || !Array.isArray(students)) {
-    return [];
+    return {};
   }
   let groups  = {
     'A' : [],
@@ -83,7 +83,7 @@ function groupStudentsByAverageGrade(students) {
 
 function getListOfStudentsWhoPassedSubject(students, subject) {
   if (subject === null || typeof(subject) !== 'string' || !students.length || subject === '') {
-    return [];
+    return {};
   }
 
   let result = [];
@@ -102,7 +102,7 @@ function getListOfStudentsWhoPassedSubject(students, subject) {
 
 function groupStudentsBySubjects(students) {
   if (!students.length) {
-    return [];
+    return new Map;
   }
   const result = new Map();
   for (const student of students) {
@@ -119,11 +119,15 @@ function groupStudentsBySubjects(students) {
 }
 
 function getUniqueSubject(students) {
+  if (!!students) {
+    return [];
+  }
+
   let result = [];
   for (const student of students) {
-    for (const grade in student.grades) {
-      if (!result.includes(grade)) {
-        result.push(grade);
+    for (const subject in student.grades) {
+      if (!result.includes(subject)) {
+        result.push(subject);
       }
     }
   }
@@ -131,14 +135,12 @@ function getUniqueSubject(students) {
 }
 
 function getStudentsWithMaxAverageGrade(students) {
-  if (!students.length) {
+  if (!!students) {
     return [];
   }
   let result = [];
-  let grades = [];
-  for (const student of students) {
-    grades.push(student.getAverageGrade());
-  }
+  const grades = students.map(student => student.getAverageGrade())
+
   const maxAverageGrade = Math.max(...grades);
   for (const student of students) {
     if (student.getAverageGrade() === maxAverageGrade) {
