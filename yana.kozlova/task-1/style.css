@@ -1,0 +1,16 @@
+ul {
+    list-style-type: none;
+    padding-left: 5px;
+}
+
+.completed::before {
+    content: "\2705";
+}
+
+.not_completed::before {
+    content: "\274C";
+}
+
+.in_progress::before {
+    content: "\231B";
+}

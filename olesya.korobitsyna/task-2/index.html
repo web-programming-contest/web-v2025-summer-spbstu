@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форматирование номера телефона</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input {
+            padding: 12px;
+            font-size: 16px;
+            width: 250px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .formatted-phone {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .error-message {
+            margin-top: 10px;
+            color: #d32f2f;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .success-message {
+            margin-top: 10px;
+            color: #388e3c;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Форматирование номера телефона</h2>
+    <input type="text" id="phoneInput" placeholder="Введите номер телефона">
+    <button onclick="formatPhone()">Форматировать</button>
+    <div id="result" class="formatted-phone"></div>
+    <div id="message"></div>
+
+    <script>
+        function formatPhoneNumber(phoneStr) {
+            let cleaned = phoneStr.replace(/\D/g, '');
+            if (cleaned.length === 0) {
+                return {success: false, message: "Номер должен содержать цифры"};
+            }
+            if (cleaned.length < 10) {
+                return {success: false, message: "Слишком мало цифр. Нужно минимум 10, а введено: " + cleaned.length};
+            }
+            if (cleaned.startsWith('8') && cleaned.length === 11) {
+                cleaned = '7' + cleaned.substring(1);
+            }
+            else if (cleaned.length === 10) {
+                cleaned = '7' + cleaned;
+            }
+            else if (cleaned.length === 11 && !/^[78]/.test(cleaned)) {
+                return {success: false, message: "Неверный код страны. Номер должен начинаться с 7 или 8"};
+            }
+            if (cleaned.length > 11) {
+                return {success: false, message: "Слишком много цифр. Максимум 11, а введено: " + cleaned.length};
+            }
+            let match = cleaned.match(/^(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})$/);
+            if (match) {
+                return {
+                    success: true,
+                    formatted: `+${match[1]} (${match[2]}) ${match[3]}-${match[4]}-${match[5]}`
+                };
+            }
+            return {success: false, message: "Неверный формат номера"};
+        }
+        function formatPhone() {
+            const input = document.getElementById('phoneInput').value;
+            const resultContainer = document.getElementById('result');
+            const messageContainer = document.getElementById('message');
+            resultContainer.textContent = '';
+            messageContainer.textContent = '';
+            messageContainer.className = '';
+            if (!input.trim()) {
+                showMessage('Пожалуйста, введите номер телефона', 'error');
+                return;
+            }
+            if (!/\d/.test(input)) {
+                showMessage('Номер должен содержать цифры', 'error');
+                return;
+            }
+            const result = formatPhoneNumber(input);
+            if (result.success) {
+                resultContainer.textContent = result.formatted;
+                showMessage('Номер успешно отформатирован!', 'success');
+            } else {
+                showMessage(result.message, 'error');
+            }
+        }
+        function showMessage(text, type) {
+            const messageContainer = document.getElementById('message');
+            messageContainer.textContent = text;
+            messageContainer.className = type + '-message';
+        }
+    </script>
+</body>
+</html>

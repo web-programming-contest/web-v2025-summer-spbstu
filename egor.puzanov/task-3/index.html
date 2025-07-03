@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Задание 3</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="main">
+    <h1>Найти пересечение двух массивов 🤔🔍</h1>
+    <div class="outerDiv"> 
+      <div style="margin-right: 30px;">
+        <label for="arr1">Элементы первого массива <br>(через запятую с пробелом)</label>
+        <textarea id="arr1" name="arr1" placeholder="1, 2, 3, 4" id="arr1"></textarea>
+      </div>
+      <div>
+        <label for="arr2">Элементы второго массива <br>(через запятую с пробелом)</label>
+        <textarea id="arr2" name="arr2" placeholder="5, 6, 7, 8" id="arr2"></textarea>
+      </div>
+    </div>
+    <button id="start">Узнать</button>
+    
+    <div id="forError"></div>
+    
+    <div class="displayDiv" id="displayDiv">
+      <div class="outerDiv" style="margin-top: 10px;"> 
+        <div style="margin-right: 30px;">
+          <label class="displayElementsLabel">Элементы первого массива</label>
+          <div class="elementsDiv" id="elementsDiv1">
+          </div>
+        </div>
+        <div>
+          <label class="displayElementsLabel">Элементы второго массива</label>
+          <div class="elementsDiv" id="elementsDiv2">
+          </div>
+        </div>
+      </div>
+      <div id="forStyle">
+        <label id="labelMessage"></label>
+        <div id="forMessage"></div>
+      </div>
+    </div>
+
+    <button id="check">Попробовать случайный пример</button>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>
