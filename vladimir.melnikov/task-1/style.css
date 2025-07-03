@@ -1,0 +1,41 @@
+.underline {
+  position: relative;
+}
+
+.underline::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background-color: black;
+}
+
+.underline-bold {
+  position: relative;
+}
+
+.underline-bold::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background-color: black;
+}
+
+.underline-red {
+  position: relative;
+}
+
+.underline-red::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background-color: red;
+}
