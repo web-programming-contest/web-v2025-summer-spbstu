@@ -1,0 +1,16 @@
+div {
+    font-family: sans-serif;
+    padding: 8px;
+}
+
+div input {
+    margin-bottom: 10px;
+}
+
+div #resultOutput {
+    margin-top: 20px;
+    text-align: center;
+    width: 150px;
+    height: 20px;
+    border:  1px solid black;
+}
