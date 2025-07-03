@@ -1,0 +1,114 @@
+/* Все для формы создания рецепта */
+
+/* ввод названия рецепта */
+#input-t {
+  visibility: visible;
+  opacity: 1;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #444;
+  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+  width: 40vw;
+  transition: 0s;
+}
+
+#input-t:focus {
+  /* background-color: #FF7A59; */
+  outline: none;
+  /* border-bottom: 2px solid #444; */
+}
+
+/* сам контейнер формы */
+.formCreate {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* .formCreate.cardClicked{
+    opacity: 1;
+} */
+
+/* контейнер куда выводятся ошибки */
+#formError {
+  align-self: center;
+  margin-left: 0;
+  color: red;
+  opacity: 0;
+  transition: opacity 0.2s;
+  position: absolute;
+  /* padding: 5px; */
+  bottom: 20px;
+}
+/* кнопка добавить файл */
+#fileInput {
+  visibility: visible;
+  opacity: 1;
+  margin: 0;
+  text-align: center;
+  width: 105px;
+}
+
+/* поля ввода на форме */
+.card .formAdd {
+  margin-left: 10px;
+  position: relative;
+  top: 4px;
+  visibility: hidden;
+  opacity: 0;
+  transition: 
+        /* opacity 0.5s ease-in-out, */ visibility 0.5s
+    ease-in-out;
+  height: 20px;
+  width: 10px;
+  padding: 2px;
+  padding-left: 5px;
+}
+
+.formAdd.add {
+  width: 40vw !important;
+  transition: width 2s linear;
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+/* кнопки добавить рецепт и отменить */
+.bottomButtonForm {
+  width: 150px;
+  padding: 5px;
+  bottom: 50px;
+  font-size: 16px;
+  transition: opacity 1s;
+  transition-delay: 1.5s;
+}
+
+/* когда собщение об ошибке выводится */
+#formError.display {
+  opacity: 0.6;
+}
+
+/* контейнер нижних кнопок */
+.forButtons {
+  display: flex;
+  margin-bottom: 50px;
+  width: 100%;
+  border-top: 2px solid #444;
+  border-radius: 10px 10px 0 0;
+  padding-top: 10px;
+}
+/* для каждой кнопки отдельно */
+.delRecButton {
+  margin-left: calc(10% - 20px);
+}
+.addRecButton {
+  position: absolute;
+  right: calc(10% - 20px);
+  /* margin-left: calc(60% + 0px); */
+}
+
+.formAdd {
+  transition: width 0.5s !important;
+}
