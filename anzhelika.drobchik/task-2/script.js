@@ -1,7 +1,7 @@
 'use strict'
 
 function findTheLongestPalindrome(str) {
-
+  if (typeof str !== 'string') str = String(str);
   // Обрабатываем входную строку, добавляя '#' между символами и в начало/конец
   const t = '#' + str.split('').join('#') + '#';
   const arrOfRadius = new Array(t.length).fill(0); // Массив радиусов палиндромов для каждого центра
