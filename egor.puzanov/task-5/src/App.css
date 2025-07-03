@@ -7,7 +7,7 @@
 
 .forButtons{
   height: 60vh;
-  width: 40vw;
+  width: 20vw;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(6, 1fr);
@@ -30,8 +30,8 @@
 
 }
 
-.forNumButtons button{
-  width: calc(10vw - 10px);
+button{
+  width: calc(5vw - 10px);
   height: calc(10vh - 10px);
   
   border-radius: 8px;
@@ -39,33 +39,33 @@
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #fafafa;
-  cursor: pointer;
-}
-
-.outerButton{
-  width: calc(10vw - 10px);
-  height: calc(10vh - 10px);
-  
-  border-radius: 8px;
-  border: 1px solid transparent;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #b1b0b0;
-  cursor: pointer;
-  
   margin: 5px;
+  cursor: pointer;
+}
+
+.forNumButtons button {
+  background-color: #fafafa;
 }
 
 
-.argInput{
-  width: calc(40vw - 6px);
-  height: 10vh;
-  font-size: 20px;
-  border: none;
-  outline: none;
+.argumentParagraph{
+  width: calc(20vw + 2px);
+  margin: 0 auto 10px auto;
+  height: 45px;
+  font-size: 40px;
   text-align: end;
+  vertical-align:bottom;
+}
+
+.expression{
+  width: calc(20vw + 2px);
+  margin: 0 auto 10px auto;
+  text-align: end;
+  padding-right: 30px;
+  margin-bottom: 0;
+  height: 25px;
+  font-size: 15px;
+  color: #797a81;
 }
 
 
