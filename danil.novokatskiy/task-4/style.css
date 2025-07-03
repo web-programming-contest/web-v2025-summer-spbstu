@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.students-list {
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.add-delete-box {
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-color: red;
+}
+
+.add-delete-box input {
+  width: 150px;
+  height: 25px;
+  margin-bottom: 10px;
+}
+
+.new-subject input:focus::placeholder {
+  color: transparent;
+}
+
+.add-delete-box input:focus::placeholder {
+  color: transparent;
+}
+
+.add-delete-box button {
+  width: 159px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);;
+}
+
+.add-grade-box {
+  display: flex;
+  flex-direction: column;
+}
+.add-grade-box button {
+  width: 150px;
+  height: 20px;
+  margin-bottom: 10px;
+}
