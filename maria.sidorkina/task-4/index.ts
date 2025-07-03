@@ -52,3 +52,31 @@ class MyEvent implements SomeEvent {
         return this.participants.length;
     }
 }
+
+function groupByDate(events: MyEvent[]): Record<string, MyEvent[]> {
+    return events.reduce((acc: Record<string, MyEvent[]>, ev) => {
+        const key = ev.date.toISOString().split('T')[0];
+        (acc[key] = acc[key] || []).push(ev);
+        return acc;
+    }, {});
+}
+
+function uniqueParticipants(events: MyEvent[]): string[] {
+    return Array.from(new Set(events.flatMap(ev => ev.participants)));
+}
+
+function groupByCount(events: MyEvent[]): Record<number, MyEvent[]> {
+    return events.reduce((acc: Record<number, MyEvent[]>, ev) => {
+        const key = ev.participantCount;
+        (acc[key] = acc[key] || []).push(ev);
+        return acc;
+    }, {});
+}
+
+function eventsWithPerson(events: MyEvent[], name: string): MyEvent[] {
+    return events.filter(ev => ev.participants.includes(name));
+}
+
+function eventsInMonth(events: MyEvent[], month: number): MyEvent[] {
+    return events.filter(ev => (ev.date.getMonth() + 1) === month);
+}
