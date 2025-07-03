@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <script src="removeDuplicates.js"></script>
+</head>
+<body>
+  <div class="container">
+    <label>Input array:<input id="inputLine" type="text" placeholder="1, 2, 3"></label>
+
+    <button id="processButton" onclick="
+      let arr = inputLine.value.split(',')
+        .map(element => element.trim())
+        .filter(element => /^\d+$/.test(element))
+        .map(Number);
+      resultLine.value = removeDuplicates(arr).join(', ');
+    ">Process</button>
+
+    <label>Result array:<input id="resultLine" type="text" readonly></label>
+  </div>
+</body>
+</html>
