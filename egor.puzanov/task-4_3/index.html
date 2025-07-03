@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Задание 4</title>
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <link rel="stylesheet" href="./styles/card.css" />
+    <link rel="stylesheet" href="./styles/form.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Книга рецептов</h1>
+      <button id="addRecepie">+ Добавить новый рецепт</button>
+
+      <div class="for-lists">
+        <!-- выпадающие списки -->
+        <div class="dropdown Source">
+          <div class="dropdown-content" id="sourceOptions">
+            <button class="dropdownBtn sourceBtn specialBtn">
+              Без группировки
+            </button>
+            <button class="dropdownBtn sourceBtn">
+              Сгруппировать по кол-ву ингредиентов
+            </button>
+            <button class="dropdownBtn sourceBtn">
+              Сгруппировать по кол-ву шагов
+            </button>
+          </div>
+          <button
+            class="listSourceBtn"
+            id="listSourceBtn"
+            title="Отображать данные по группам"
+          >
+            Без группировки
+          </button>
+        </div>
+
+        <div class="dropdown">
+          <div class="dropdown-content" id="objectOptions">
+            <button class="dropdownBtn objectBtn specialBtn">
+              Все ингрeдиенты
+            </button>
+          </div>
+          <button
+            class="listObjectBtn"
+            id="listObjectBtn"
+            title="Отображать данные для выбранного ингрeдиента"
+          >
+            Все ингрeдиенты
+          </button>
+        </div>
+      </div>
+
+      <div class="customBorder"></div>
+    </header>
+
+    <div class="forDecorOut">
+      <!-- закругления у main (типо) -->
+      <div class="forDecorIn left">
+        <div class="leftBorder"></div>
+      </div>
+      <div class="forDecorIn right">
+        <div class="rightBorder"></div>
+      </div>
+    </div>
+    <main>
+      <div id="forTable1" class="forTable"></div>
+      <div id="loader"></div>
+      <!-- иконка загрузки -->
+    </main>
+    <div id="GrayScreen1" class="GrayScreen"></div>
+    <div id="GrayScreen2" class="GrayScreen"></div>
+    <script src="./scripts/Recepie.js"></script>
+    <script src="./scripts/promises.js"></script>
+    <script src="./scripts/card.js"></script>
+    <script src="./scripts/form.js"></script>
+    <script src="./scripts/main.js"></script>
+  </body>
+</html>

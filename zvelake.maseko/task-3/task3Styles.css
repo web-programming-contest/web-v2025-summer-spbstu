@@ -1,0 +1,43 @@
+
+.Container{
+    display : flex;
+    flex-direction: row;
+}
+
+.Container-header{
+    width : 100%;
+    border-bottom: 2px solid #2e2c2c;
+    box-shadow: 0px 5px 15px green;
+    border-radius : 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+p{
+    /* width : 180px; */
+    /* height : 150px; */
+    margin : 10px;
+    border-bottom: 3px solid #030303;
+    padding : 10px;
+    border-radius : 20px;
+    text-align : justify;
+    font-family : "Times New Roman";
+    font-size : x-large;
+}
+
+.PfromJS{
+    display: flex;
+    flex-direction: row;
+    align-items : center;
+    justify-content: center;
+}
+
+.PfromJS p{
+    /* width : 190px; */
+    border : 1px solid rgb(255, 255, 255);
+    height: 9em;
+    font-size : x-large;
+    box-shadow: 0px 5px 15px #098b09;
+    color : rgb(192, 17, 17);
+}
