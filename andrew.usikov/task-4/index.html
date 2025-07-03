@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Clothing Store</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Clothing Store</h1>
+    <div class="forms">
+      <form id="add-item-form">
+        <h3>Add New Item</h3>
+        <label for="item-id">ID</label>
+        <input type="number" id="item-id" required />
+        <label for="item-name">Name</label>
+        <input type="text" id="item-name" required />
+        <label for="item-size">Size</label>
+        <select id="item-size" required>
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
+        </select>
+        <button type="submit">Add Item</button>
+      </form>
+      <form id="add-color-form">
+        <h3>Add Color to Item</h3>
+        <label for="color-item-id">Item ID</label>
+        <input type="number" id="color-item-id" required />
+        <label for="item-color">Color</label>
+        <input type="text" id="item-color" required />
+        <button type="submit">Add Color</button>
+      </form>
+      <div class="actions-menu">
+        <h3>Additional actions</h3>
+        <label>Sort items</label>
+        <button onclick="groupBySize(items)">Sort by size</button>
+        <button onclick="groupByColorsNum(items)">Sort by colors amount</button>
+        <label>Filter by colors</label>
+        <select id="color-select"></select>
+        <label>Filter by mimimal colors amount</label>
+        <input type="number" id="color-amount-id">
+        <button onclick="applyFilters()">Show items</button>
+        <button onclick="resetFilters()">Reset filters</button>
+        </select>
+      </div>
+    </div>
+    <div class="cards" id="cards-container">
+      <!-- Clothes will be here -->
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    
+    class ClothingItem {
+      constructor(id, name, size, colors = []) {
+        this.id = id;
+        this.name = name;
+        this.size = size;
+        this.colors = colors;        
+      }
+
+      get colorsCount() {
+        return this.colors.length;
+      }
+
+      addColor(color) {
+        if (!this.colors.includes(color)) {
+          this.colors.push(color);
+        }
+      }
+    
+      removeColor(color) {
+        this.colors = this.colors.filter(c => c !== color);
+      }
+    }
+
+    function getAllUniqueColors(items) {
+        let result = new Set();
+
+        for (let item of items) {
+            for (let color of item.colors) {
+                result.add(color);
+            }
+        }
+        return result;
+    }
+
+    function getItemsByColor(items, color) {
+        return items.filter((item) => item.colors.indexOf(color) > -1);
+    }
+
+    function getItemsWithNColors(items, n) {
+        return items.filter((item) => item.colorsCount > n);
+    }
+
+    function mapGroupBySize(items) {
+      let result = new Map();
+
+      for (let item of items) {
+        if (result.has(item.size)) {
+          result.get(item.size).push(item);
+        } else {
+          result.set(item.size, [item]);
+        }
+      }
+      return result;
+    }
+
+    function groupBySize(items) {
+        items.sort((itemA, itemB) => {
+            let sizeMap = {
+                "S": 1,
+                "M": 2,
+                "L": 3,
+                "XL": 4,
+            };
+
+            return sizeMap[itemA.size] < sizeMap[itemB.size] ? -1 : 1;
+        });
+        render(false);
+    }
+
+    function groupByColorsNum(items) {
+        items.sort((itemA, itemB) => {
+            return itemA.colorsCount < itemB.colorsCount ? -1 : 1;
+        });
+        render(false);
+    }
+
+    function applyFilters() {
+      let color = document.getElementById("color-select").value;
+      let amount = +document.getElementById("color-amount-id").value;
+
+      if (color !== "any") {
+        showedItems = getItemsByColor(items, color);
+      }
+      showedItems = getItemsWithNColors(showedItems, amount - 1);
+      render(false);
+    }
+
+    function resetFilters() {
+      showedItems = items;
+      render();
+    }
+
+    const STORAGE_KEY = 'clothing_items';
+
+    let items = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]').map(obj =>
+      new ClothingItem(obj.id, obj.name, obj.size, obj.colors)
+    );
+    let showedItems = items;
+
+    function saveItems() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    }
+
+    async function asyncAction(fn) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          fn();
+          saveItems();
+          render();
+          resolve();
+        }, 300);
+      });
+    }
+
+    document.getElementById('add-item-form').addEventListener('submit', async(e) => {
+      e.preventDefault();
+      const id = +document.getElementById('item-id').value;
+      const name = document.getElementById('item-name').value;
+      const size = document.getElementById('item-size').value;
+
+      if (items.filter((item) => id === item.id).length !== 0) {
+        alert("Repeated ID!");
+      } else {
+        await asyncAction(() => items.push(new ClothingItem(id, name, size)));
+        resetFilters();
+      }
+
+      e.target.reset();
+    });
+
+    document.getElementById('add-color-form').addEventListener('submit', async(e) => {
+      e.preventDefault();
+      const id = +document.getElementById('color-item-id').value;
+      const color = document.getElementById('item-color').value;
+      await asyncAction(() => {
+        const item = items.find(it => it.id === id);
+        if (item) {
+          item.addColor(color);
+        }
+      });
+      e.target.reset();
+    });
+
+    function render(redrawSelect = true) {
+      const container = document.getElementById('cards-container');
+      container.innerHTML = '';
+      showedItems.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <h4>${item.name} (ID: ${item.id})</h4>
+          <p>Size: ${item.size}</p>
+          <div class="colors">
+            ${item.colors.map(c => `<span onclick='changeColor(${item.id}, \"${c}\")' class="color-badge">${c}</span>`).join('')}
+          </div>
+          <p>Colors count: ${item.colorsCount}</p>
+          <div class="actions">
+            <!-- <button onclick="changeColor(${item.id})">Remove Color</button> -->
+            <button onclick="removeItem(${item.id})">Delete Item</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      if (redrawSelect) {
+        const colorsSelect = document.getElementById("color-select");
+        colorsSelect.innerHTML = '<option value="any">any</option>';
+        getAllUniqueColors(items).forEach(color => {
+          const option = document.createElement("option");
+          option.value = color;
+          option.innerHTML = color;
+          colorsSelect.appendChild(option);
+        });
+      }
+    }
+
+    window.removeItem = async(id) => {
+      await asyncAction(() => {
+        items = items.filter(it => it.id !== id);
+        showedItems = showedItems.filter(it => it.id !== id);
+      });
+    };
+
+    window.changeColor = async(id, color) => {
+      await asyncAction(() => {
+        const item = items.find(it => it.id === id);
+        if (item) {
+          item.removeColor(color);
+        }
+      });
+    };
+
+    render();
+    window.addEventListener('beforeunload', saveItems);
+  </script>
+</body>
+
+</html>
