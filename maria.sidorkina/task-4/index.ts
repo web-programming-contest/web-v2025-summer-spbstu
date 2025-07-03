@@ -116,6 +116,18 @@ function groupByDate(): Record<string, MyEvent[]> {
     }, {});
 }
 
+function groupByParticipantCount():Map<number, MyEvent[]> {
+    let result = new Map<number, MyEvent[]>();
+    events.forEach(ev => {
+        const count = ev.participantCount;
+        if (!result.has(count)) {
+            result.set(count, []);
+        }
+        result.get(count)!.push(ev);
+    });
+    return result;
+}
+
 function uniqueParticipants(): string[] {
     return Array.from(new Set(events.flatMap(ev => ev.participants)));
 }
