@@ -1,4 +1,4 @@
-class recipe {
+export class recipe {
     title; // String
     ingredients; // String array
     steps; // String array
@@ -21,7 +21,7 @@ class recipe {
         this.ingredients.splice(ingredientIdx, 1);
         return true;
     }
-    
+
     get ingredientCount() {
         return this.ingredients.length;
     }
