@@ -1,0 +1,13 @@
+.registration-form {
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  
+  .registration-form input,
+  .registration-form label,
+  .registration-form button,
+  .gender-options {
+    margin-top: 10px;
+    display: block;
+  }
+  
