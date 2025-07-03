@@ -12,6 +12,7 @@ export type variablesContextType = {
   isSecondOperand: React.MutableRefObject<boolean>;
   dotPlaced: React.MutableRefObject<boolean>;
   calculateArgument: React.MutableRefObject<boolean>;
+  isError: React.MutableRefObject<boolean>;
 };
 
 export const VariablesContext = createContext<variablesContextType|null>(null);

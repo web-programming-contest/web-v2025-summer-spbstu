@@ -1,16 +1,29 @@
 type deleteOperationArgs = {
   operation: string;
+  expression: string;
   setExpression: React.Dispatch<React.SetStateAction<string>>;
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
   setResult: React.Dispatch<React.SetStateAction<string>>;
   isSecondOperand: React.MutableRefObject<boolean>;
+  isError: React.MutableRefObject<boolean>;
 };
 
 export function deleteOperation(args: deleteOperationArgs) {
+  if(args.expression[args.expression.length - 1] === "=" || args.isError.current){
+      args.setValue("0");
+      args.setExpression("");
+      args.setResult("0");
+      args.isSecondOperand.current = false;
+      args.isError.current = false;
+    return;
+  }
   switch (args.operation) {
     case "CE": {
       args.setValue("0");
+      if(!args.isSecondOperand.current){
+        args.setExpression("");
+      }
       break;
     }
     case "C": {

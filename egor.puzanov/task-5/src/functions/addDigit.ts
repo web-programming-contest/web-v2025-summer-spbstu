@@ -8,7 +8,9 @@ type addDigitArgs = {
 
 export function addDigit(args: addDigitArgs) {
   if(args.expression[args.expression.length - 1] === "="){
-    args.clearAllBtn.current?.click();
+    if(args.clearAllBtn.current){
+        args.clearAllBtn.current.click();
+    }
   }
   else{
     if (args.value.length < 16)

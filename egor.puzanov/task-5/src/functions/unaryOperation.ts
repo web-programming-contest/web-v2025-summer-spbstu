@@ -2,6 +2,7 @@ type unaryOperationArg = {
   operation: string;
   value: string;
   setValue: (value: string) => void;
+  setExpression: (value: string) => void;
   isSecondOperand: React.MutableRefObject<boolean>;
   isCalculatable: React.MutableRefObject<boolean>;
 };
@@ -11,19 +12,30 @@ export function unaryOperation(args: unaryOperationArg ) {
   switch (args.operation) {
     case "1/x": {
       if (args.value) {
+        if(!args.isSecondOperand.current){
+          args.setExpression("1/(" + args.value + ")");
+        }
         args.setValue("1/(" + args.value + ")");
       } 
+      else{
+        args.setValue("1/(" + args.value + ")");
+      }
       break;
     }
     case "x^2": {
-      args.setValue("("+args.value+")^2");
-      break;
+      if (args.value) {
+        if(!args.isSecondOperand.current){
+            args.setExpression("("+args.value+")^2");
+          }
+        args.setValue("("+args.value+")^2");
+      }
+    break;
     }
-    case "sqrt(x)": {
+    case "√x": {
+      if(!args.isSecondOperand.current){
+          args.setExpression("sqrt("+args.value+")");
+        }
       args.setValue("sqrt("+args.value+")");
-      break;
-    }
-    case "%": {
       break;
     }
     case "+/-": {
@@ -37,7 +49,7 @@ export function unaryOperation(args: unaryOperationArg ) {
           args.setValue(args.value.substring(1));
         }
       } else {
-        args.setValue("-(" + args.value + ")");
+        args.setValue("-" + args.value);
       }
       break;
     }

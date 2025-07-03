@@ -8,11 +8,13 @@
 .forButtons{
   height: 60vh;
   width: 20vw;
+  min-width: 200px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(6, 1fr);
   border: 1px  solid black;
-  background-color: aqua;
+  border-radius: 10px;
+  background-color: rgb(220, 248, 204);
   margin: 0 auto;
 
 }
@@ -33,7 +35,7 @@
 button{
   width: calc(5vw - 10px);
   height: calc(10vh - 10px);
-  
+  min-width: 40px;
   border-radius: 8px;
   border: 1px solid transparent;
   font-size: 1em;
@@ -41,26 +43,31 @@ button{
   font-family: inherit;
   margin: 5px;
   cursor: pointer;
+  background-color: #a8a8aa;
 }
 
 .forNumButtons button {
-  background-color: #fafafa;
+  background-color: white;
 }
 
+.calutateButton {
+  background-color: #929ff3;
+}
 
-.argumentParagraph{
+.argumentParagraph, .expression {
   width: calc(20vw + 2px);
   margin: 0 auto 10px auto;
+  text-align: end;
+  min-width: 200px;
+  white-space: nowrap;
+}
+
+.argumentParagraph{
   height: 45px;
   font-size: 40px;
-  text-align: end;
-  vertical-align:bottom;
 }
 
 .expression{
-  width: calc(20vw + 2px);
-  margin: 0 auto 10px auto;
-  text-align: end;
   padding-right: 30px;
   margin-bottom: 0;
   height: 25px;

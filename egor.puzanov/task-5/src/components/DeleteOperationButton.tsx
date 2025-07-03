@@ -1,24 +1,46 @@
 import { useContext } from "react";
 import { deleteOperation } from "../functions/deleteOperation";
 import { VariablesContext } from "../AppContext/VariablesContext";
+import { ButtonsContext } from "../AppContext/ButtonsContext";
 
 export function DeleteOperationButton({ operation }: { operation: string }) {
   const context = useContext(VariablesContext);
   if (!context) {
     throw new Error("что-то не так с контекстом переменных");
   }
-  const { argument, setArgument, setExpression, setResult, isSecondOperand } =
-    context;
+  const { 
+    argument, 
+    setArgument, 
+    expression, 
+    setExpression, 
+    setResult, 
+    isSecondOperand,
+    isError } = context;
+
+  const buttons = useContext(ButtonsContext);
+  if (!buttons) {
+      throw new Error("что-то не так с контекстом кнопок");
+    }
+
+  const buttonRef = 
+    operation === "CE" ? buttons.clearBtn :
+    operation === "C" ? buttons.clearAllBtn :
+    operation === "<=" ? buttons.deleteBtn :
+    null;
+
   return (
     <button
+      ref={buttonRef}
       onClick={() =>
         deleteOperation({
           operation: operation,
+          expression: expression,
           setExpression: setExpression,
           value: argument,
           setValue: setArgument,
           setResult: setResult,
-          isSecondOperand: isSecondOperand
+          isSecondOperand: isSecondOperand,
+          isError
         })
       }
     >

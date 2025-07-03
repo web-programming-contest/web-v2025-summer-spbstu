@@ -8,7 +8,7 @@ export function NumButton({ num }: { num: number }) {
   if (!context) {
     throw new Error("что-то не так с контекстом переменных");
   }
-  const { argument, setArgument, expression } = context;
+  const { argument, setArgument, expression, isError } = context;
 
   const buttons = useContext(ButtonsContext);
   if (!buttons) {
@@ -31,6 +31,7 @@ export function NumButton({ num }: { num: number }) {
 
   return (
     <button
+      disabled={isError.current}
       onClick={() =>
         addDigit({
           num: num,

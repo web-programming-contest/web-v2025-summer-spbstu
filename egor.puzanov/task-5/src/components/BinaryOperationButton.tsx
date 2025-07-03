@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { binaryOperation } from "../functions/binaryOperation";
 import { VariablesContext } from "../AppContext/VariablesContext";
+import { ButtonsContext } from "../AppContext/ButtonsContext";
 
 export function BinaryOperationButton({ operation }: { operation: string }) {
   const context = useContext(VariablesContext);
@@ -16,9 +17,26 @@ export function BinaryOperationButton({ operation }: { operation: string }) {
     result,
     setResult,
     dotPlaced,
+    isError
   } = context;
+
+  const buttons = useContext(ButtonsContext);
+  if (!buttons) {
+      throw new Error("что-то не так с контекстом кнопок");
+    }
+
+  const buttonRef = 
+    operation === "+" ? buttons.plusBtn :
+    operation === "-" ? buttons.minusBtn :
+    operation === "/" ? buttons.divideBtn :
+    operation === "*" ? buttons.multiplyBtn :
+    operation === "%" ? buttons.precentageBtn :
+    null;
+
   return (
     <button
+      ref={buttonRef}
+      disabled={isError.current}
       onClick={() =>
         binaryOperation({
             operation: operation,
@@ -30,6 +48,7 @@ export function BinaryOperationButton({ operation }: { operation: string }) {
             result: result,
             setResult: setResult,
             dotPlaced: dotPlaced,
+            isError: isError
         })
       }
     >
