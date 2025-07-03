@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Image Grid — Три подхода</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h2>Подход 1: Flexbox — изображения в своих размерах</h2>
+    <div class="image-grid image-grid--flex">
+      <img src="https://picsum.photos/300?random=1" alt="Image 1" />
+      <img src="https://picsum.photos/300?random=2" alt="Image 2" />
+      <img src="https://picsum.photos/300?random=3" alt="Image 3" />
+      <img src="https://picsum.photos/300?random=4" alt="Image 4" />
+      <img src="https://picsum.photos/300?random=5" alt="Image 5" />
+      <img src="https://picsum.photos/300?random=6" alt="Image 6" />
+    </div>
+
+    <h2>Подход 2: Grid с фиксированной шириной (300px)</h2>
+    <div class="image-grid image-grid--fixed">
+      <img src="https://picsum.photos/300?random=1" alt="Image 1" />
+      <img src="https://picsum.photos/300?random=2" alt="Image 2" />
+      <img src="https://picsum.photos/300?random=3" alt="Image 3" />
+      <img src="https://picsum.photos/300?random=4" alt="Image 4" />
+      <img src="https://picsum.photos/300?random=5" alt="Image 5" />
+      <img src="https://picsum.photos/300?random=6" alt="Image 6" />
+    </div>
+
+    <h2>Подход 3: Grid с медиазапросами (адаптивная сетка)</h2>
+    <div class="image-grid image-grid--media">
+      <img src="https://picsum.photos/300?random=1" alt="Image 1" />
+      <img src="https://picsum.photos/300?random=2" alt="Image 2" />
+      <img src="https://picsum.photos/300?random=3" alt="Image 3" />
+      <img src="https://picsum.photos/300?random=4" alt="Image 4" />
+      <img src="https://picsum.photos/300?random=5" alt="Image 5" />
+      <img src="https://picsum.photos/300?random=6" alt="Image 6" />
+    </div>
+  </body>
+</html>
