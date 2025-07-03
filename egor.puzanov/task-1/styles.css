@@ -1,0 +1,28 @@
+.main{
+    display: flex; /*Список по центру*/
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    font-size: 20px; /*Красивый шрифт*/
+    font-family:'Segoe UI'; 
+
+}
+li{
+    margin-bottom: 20px;
+}
+
+li p:first-child{
+    font-weight: bold; /*Первый эл-нт жирный*/
+}
+li p:nth-child(3){
+    font-style: italic; /*Последник курсив*/
+}
+li ul{
+    list-style: disc; /*Внутри кружочки залитые*/
+}
+
+p{
+    margin: 5px;
+}
+
