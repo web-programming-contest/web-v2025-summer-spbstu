@@ -1,0 +1,37 @@
+body {
+    font-family: Arial;
+    display: flex;
+    justify-content: center;
+    /*background-color: if u want;*/
+    margin: 0;
+}
+.card-body {
+    display: inline-flex;
+    margin: 10px;
+    gap: 20px; /* Отступ между карточками */
+}
+.card {
+    /*background-color: if u want;*/
+    border: 1px solid black;
+    padding: 10px;
+}
+.card-image, .card-title, .card-description {
+    width: 200px;
+}
+.card-image {
+    height: 150px;
+    object-fit: cover; /* Гарантирует, что изображение покроет заданную область без искажений */
+    display: block;
+}
+/*.card-title, .card-description {
+    font-family: Arial;
+}*/
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+.card-description {
+    font-size: 14px;
+    margin: 0;
+}
