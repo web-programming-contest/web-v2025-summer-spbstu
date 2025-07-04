@@ -1,0 +1,109 @@
+.historyButton {
+  position: relative;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  left: calc(max(10vw, 100px) - 20px);
+  background-color: transparent;
+}
+
+.historyButton:hover {
+  box-shadow: 5px 5px 10px rgb(160, 160, 160);
+  transition: box-shadow 0.15s ease-in-out;
+}
+
+.historyButton:active {
+  box-shadow: inset 5px 5px 10px rgb(160, 160, 160);
+  transition: box-shadow 0.15s ease-in-out;
+}
+
+#forHistory {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: end;
+  align-items: center;
+
+  opacity: 0;
+  position: relative;
+  top: calc(-60vh - 2px);
+  left: calc(50% + max(10vw, 100px) + 1px);
+  transform: translateX(-5%);
+
+  background-color: #e8e9f1;
+  width: 20vw;
+  min-width: 200px;
+  height: 60vh;
+  border: 1px solid black;
+  border-left: none;
+  border-radius: 0 10px 10px 0;
+  z-index: 3;
+
+  overflow-x: hidden;
+  /* overflow-y: scroll; */
+  animation: fadeOutLeft 0.2s ease-out;
+  transition: all 0.2s ease-in-out;
+}
+
+#forHistory.clicked {
+  animation: fadeInRight 0.2s ease-out;
+  opacity: 1;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-5%);
+  }
+}
+
+@keyframes fadeOutLeft {
+  from {
+    transform: translateX(-5%);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+#forHistory button {
+  width: 90%;
+  height: 60px;
+  min-height: 60px;
+  margin-left: 6%;
+  background-color: white;
+}
+
+#forHistory .deleteHistoryBtn{
+  border-top: 3px solid rgba(68, 71, 255, 0.623);
+}
+
+#forHistory .expressionDiv, #forHistory .argumentDiv {
+  white-space: nowrap;
+  display: flex;
+  justify-content: end;
+  padding-right: 5px;
+}
+
+#forHistory .expressionDiv{
+  height: 25px;
+  font-size: 15px;
+  color: #797a81;
+  align-items: start;
+  overflow-x: hidden;
+}
+
+#forHistory .argumentDiv{
+  height: 25px;
+  font-size: 20px;
+  align-items: end;
+}
+
+#forHistory .deleteHistoryDiv { 
+  color: rgb(68, 71, 255);
+  width: 100%;
+  height: 50%;
+}

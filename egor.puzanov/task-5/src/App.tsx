@@ -1,25 +1,34 @@
 import { useEffect, useRef, useState } from "react";
 
 import "./App.css";
-import { VariablesContext, type variablesContextType } from "./AppContext/VariablesContext";
+import "./additionalCss/paragraphs.css";
+import "./additionalCss/buttons.css"
+import "./additionalCss/forHistory.css";
+
+import { VariablesContext, type variablesContextType, type historyRecord } from "./AppContext/VariablesContext";
+import { type buttonsContextType, useButtons, ButtonsContext } from "./AppContext/ButtonsContext";
 
 import { WhiteButtons } from "./components/WhiteButtons";
 import { UnaryOperationButton } from "./components/UnaryOperationButton";
 import { BinaryOperationButton } from "./components/BinaryOperationButton";
 import { DeleteOperationButton } from "./components/DeleteOperationButton";
 import { GetResultButton } from "./components/GetResultButton";
+import { ShowHistoryButton } from "./components/ShowHistoryButton";
+import { HistoryContainer } from "./components/HistoryContainer";
 
 import { calculate } from "./functions/calculate";
-import { type buttonsContextType, useButtons, ButtonsContext } from "./AppContext/ButtonsContext";
 import { handeKeyDown } from "./functions/handeKeyDown";
+import { setList } from "./functions/recordsListOperations";
+import { adjustFontSizeRef } from "./functions/adjustFontSize";
 
-//TODO Сделать истрию
+//TODO Написать комментарии ко всему
 
 function App() {
   const [expression, setExpression] = useState("");
   const [argument, setArgument] = useState("0");
   const [result, setResult] = useState("0");
   const [shownValue, setShownValue] = useState("0");
+  const [historyRecords, setHistoryRecords] = useState<historyRecord[]>([]);
 
   const isSecondOperand = useRef<boolean>(false);
   const dotPlaced = useRef<boolean>(false);
@@ -28,6 +37,7 @@ function App() {
 
   const pRefArgument = useRef<HTMLParagraphElement>(null);
   const pRefExpression = useRef<HTMLParagraphElement>(null);
+  const forHistoryRef = useRef<HTMLParagraphElement>(null);
   
   const context: variablesContextType = {
     expression,
@@ -41,7 +51,9 @@ function App() {
     isSecondOperand,
     dotPlaced,
     calculateArgument,
-    isError
+    isError,
+    historyRecords,
+    setHistoryRecords
   };
 
   const buttons: buttonsContextType = useButtons();
@@ -80,54 +92,37 @@ function App() {
 
   //подгонка размера шрифтов
   useEffect(() => {
-    const p = pRefArgument.current;
-    if (!p) return;
-
-    let currentFontSize = 40;
-    const containerWidth = p.clientWidth;
-
-   
-    while (p.scrollWidth > containerWidth && currentFontSize > 5) {
-      currentFontSize -= 1;
-      p.style.fontSize = `${currentFontSize}px`;
-    }
-    // p.style.fontSize = `${currentFontSize}px`;
+    adjustFontSizeRef(pRefArgument, 40);
   }, [shownValue]);
 
     useEffect(() => {
-    const p = pRefExpression.current;
-    if (!p) return;
-
-    let currentFontSize = 15;
-    const containerWidth = p.clientWidth;
-
-   
-    while (p.scrollWidth > containerWidth && currentFontSize > 5) {
-      currentFontSize -= 1;
-      p.style.fontSize = `${currentFontSize}px`;
-    }
-    // p.style.fontSize = `${currentFontSize}px`;
+    adjustFontSizeRef(pRefExpression, 15);
   }, [expression]);
 
-  //обработка нажатий клавиш
+  //обработка нажатий клавиш и чтение истори
   useEffect(() => {
     const shouldBecalledOnce = (e: KeyboardEvent) => {
       handeKeyDown(e, buttons);
     }
-    document.addEventListener("keydown", shouldBecalledOnce)
+    document.addEventListener("keydown", shouldBecalledOnce);
+
+    const storedHistory: historyRecord[] = JSON.parse(localStorage.getItem("historyRecords") || "[]")
+    setList(storedHistory, setHistoryRecords)
 
     return () => { //чтобы не применялось дважды
       document.removeEventListener("keydown", shouldBecalledOnce);
+      // clearList(setHistoryRecords);
     };
   }, []);
 
   return (
     <>
       <VariablesContext value={context}>
+        <ButtonsContext value={buttons}>
         <h1>Калькулятор</h1>
+        <ShowHistoryButton ref={forHistoryRef}/>
         <p ref={pRefExpression} className="expression">{expression}</p>
         <p ref={pRefArgument} className="argumentParagraph">{shownValue}</p>
-        <ButtonsContext value={buttons}>
         <div className="forButtons">
           <BinaryOperationButton operation="%"/>
 
@@ -146,6 +141,7 @@ function App() {
           <GetResultButton />
           <WhiteButtons />
         </div>
+        <HistoryContainer ref={forHistoryRef}/>
         </ButtonsContext>
       </VariablesContext>
     </>

@@ -16,7 +16,9 @@ export function GetResultButton() {
     result,
     setResult,
     isSecondOperand,
-    isError
+    isError,
+    historyRecords,
+    setHistoryRecords
   } = context;
   
   const buttons = useContext(ButtonsContext);
@@ -37,7 +39,9 @@ export function GetResultButton() {
           result: result,
           setResult: setResult,
           isSecondOperand: isSecondOperand,
-          isError: isError
+          isError: isError,
+          historyRecords: historyRecords,
+          setHistoryRecords: setHistoryRecords
         })
       }
       className="calutateButton"

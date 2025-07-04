@@ -13,6 +13,14 @@ export type variablesContextType = {
   dotPlaced: React.MutableRefObject<boolean>;
   calculateArgument: React.MutableRefObject<boolean>;
   isError: React.MutableRefObject<boolean>;
+  historyRecords: historyRecord[];
+  setHistoryRecords: React.Dispatch<React.SetStateAction<historyRecord[]>>;
 };
 
 export const VariablesContext = createContext<variablesContextType|null>(null);
+
+export type historyRecord = {
+    expression: string;
+    result: string;
+    argument: string;
+}

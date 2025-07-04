@@ -1,4 +1,6 @@
 import { calculate } from "./calculate";
+import { updateList } from "./recordsListOperations";
+import { type historyRecord } from "../AppContext/VariablesContext";
 
  type getResultArgs = {
   expression: string;
@@ -9,6 +11,8 @@ import { calculate } from "./calculate";
   setResult: React.Dispatch<React.SetStateAction<string>>;
   isSecondOperand: React.MutableRefObject<boolean>;
   isError: React.MutableRefObject<boolean>;
+  historyRecords: historyRecord[]
+  setHistoryRecords: React.Dispatch<React.SetStateAction<historyRecord[]>>;
 };
 
 export function getResult(args: getResultArgs) {
@@ -31,14 +35,34 @@ export function getResult(args: getResultArgs) {
             operation = args.expression[args.expression.length-2]
             args.setExpression(args.expression + args.value + " =");
             args.setResult(args.value);
-            args.setValue(calculate(tempRes + ` ${operation} ` + args.value, args.isError));
+            const newValue = calculate(tempRes + ` ${operation} ` + args.value, args.isError)
+            args.setValue(newValue);
+
+            if (!args.isError.current) {
+                const record: historyRecord = {
+                expression: args.expression + args.value + " =",
+                result: args.value,
+                argument: newValue,
+                };
+                updateList(args.historyRecords, record, args.setHistoryRecords);
+            }
         }
         else{
             // если нажимают равно подряд    
             
             operation = args.expression[args.expression.length-args.result.length -4];
             args.setExpression(args.value + ` ${operation} ` + args.result + " =");
-            args.setValue(calculate(args.value + ` ${operation} ` + args.result, args.isError));
+            const newValue = calculate(args.value + ` ${operation} ` + args.result, args.isError);
+            args.setValue(newValue);
+
+            if (!args.isError.current) {
+                const record: historyRecord = {
+                  expression: args.value + ` ${operation} ` + args.result + " =",
+                  result: tempRes,
+                  argument: newValue,
+                };
+                updateList(args.historyRecords, record, args.setHistoryRecords);
+            } 
         }
     }
     // else{

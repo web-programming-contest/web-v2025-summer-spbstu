@@ -1,0 +1,65 @@
+.forButtons{
+  height: 60vh;
+  width: 20vw;
+  min-width: 200px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  border: 1px  solid black;
+  border-radius: 10px;
+  background-color: rgb(220, 248, 204);
+  margin: 0 auto;
+  z-index: 5;
+  position: relative;
+
+}
+
+.forNumButtons{
+
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+  align-items:center;
+  flex-wrap: wrap;
+  
+  grid-row:  3/7;
+  grid-column:  1/4;
+
+}
+
+button{
+  width: calc(5vw - 10px);
+  height: calc(10vh - 10px);
+  min-width: 40px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  margin: 5px;
+  cursor: pointer;
+  background-color: #a8a8aa;
+}
+
+button:hover {
+  box-shadow: 5px 5px 10px rgb(56, 56, 56);
+  transition: box-shadow 0.15s ease-in-out;
+}
+
+button:active {
+  box-shadow: inset 5px 5px 15px rgb(56, 56, 56);
+  transition: box-shadow 0.15s ease-in-out;
+}
+
+.active {
+  box-shadow: inset 5px 5px 15px rgb(56, 56, 56);
+  /* transition: box-shadow 0.15s ease-in-out; */
+}
+
+.forNumButtons button {
+  background-color: white;
+}
+
+.calutateButton {
+  background-color: #929ff3;
+}
