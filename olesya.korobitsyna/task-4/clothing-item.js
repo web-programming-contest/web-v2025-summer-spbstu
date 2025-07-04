@@ -49,7 +49,6 @@ class ClothingItem {
   }
 }
 
-// Функции для работы с коллекцией
 function groupBySize(items) {
   const result = {};
   items.forEach(item => {
