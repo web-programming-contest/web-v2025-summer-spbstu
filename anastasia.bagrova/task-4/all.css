@@ -1,0 +1,230 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f5f5f5;   
+}
+
+header{
+  background: radial-gradient(circle,rgba(255, 204, 145, 1) 60%, rgba(255, 161, 54, 1) 83%, rgba(255, 161, 54, 1) 100%);
+  padding: 15px;
+  box-shadow: 0 0 20px 0 #ad6f28;
+}
+header h1{
+  text-align: center;
+  color: #693800;
+}
+
+#page{
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns:20% auto;
+    margin:0 3%;
+}
+
+aside{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: auto;
+    background: #ffbf76;
+    box-shadow: 0 0 5px 0 #7e7e7e;
+    border-radius: 5px;
+    padding-top:0;
+    border: 1px solid #e3a966;
+}
+aside h2{
+    color: #4e2900;
+    text-align: center;
+    word-break: break-word;
+}
+aside input, aside button{
+    width: auto;
+    margin: 8px;
+    padding: 5px;
+}
+aside input{
+    border-radius: 5px;
+    border: 2px solid #c08746;
+}
+aside button{
+    margin-bottom: 15px;
+    cursor: pointer;
+    text-align: center;
+    word-break: break-word;
+    box-sizing: border-box;
+    border-radius: 8px;
+    padding: 8px 10px;
+    background: #00ba13;
+    color: #fff;
+    border: 2px solid #00a310;
+}
+
+main{
+    margin-top: 20px;
+    margin-left: 15px;
+}
+
+main h2{
+    text-align: center;
+    margin-top: 0;
+}
+
+.library-card{
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgb(97, 97, 97);
+    margin-bottom: 20px;
+}
+.library-card h3{
+    text-align: center;
+    margin: 5px 0 15px 0;
+}
+
+.library-card-books{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.library-card-book{
+    box-sizing: border-box;
+    background: #fff;   
+    border: 1px solid rgb(166, 166, 166);
+    padding: 15px 15px;
+    width: 195px;
+    min-height: 180px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgb(97, 97, 97);
+    display: flex;
+    flex-direction: column;
+}
+
+.library-card-book h4{
+    text-align: center;
+    margin: 5px 0 10px 0;
+}
+
+.library-card-book button{
+    width: 70%;
+    margin: auto auto 0 auto;
+    padding: 5px;
+
+    cursor: pointer;
+    text-align: center;
+    word-break: break-word;
+    box-sizing: border-box;
+    color: #fff;
+    background: #ed0000;
+    border-radius: 5px;
+    border: 2px solid #c00;
+}
+
+.library-card-book ul{
+    padding-left: 20px;
+}
+.library-card-book ul li{
+    overflow-wrap: break-word;
+}
+
+
+.library-card-formModal {
+    padding: 20px;
+    width: 320px;
+    background-color: #ffbf76;
+    box-shadow: 0 0 10px 0 #7e7e7e;
+    border-radius: 10px;
+    z-index: 1000;
+    text-align: center;
+    border: 1px solid #e3a966;
+}
+.library-card-formModal h2 {
+    color: #4e2900;
+    font-size: 1.3em;
+}
+.library-card-formModal input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 2px solid #c08746;
+
+    border-radius: 5px;
+}
+.library-card-formModalInfo {
+    margin-top: 0.7em;
+    color: #fff;
+}
+
+.library-card-formModalActions {
+    margin-top: 0.8em;
+}
+.library-card-formButton {
+    padding: 10px 15px;
+    color: #fff;
+    background-color: transparent;
+    border: 2px solid #fff;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    margin: 10px;
+    transition: all .3s;
+}
+.library-card-formButton.active {
+    background-color: #00ba13;
+}
+.library-card-formButton.active:hover {
+    color: #00ba13;
+    background-color: #fff;
+}
+.library-card-formButton.close {
+    color: #393939;
+    background-color: #ccc;
+}
+.library-card-formButton.close:hover {
+    background-color: #a9a9a9;
+}
+
+.library-card-modalShow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%!important;
+    height: 100%!important;
+    justify-content: center;
+    align-items: center;
+    background: rgba(204, 204, 204, 0.4);
+    z-index: 99999;
+    display: none;
+}
+
+.library-card-buttons{
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+.library-card-buttons>button{
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    word-break: break-word;
+    box-sizing: border-box;
+    transition: all .3s;
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px 15px;
+}
+
+.library-card-buttons-addStart{
+    background: #00ba13;
+    color: #fff;
+    border: 2px solid #00a310;
+}
+
+.library-card-buttons-removeLib{
+    background: #ed0000;
+    color: #fff;
+    border: 2px solid #c00;
+}
