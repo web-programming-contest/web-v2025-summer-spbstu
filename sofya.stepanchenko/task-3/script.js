@@ -1,18 +1,13 @@
 "use strict";
 
 function findMaxSubarraySum(arr, n) {
-    if (n <= 0 || n > arr.length) return 0;
-    let maxSum = -Infinity;
-    for (let i = 0; i <= arr.length - n; i++) {
-        let currentSum = 0;
-        for (let j = i; j < i + n; j++) {
-            currentSum += arr[j];
-        }
-        if (currentSum > maxSum) {
-            maxSum = currentSum;
-        }
+    let max_sum = arr.slice(0, n).reduce((x, y) => x + y, 0);
+    let sum = max_sum;
+    for (let i = n; i < arr.length; i++) {
+        sum += arr[i] - arr[i -n];
+        max_sum = Math.max(sum, max_sum);
     }
-    return maxSum;
+    return max_sum;
 }
 
 let line_arr = prompt('Введите числа массива через пробел:');
