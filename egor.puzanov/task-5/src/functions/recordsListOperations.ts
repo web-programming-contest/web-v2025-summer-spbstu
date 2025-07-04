@@ -1,6 +1,8 @@
 
 import { type historyRecord } from "../AppContext/VariablesContext";
 
+//функции для работы с записями истории
+
 export function updateList(records: historyRecord[], 
                            record: historyRecord,
                            setHistoryRecords: React.Dispatch<React.SetStateAction<historyRecord[]>>) {

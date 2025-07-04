@@ -24,21 +24,25 @@ import { adjustFontSizeRef } from "./functions/adjustFontSize";
 //TODO Написать комментарии ко всему
 
 function App() {
+  //все что может отображаться
   const [expression, setExpression] = useState("");
   const [argument, setArgument] = useState("0");
   const [result, setResult] = useState("0");
   const [shownValue, setShownValue] = useState("0");
   const [historyRecords, setHistoryRecords] = useState<historyRecord[]>([]);
 
+  //все что не может отображаться
   const isSecondOperand = useRef<boolean>(false);
   const dotPlaced = useRef<boolean>(false);
   const calculateArgument = useRef<boolean>(false);
   const isError = useRef<boolean>(false);
 
+  //ссылки на элеметы для отображения
   const pRefArgument = useRef<HTMLParagraphElement>(null);
   const pRefExpression = useRef<HTMLParagraphElement>(null);
   const forHistoryRef = useRef<HTMLParagraphElement>(null);
   
+  //чтобы было видно в элементах ниже
   const context: variablesContextType = {
     expression,
     setExpression,
@@ -56,11 +60,12 @@ function App() {
     setHistoryRecords
   };
 
+  //ссылки на все кнопки
   const buttons: buttonsContextType = useButtons();
 
   //обновление отображения когда меняется аргумент или результат
   useEffect(() => {
-    if (calculateArgument.current) {
+    if (calculateArgument.current) { //если операция только над аргументом
       const temp: string = calculate(argument, isError);
       setShownValue(temp);
       calculateArgument.current = false;
@@ -79,8 +84,9 @@ function App() {
     }
   }, [argument]);
 
+  //вывод результата предыдущих подсчетов
   useEffect(() => {
-    if(expression[expression.length -1] !== "="){
+    if(expression[expression.length -1] !== "="){ //не выводить result тк они поменялись местами с argument
       setShownValue(result);
       if (argument.includes(".")) {
         dotPlaced.current = true;
@@ -99,18 +105,19 @@ function App() {
     adjustFontSizeRef(pRefExpression, 15);
   }, [expression]);
 
-  //обработка нажатий клавиш и чтение истори
+  //обработка нажатий клавиш и чтение истории
   useEffect(() => {
-    const shouldBecalledOnce = (e: KeyboardEvent) => {
+    const handlekeys = (e: KeyboardEvent) => {
+      e.preventDefault(); 
       handeKeyDown(e, buttons);
     }
-    document.addEventListener("keydown", shouldBecalledOnce);
+    document.addEventListener("keydown", handlekeys);
 
     const storedHistory: historyRecord[] = JSON.parse(localStorage.getItem("historyRecords") || "[]")
     setList(storedHistory, setHistoryRecords)
 
     return () => { //чтобы не применялось дважды
-      document.removeEventListener("keydown", shouldBecalledOnce);
+      document.removeEventListener("keydown", handlekeys); 
       // clearList(setHistoryRecords);
     };
   }, []);
@@ -139,7 +146,7 @@ function App() {
           <BinaryOperationButton operation="+" />
           <BinaryOperationButton operation="-" />
           <GetResultButton />
-          <WhiteButtons />
+          <WhiteButtons /> {/* кнопки в левом нижнем углу  */}
         </div>
         <HistoryContainer ref={forHistoryRef}/>
         </ButtonsContext>

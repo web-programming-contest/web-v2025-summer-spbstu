@@ -1,5 +1,7 @@
 import { type buttonsContextType } from "../AppContext/ButtonsContext";
 
+//огромный switch-case для всех кнопок
+
 export function handeKeyDown(event: KeyboardEvent, buttons: buttonsContextType ){
     switch (event.key) {
         case "1": {

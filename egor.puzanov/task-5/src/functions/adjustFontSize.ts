@@ -1,4 +1,8 @@
-export function adjustFontSizeRef(ref: React.RefObject<HTMLElement | null>, maxSize: number) {
+
+//функции подгоняют размер шрифта под размеры контейнера
+
+
+export function adjustFontSizeRef(ref: React.RefObject<HTMLElement | null>, maxSize: number) { //если элемент передается через useRef
     const element = ref.current;
     if (!element) return;
 
@@ -13,7 +17,7 @@ export function adjustFontSizeRef(ref: React.RefObject<HTMLElement | null>, maxS
     }
 }
 
-export function adjustFontSizeComp(obj: HTMLElement | null, maxSize: number) {
+export function adjustFontSizeComp(obj: HTMLElement | null, maxSize: number) { //если элемент передается как элемент
     if (!obj) return;
 
     let currentFontSize = maxSize;

@@ -1,3 +1,7 @@
+
+/* все для  кнопок калькулятора */
+
+/* их контейнер */
 .forButtons{
   height: 60vh;
   width: 20vw;
@@ -14,8 +18,8 @@
 
 }
 
+/* контейнер белых нопок */
 .forNumButtons{
-
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-evenly;
@@ -26,6 +30,8 @@
   grid-column:  1/4;
 
 }
+
+/* стили кнопок */
 
 button{
   width: calc(5vw - 10px);
@@ -55,6 +61,8 @@ button:active {
   box-shadow: inset 5px 5px 15px rgb(56, 56, 56);
   /* transition: box-shadow 0.15s ease-in-out; */
 }
+
+/* стили особых кнопок */
 
 .forNumButtons button {
   background-color: white;

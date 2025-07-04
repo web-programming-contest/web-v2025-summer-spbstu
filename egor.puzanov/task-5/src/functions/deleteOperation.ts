@@ -9,7 +9,10 @@ type deleteOperationArgs = {
   isError: React.MutableRefObject<boolean>;
 };
 
+//обрабатывает разные способы удаления
+
 export function deleteOperation(args: deleteOperationArgs) {
+  //если  ошибка или получили результат - удалить всё
   if(args.expression[args.expression.length - 1] === "=" || args.isError.current){
       args.setValue("0");
       args.setExpression("");

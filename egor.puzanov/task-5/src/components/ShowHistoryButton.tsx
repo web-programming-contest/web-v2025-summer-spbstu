@@ -2,7 +2,7 @@ export function ShowHistoryButton({ref}: {ref: React.RefObject<HTMLParagraphElem
 
     return (
         <button
-        className="historyButton" 
+        className="showHistoryButton" 
         onClick={() => showDiv(ref)}
         >
         <img src="/history.svg"></img>

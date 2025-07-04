@@ -1,3 +1,6 @@
+
+/* стили для отображения выражения и аргумента калькулятора */
+
 .argumentParagraph, .expression {
   width: calc(20vw + 2px);
   margin: 0 auto 10px auto;
