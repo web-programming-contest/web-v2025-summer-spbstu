@@ -1,3 +1,4 @@
+//task-2
 function zipArrays(...arrays) {
 
   if (arrays.length === 0) 
