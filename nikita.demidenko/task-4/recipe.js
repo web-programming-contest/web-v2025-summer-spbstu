@@ -1,4 +1,4 @@
-export class recipe {
+class recipe {
     title; // String
     ingredients; // String array
     steps; // String array
