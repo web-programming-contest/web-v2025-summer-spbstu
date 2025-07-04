@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clothing Items Manager</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Clothing Items Manager</h1>
+  
+  <div class="controls">
+    <button id="showAddItemForm" class="large-button">Add New Item</button>
+    <button id="showAddColorForm" class="large-button">Add Color</button>
+    <button id="showAddSizeForm" class="large-button">Add Size</button>
+    <button id="showRemoveColorForm" class="large-button button-danger">Remove Color</button>
+    <button id="showRemoveSizeForm" class="large-button button-danger">Remove Size</button>
+    <button id="showRemoveItemForm" class="large-button button-danger">Remove Item</button>
+    <button id="showGroupBySize" class="large-button">Group by Size</button>
+    <button id="showGroupByColorCount" class="large-button">Group by Color Count</button>
+    <button id="showUniqueColors" class="large-button">Show Unique Colors</button>
+  </div>
+  
+  <div id="addItemForm" style="display: none;" class="card">
+    <h3>Add New Clothing Item</h3>
+    <div class="form-group">
+      <label for="itemId">ID:</label>
+      <input type="number" id="itemId">
+    </div>
+    <div class="form-group">
+      <label for="itemName">Name:</label>
+      <input type="text" id="itemName">
+    </div>
+    <div class="form-group">
+      <label>Available Sizes:</label>
+      <div class="size-checkboxes">
+        <label><input type="checkbox" name="size" value="S"> S</label>
+        <label><input type="checkbox" name="size" value="M"> M</label>
+        <label><input type="checkbox" name="size" value="L"> L</label>
+        <label><input type="checkbox" name="size" value="XL"> XL</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="initialColors">Initial Colors (comma separated):</label>
+      <input type="text" id="initialColors" placeholder="red, blue, green">
+    </div>
+    <button id="submitItem" class="large-button">Add Item</button>
+    <button id="cancelAddItem" class="large-button button-danger">Cancel</button>
+  </div>
+  
+  <div id="addColorForm" style="display: none;" class="card">
+    <h3>Add Color to Item</h3>
+    <div class="form-group">
+      <label for="colorItemId">Item ID:</label>
+      <input type="number" id="colorItemId">
+    </div>
+    <div class="form-group">
+      <label for="newColor">New Color:</label>
+      <input type="text" id="newColor">
+    </div>
+    <button id="submitColor" class="large-button">Add Color</button>
+    <button id="cancelAddColor" class="large-button button-danger">Cancel</button>
+  </div>
+  
+  <div id="addSizeForm" style="display: none;" class="card">
+    <h3>Add Size to Item</h3>
+    <div class="form-group">
+      <label for="sizeItemId">Item ID:</label>
+      <input type="number" id="sizeItemId">
+    </div>
+    <div class="form-group">
+      <label for="newSize">New Size:</label>
+      <select id="newSize">
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+      </select>
+    </div>
+    <button id="submitSize" class="large-button">Add Size</button>
+    <button id="cancelAddSize" class="large-button button-danger">Cancel</button>
+  </div>
+  
+  <div id="removeColorForm" style="display: none;" class="card">
+    <h3>Remove Color from Item</h3>
+    <div class="form-group">
+      <label for="removeColorItemId">Item ID:</label>
+      <input type="number" id="removeColorItemId">
+    </div>
+    <div class="form-group">
+      <label for="colorToRemove">Color to Remove:</label>
+      <input type="text" id="colorToRemove">
+    </div>
+    <button id="submitRemoveColor" class="large-button">Remove Color</button>
+    <button id="cancelRemoveColor" class="large-button button-danger">Cancel</button>
+  </div>
+  
+  <div id="removeSizeForm" style="display: none;" class="card">
+    <h3>Remove Size from Item</h3>
+    <div class="form-group">
+      <label for="removeSizeItemId">Item ID:</label>
+      <input type="number" id="removeSizeItemId">
+    </div>
+    <div class="form-group">
+      <label for="sizeToRemove">Size to Remove:</label>
+      <select id="sizeToRemove">
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+      </select>
+    </div>
+    <button id="submitRemoveSize" class="large-button">Remove Size</button>
+    <button id="cancelRemoveSize" class="large-button button-danger">Cancel</button>
+  </div>
+  
+  <div id="removeItemForm" style="display: none;" class="card">
+    <h3>Remove Item</h3>
+    <div class="form-group">
+      <label for="itemToRemove">Item ID:</label>
+      <input type="number" id="itemToRemove">
+    </div>
+    <button id="submitRemoveItem" class="large-button">Remove Item</button>
+    <button id="cancelRemoveItem" class="large-button button-danger">Cancel</button>
+  </div>
+  
+  <!-- Фильтры -->
+  <div id="filterForms" class="card">
+    <h3>Filters</h3>
+    <div class="filter-row">
+      <div class="filter-group">
+        <label for="filterByColor">Filter by color:</label>
+        <select id="filterByColor">
+          <option value="">All colors</option>
+        </select>
+        <div class="filter-controls">
+          <button id="applyColorFilter" class="filter-button">Apply</button>
+          <button id="clearColorFilter" class="filter-button button-danger">Clear</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <label for="filterBySize">Filter by size:</label>
+        <select id="filterBySize">
+          <option value="">All sizes</option>
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
+        </select>
+        <div class="filter-controls">
+          <button id="applySizeFilter" class="filter-button">Apply</button>
+          <button id="clearSizeFilter" class="filter-button button-danger">Clear</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <label for="filterByMinColors">Min colors (more than):</label>
+        <input type="number" id="filterByMinColors" min="0" placeholder="0">
+        <div class="filter-controls">
+          <button id="applyMinColorsFilter" class="filter-button">Apply</button>
+          <button id="clearMinColorsFilter" class="filter-button button-danger">Clear</button>
+        </div>
+      </div>
+    </div>
+    <div class="filter-controls">
+      <button id="applyAllFilters" class="large-button">Apply All Filters</button>
+      <button id="clearAllFilters" class="large-button button-danger">Clear All Filters</button>
+    </div>
+  </div>
+  
+  <h2>Clothing Items</h2>
+  <div id="itemsContainer"></div>
+
+  <div id="groupBySizeContainer" style="display: none;" class="card">
+    <h2>Items Grouped by Size</h2>
+    <div id="sizeGroups"></div>
+    <button id="closeGroupBySize" class="large-button button-danger">Close</button>
+  </div>
+
+  <div id="groupByColorCountContainer" style="display: none;" class="card">
+    <h2>Items Grouped by Color Count</h2>
+    <div id="colorCountGroups"></div>
+    <button id="closeGroupByColorCount" class="large-button button-danger">Close</button>
+  </div>
+
+  <div id="uniqueColorsContainer" style="display: none;" class="card">
+    <h2>All Unique Colors</h2>
+    <div id="uniqueColorsList"></div>
+    <button id="closeUniqueColors" class="large-button button-danger">Close</button>
+  </div>
+
+  <script src="clothing-item.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
