@@ -15,7 +15,7 @@ function findMaxSubarraySum(arr, n) {
     return maxSum;
 }
 
-let line_arr = prompt('Введите массив в формате: число число число (проста числа через пробел):');
+let line_arr = prompt('Введите числа массива через пробел:');
 let line_n = prompt('Введите длину подмассива:');
 let n = Number(line_n);
 let arr_str = line_arr.split(' ');
@@ -24,7 +24,6 @@ let arr_num = arr_str.map(elem => Number(elem));
 console.log('Исходный массив: [' + arr_num.join(', ') + ']');
 console.log('Длина подмассива: ' + n);
 
-// Вычисляем и выводим результат
 let result = findMaxSubarraySum(arr_num, n);
 console.log('Максимальная сумма подмассива: ' + result);
 alert('Максимальная сумма подмассива длиной ' + n + ': ' + result);
