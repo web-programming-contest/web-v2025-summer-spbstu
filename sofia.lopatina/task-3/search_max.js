@@ -14,7 +14,12 @@ function maxSlidingWindow(arr, k) {
     let len_arr = arr.length
     if (len_arr == 0) {
         throw {name: 'EmptyArrError', message: 'Массив пуст'};
-    } else if (k >= len_arr && k <= 0) {
+    } else if (k >= len_arr || k <= 0) {
         throw {name: 'LengthError', message: 'Задана некорректная длина подмассива'};
+    }
+
+    for (let i = k; i < (len_arr + 1); i++) {
+        let sub_arr = arr.slice(i - k, i);
+        console.log(sub_arr);
     }
 }
