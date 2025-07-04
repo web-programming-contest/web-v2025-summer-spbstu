@@ -1,29 +1,31 @@
-let title = document.getElementById("title");
-let ingredients = document.getElementById("ingredients");
-let steps = document.getElementById("steps");
-handleGrowableList(ingredients);
-handleGrowableList(steps);
+let formTitle = document.getElementById("title");
+let formIngredients = document.getElementById("ingredients");
+let formSteps = document.getElementById("steps");
+handleGrowableList(formIngredients);
+handleGrowableList(formSteps);
 let newRecipeButton = document.getElementById("newRecipe");
+let recipeCards = document.getElementById("recipes");
 let recipes = [];
-newRecipeButton.addEventListener("click", function (e) {
-    e.preventDefault();
-    let [t, i, s] = [
-        title.value,
-        growableListValues(ingredients),
-        growableListValues(steps),
+newRecipeButton.addEventListener("click", event => {
+    event.preventDefault();
+    let [title, ingredients, steps] = [
+        formTitle.value,
+        growableListValues(formIngredients),
+        growableListValues(formSteps),
     ];
-    if (t && i && s && i.length !== 0 && s.length !== 0) {
-        recipes.push(
-            new recipe(t, i, s),
-        );
-        title.value = '';
-        clearGrowableList(ingredients);
-        clearGrowableList(steps);
+    if (title && ingredients && steps &&
+        ingredients.length !== 0 && steps.length !== 0) {
+            let newRecipe = new recipe(title, ingredients, steps);
+        recipes.push(newRecipe);
+        formTitle.value = '';
+        clearGrowableList(formIngredients);
+        clearGrowableList(formSteps);
+        recipeCards.appendChild(createNewRecipeCard(newRecipe));
     }
 });
 
 function handleGrowableList(list) {
-    let action = "keydown";
+    let action = "input";
     let currentField = () => list.lastElementChild.firstElementChild;
     currentField().addEventListener(action, function addField() {
         currentField().removeEventListener(action, addField);
@@ -45,4 +47,22 @@ function clearGrowableList(list) {
     while (list.firstElementChild !== list.lastElementChild) {
         list.removeChild(list.lastElementChild);
     }
+}
+
+function createNewRecipeCard(r) {
+    let card = document.getElementById("recipeCard").content.cloneNode(true);
+    let title = card.querySelector("h2");
+    let [ingredients, steps] = card.querySelectorAll("ol");
+    title.innerText = r.title;
+    ingredients.append(...r.ingredients.map(i => {
+        let newIngredient = document.createElement("li");
+        newIngredient.innerText = i;
+        return newIngredient;
+    }));
+    steps.append(...r.steps.map(s => {
+        let newStep = document.createElement("li");
+        newStep.innerText = s;
+        return newStep;
+    }));
+    return card;
 }
