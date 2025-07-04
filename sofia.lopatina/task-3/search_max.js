@@ -43,8 +43,10 @@ function maxSlidingWindow(arr, k) {
         throw {name: 'LengthError', message: 'Задана некорректная длина подмассива'};
     }
 
-    for (let i = k; i < (len_arr + 1); i++) {  // < - <= ?
+    for (let i = k; i <= len_arr; i++) {
         let sub_arr = arr.slice(i - k, i);
+        let maximum = Math.max(...sub_arr)
         console.log(sub_arr);
+        console.log(maximum);
     }
 }
