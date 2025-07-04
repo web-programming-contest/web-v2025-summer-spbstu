@@ -8,6 +8,6 @@ function wordReversal(line) {
     return line_new.join(' ');
 }
 
-let line = prompt("Введите строку, которую надо перевернуть!");
-console.log("Исходная строка: " + line);
-console.log("Результат: " + wordReversal(line));
+let line = prompt('строка, которую надо перевернуть:');
+console.log('Исходная строка: ' + line);
+console.log('Результат: ' + wordReversal(line));
