@@ -4,33 +4,42 @@
 <head>
     <meta charset="utf-8">
     <title>task-4</title>
+    <link rel="stylesheet" href="style.css">
     <script src="recipe.js"></script>
     <script src="interface.js", defer></script>
 </head>
 
 <body>
-    <h1>Создать новый рецепт</h1>
-    <form id="newRecipeForm">
-        Название рецепта:
-        <input id="title"><br>
-        Ингредиенты:
-        <ol id="ingredients">
-            <li><input></li>
-        </ol>
-        Шаги:
-        <ol id="steps">
-            <li><input></li>
-        </ol>
-        <button id="newRecipe">Добавить рецепт</button>
-    </form>
+    <div class="center">
+        <div class="card">
+            <h1>Создать новый рецепт</h1>
+            <form id="newRecipeForm">
+                <label>
+                    Название рецепта:
+                    <input id="title">
+                </label><br>
+                Ингредиенты:
+                <ol id="ingredients">
+                    <li><input></li>
+                </ol>
+                Шаги:
+                <ol id="steps">
+                    <li><input></li>
+                </ol>
+                <button id="newRecipe">Добавить рецепт</button>
+            </form>
+        </div>
+    </div>
+    
+    
     <div id="recipes"></div>
 
     <template id="recipeCard">
-        <div>
-            <h2></h2>
-            <h2>Ингредиенты</h2>
+        <div class="card">
+            <h1></h1>
+            Ингредиенты:<br>
             <ol></ol>
-            <h2>Шаги</h2>
+            Шаги:<br>
             <ol></ol>
         </div>
     </template>

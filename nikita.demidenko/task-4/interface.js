@@ -47,11 +47,12 @@ function clearGrowableList(list) {
     while (list.firstElementChild !== list.lastElementChild) {
         list.removeChild(list.lastElementChild);
     }
+    handleGrowableList(list);
 }
 
 function createNewRecipeCard(r) {
     let card = document.getElementById("recipeCard").content.cloneNode(true);
-    let title = card.querySelector("h2");
+    let title = card.querySelector("h1");
     let [ingredients, steps] = card.querySelectorAll("ol");
     title.innerText = r.title;
     ingredients.append(...r.ingredients.map(i => {
