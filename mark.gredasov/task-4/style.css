@@ -1,0 +1,154 @@
+@font-face {
+    font-family: sfSemibold;
+    src: url(/fonts/San\ Francisco\ Pro\ Display/SF-Pro-Display-Semibold.otf);
+}
+
+@font-face {
+    font-family: sfRegular;
+    src: url(/fonts/San\ Francisco\ Pro\ Display/SF-Pro-Display-Regular.otf);
+}
+
+body {
+    color: #4c5b84;
+}
+
+h2 {
+    font-size: 30px;
+    display: block;
+    font-family: sfSemibold;
+}
+
+#teamCreationForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#teamCreationForm > div {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #dde2ec;
+    background-color: #f5f6fa;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 15px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.buttonContainer {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+}
+
+.memberInputsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 4px;
+}
+
+#teamName {
+    display: block;
+    width: calc(100% - 40px);
+    font-family: sfRegular;
+    border: 1px solid #bec3cf;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+.memberForm {
+    display: block;
+    width: calc(100% - 40px);
+    font-family: sfRegular;
+    border: 1px solid #bec3cf;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+.teamButton {
+    display: inline-block;
+    font-family: sfRegular;
+    background-color: #7165e1;
+    border: 1px solid #7165e1;
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: #f5f6fa;
+    margin-top: 7px;
+}
+
+.teamButton:hover {
+    background-color: #f5f6fa;
+    color: #4a5781;
+    border: 1px solid #4a5781;
+}
+
+h3 {
+    font-size: 20px;
+    display: block;
+    font-family: sfSemibold;
+}
+
+.membersCount {
+    font-family: sfRegular;
+    display: block;
+    margin-bottom: 5px;
+}
+
+#createdTeams {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+#createdTeams > div {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    margin: 5px;
+    border: 1px solid #d6dae4;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.memberInfo {
+    font-family: sfRegular;
+    color: #4a5781;
+    background-color: #f5f6fa;
+    padding: 5px 10px;
+    border: 1px solid #e7ebf4;
+    border-radius: 10px;
+}
+
+.teamCard {
+    opacity: 0;
+    animation: ani 0.5s forwards;
+}
+
+.memberInfo {
+    opacity: 0;
+    animation: ani 0.1s forwards;
+}
+
+@keyframes ani {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}   
+
+#teamSettingName:hover {
+    transition: transform 0.3s;
+    transform: scale(1.02);
+}
+
+#teamSettingMembers:hover {
+    transition: transform 0.3s;
+    transform: scale(1.02);
+}
+
+.teamCard:hover {
+    transition: transform 0.3s;
+    transform: scale(1.02);
+}
