@@ -22,7 +22,7 @@ class recipe {
     }
 
     removeStep(step) {
-        return this.#removeItem("steps", step)
+        return this.#removeItem("steps", step);
     }
 
     get ingredientCount() {

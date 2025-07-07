@@ -6,6 +6,11 @@ handleGrowableList(formSteps);
 let newRecipeButton = document.getElementById("newRecipe");
 let recipeCards = document.getElementById("recipes");
 let recipes = [];
+loadRecipes().then((loaded) => {
+    recipes = loaded;
+    console.log(recipes);
+    recipeCards.append(...recipes.map(createNewRecipeCard));
+});
 newRecipeButton.addEventListener("click", (event) => {
     event.preventDefault();
     let [title, ingredients, steps] = [
@@ -19,6 +24,7 @@ newRecipeButton.addEventListener("click", (event) => {
     ) {
         let newRecipe = new recipe(title, ingredients, steps);
         recipes.push(newRecipe);
+        storeRecipes(recipes);
         formTitle.value = "";
         clearGrowableList(formIngredients);
         clearGrowableList(formSteps);
@@ -53,43 +59,69 @@ function clearGrowableList(list) {
 }
 
 function createNewRecipeCard(r) {
-    let card = document.getElementById("recipeCard").content.cloneNode(true).firstElementChild;
+    let card = document.getElementById("recipeCard").content.cloneNode(true)
+        .firstElementChild;
     let title = card.querySelector("h1");
     let [ingredients, steps] = card.querySelectorAll("ol");
-    let [addIngredientButton, addStepButton, removeRecipeButton] = card.querySelectorAll("button");
+    let [addIngredientButton, addStepButton, removeRecipeButton] = card
+        .querySelectorAll("button");
     let [ingredientInput, stepInput] = card.querySelectorAll("input");
     title.innerText = r.title;
     ingredients.append(
         ...r.ingredients.map((i) =>
-            createListItem(i, () => r.removeIngredient(i))
+            createListItem(i, () => {
+                r.removeIngredient(i);
+                storeRecipes(recipes);
+            })
         ),
     );
     steps.append(
-        ...r.steps.map((s) => createListItem(s, () => r.removeStep(s))),
+        ...r.steps.map((s) =>
+            createListItem(s, () => {
+                r.removeStep(s);
+                storeRecipes(recipes);
+            })
+        ),
     );
     addIngredientButton.addEventListener("click", () => {
         let newIngredient = ingredientInput.value;
         if (newIngredient) {
-            ingredients.appendChild(createListItem(newIngredient, () => r.removeIngredient(newIngredient)));
+            r.addIngredient(newIngredient);
+            storeRecipes(recipes);
+            ingredients.appendChild(
+                createListItem(newIngredient, () => {
+                    r.removeIngredient(newIngredient);
+                    storeRecipes(recipes);
+                }),
+            );
             ingredientInput.value = "";
         }
     });
     addStepButton.addEventListener("click", () => {
         let newStep = stepInput.value;
         if (newStep) {
-            steps.appendChild(createListItem(newStep, () => r.removeStep(newStep)));
+            console.log(r);
+            r.addStep(newStep);
+            storeRecipes(recipes);
+            steps.appendChild(createListItem(newStep, () => {
+                r.removeStep(newStep);
+                storeRecipes(recipes);
+            }));
             stepInput.value = "";
         }
     });
     removeRecipeButton.addEventListener("click", () => {
         card.remove();
         removeRecipe(r);
-    })
+        storeRecipes(recipes);
+    });
     return card;
 }
 
 function createListItem(item, onRemove) {
-    let newItem = document.getElementById("recipeCardItem").content.cloneNode(true).firstElementChild;
+    let newItem =
+        document.getElementById("recipeCardItem").content.cloneNode(true)
+            .firstElementChild;
     let button = newItem.querySelector("button");
     button.before(item);
     button.addEventListener("click", () => {
@@ -104,4 +136,28 @@ function removeRecipe(r) {
     if (idx !== -1) {
         recipes.splice(idx, 1);
     }
+}
+
+function loadRecipes() {
+    let r;
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            let temp = localStorage.getItem("recipes");
+            if (!temp) {
+                r = [];
+            } else {
+                r = JSON.parse(temp).map(raw => Object.assign(new recipe, raw));
+            }
+            resolve(r);
+        }, 1000);
+    });
+}
+
+function storeRecipes(r) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            localStorage.setItem("recipes", JSON.stringify(r));
+            resolve();
+        }, 1000);
+    });
 }
