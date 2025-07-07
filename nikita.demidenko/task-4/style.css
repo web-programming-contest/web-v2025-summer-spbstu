@@ -27,6 +27,11 @@
     border-bottom: 1px solid black;
     box-sizing: border-box;
 }
+.spacer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 #recipes {
     display: flex;
     flex-wrap: wrap;
