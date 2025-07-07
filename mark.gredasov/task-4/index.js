@@ -28,13 +28,6 @@ class Team {
     memberCount() {
         return this.members.length;
     }
-
-    toJSON() {
-        return {
-            name: this.name,
-            members: this.members
-        };
-    }
 }
 
 
