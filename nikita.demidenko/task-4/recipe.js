@@ -1,4 +1,4 @@
-class recipe {
+class Recipe {
     title; // String
     ingredients; // String array
     steps; // String array
@@ -10,35 +10,32 @@ class recipe {
     }
 
     addIngredient(ingredient) {
-        this.#addItem("ingredients", ingredient);
+        this.ingredients.push(ingredient);
     }
 
     removeIngredient(ingredient) {
-        return this.#removeItem("ingredients", ingredient);
+        let idx = this.ingredients.indexOf(ingredient);
+        if (idx === -1) {
+            return false;
+        }
+        this.ingredients.splice(idx, 1);
+        return true;
     }
 
     addStep(step) {
-        this.#addItem("steps", step);
+        this.steps.push(step);
     }
 
     removeStep(step) {
-        return this.#removeItem("steps", step);
+        let idx = this.steps.indexOf(step);
+        if (idx === -1) {
+            return false;
+        }
+        this.steps.splice(idx, 1);
+        return true;
     }
 
     get ingredientCount() {
         return this.ingredients.length;
-    }
-
-    #addItem(key, item) {
-        this[key].push(item);
-    }
-
-    #removeItem(key, item) {
-        let idx = this[key].indexOf(item);
-        if (idx === -1) {
-            return false;
-        }
-        this[key].splice(idx, 1);
-        return true;
     }
 }
