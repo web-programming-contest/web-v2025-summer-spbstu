@@ -1,5 +1,3 @@
-import { recipe } from "./recipe.js";
-
 function groupByIngredientCount(recipes) {
     return Map.groupBy(recipes, r => r.ingredientCount);
 }
@@ -21,15 +19,15 @@ function recipesNames(recipes) {
 }
 
 // tests
-let recipes = [
+let testRecipes = [
     new recipe("Суп", ["Вода", "Макароны", "Бульонный кубик"], ["1", "2", "3"]),
     new recipe("Макароны", ["Вода", "Макароны"], ["1", "2"]),
     new recipe("Чай", ["Вода", "Чайный покетик"], ["1"]),
     new recipe("Салат", ["Огурцы", "Помидоры", "Перец", "Салат Айсберг"], ["1", "2", "3"]),
 ];
 
-console.log(groupByIngredientCount(recipes));
-console.log(uniqueIngredients(recipes));
-console.log(filterByIngredient(recipes, "Макароны"));
-console.log(groupByStepCount(recipes));
-console.log(recipesNames(recipes));
+console.log(groupByIngredientCount(testRecipes));
+console.log(uniqueIngredients(testRecipes));
+console.log(filterByIngredient(testRecipes, "Макароны"));
+console.log(groupByStepCount(testRecipes));
+console.log(recipesNames(testRecipes));

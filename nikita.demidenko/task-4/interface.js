@@ -8,7 +8,6 @@ let recipeCards = document.getElementById("recipes");
 let recipes = [];
 loadRecipes().then((loaded) => {
     recipes = loaded;
-    console.log(recipes);
     recipeCards.append(...recipes.map(createNewRecipeCard));
 });
 newRecipeButton.addEventListener("click", (event) => {
@@ -100,7 +99,6 @@ function createNewRecipeCard(r) {
     addStepButton.addEventListener("click", () => {
         let newStep = stepInput.value;
         if (newStep) {
-            console.log(r);
             r.addStep(newStep);
             storeRecipes(recipes);
             steps.appendChild(createListItem(newStep, () => {
