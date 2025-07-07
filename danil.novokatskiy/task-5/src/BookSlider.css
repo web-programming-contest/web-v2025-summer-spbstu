@@ -1,0 +1,25 @@
+.slider-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.slider-title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.slider {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.slide {
+  width: 100%;
+}
+
