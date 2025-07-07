@@ -23,3 +23,99 @@
   width: 100%;
 }
 
+.book-card {
+  display: flex;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 0 20px;
+}
+
+.book-cover {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.book-info {
+  padding: 20px;
+  flex: 1;
+}
+
+.book-title {
+  margin: 0 0 10px 0;
+  color: #222;
+}
+
+.book-rating {
+  margin: 10px 0;
+}
+
+.star {
+  color: #ccc;
+  font-size: 20px;
+}
+
+.star.filled {
+  color: #ffc107;
+}
+
+.book-description {
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.book-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #e53935;
+}
+
+.slide-text {
+  text-align: center;
+  margin-top: 15px;
+  color: #666;
+  font-style: italic;
+}
+
+.arrow {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px;
+  color: #333;
+  outline: none;
+}
+
+.arrow:hover {
+  color: #000;
+}
+
+.slider-counter {
+  text-align: center;
+  margin: 10px 0;
+  color: #666;
+}
+
+.dots-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.dot {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  margin: 0 5px;
+  color: #bbb;
+  padding: 5px;
+}
+
+.dot.active {
+  color: #333;
+}
