@@ -1,8 +1,6 @@
 header{
-  background: radial-gradient(circle,rgba(255, 204, 145, 1) 60%, rgba(255, 161, 54, 1) 83%, rgba(255, 161, 54, 1) 100%);
   background: radial-gradient(circle,rgba(171, 175, 255, 1) 60%, rgba(100, 108, 255, 1) 83%, rgba(100, 108, 255, 1) 100%);
   padding: 15px;
-  box-shadow: 0 0 20px 0 #ad6f28;
   box-shadow: 0 0 20px 0 #14147c;
   text-align: center;
   color:#fff;
