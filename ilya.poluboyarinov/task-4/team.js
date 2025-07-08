@@ -99,37 +99,3 @@ function getAllMembers(array)
     let currentSet = new Set(currentResult);
     return [...currentSet];
 }
-
-// let team = new Team("клоуны");
-// team.addMember({name: "Иван", role: "Сосун"});
-// team.addMember("жонглер");
-// team.addMember({name: "Стас", role: "Куколд"});
-// console.log(team.memberCount);
-// team.removeMember("Стас");
-// console.log(team.memberCount);
-// let team2 = new Team("крутые");
-// team2.addMember({name: "Петя", role: "Культас"});
-// team2.addMember({name: "Иван", role: "Куколд"});
-
-//1
-//console.log(groupByRole([team, team2]));
-
-//2
-// let array = getUniqueRoles([team, team2]);
-// for (let i = 0; i < array.length; i++)
-// {
-//     console.log(array[i]);
-// }
-
-//3
-//console.log(groupByCount([team, team2]));
-
-//4
-//console.log(getByName([team, team2], "Стас"));
-
-//5
-// let array = getAllMembers([team, team2]);
-// for (let i = 0; i < array.length; i++)
-// {
-//     console.log(array[i]);
-// }
