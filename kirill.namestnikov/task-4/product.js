@@ -3,7 +3,7 @@ class Product{
     name;
     categories;
     price;
-    constructor(id, name, categories = [], price){
+    constructor(id, name, price, categories = []){
         this.id = id;
         this.name = name;
         this.categories = categories;

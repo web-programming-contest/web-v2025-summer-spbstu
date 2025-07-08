@@ -1,5 +1,3 @@
-import { Product } from './product.js';
-
 class ProductManager{
     products;
     constructor(){
@@ -139,7 +137,7 @@ class ProductManager{
         const savedProducts = localStorage.getItem('products');
         if (savedProducts) {
             const parsed = JSON.parse(savedProducts);
-            this.products = parsed.map(p => new Product(p.id, p.name, p.categories, p.price));
+            this.products = parsed.map(p => new Product(p.id, p.name, p.price, p.categories));
         }
     }
 }
