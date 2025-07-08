@@ -1,0 +1,41 @@
+.center {
+    display: flex;
+    justify-content: center;
+}
+.card {
+    border-radius: 10px;
+    background-color: lightblue;
+    margin: 10px;
+    padding: 10px;
+    width: 250px;
+}
+.card h1 {
+    text-align: center;
+}
+.card button {
+    border-radius: 10px;
+    padding: 5px;
+    border: none;
+    background-color: cornflowerblue;
+    color: white;
+}
+.card input {
+    margin-bottom: 5px;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid black;
+    box-sizing: border-box;
+}
+.spacer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+#recipes {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+}
