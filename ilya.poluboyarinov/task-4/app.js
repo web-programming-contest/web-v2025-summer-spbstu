@@ -203,17 +203,19 @@ function openRemoveMemberModal(teamIndex)
 function addTeam(name)
 {
     new Promise((resolve, reject) => {
-        if (teams.some(team => team.name === name))
-        {
-            reject('Команда с таким именем уже существует');
-        }
-        else
-        {
-            let team = new Team(name);
-            teams.push(team);
-            saveTeams();
-            resolve();
-        }
+        setTimeout(() => {
+            if (teams.some(team => team.name === name))
+            {
+                reject('Команда с таким именем уже существует');
+            }
+            else
+            {
+                let team = new Team(name);
+                teams.push(team);
+                saveTeams();
+                resolve();
+            }
+        }, 100);
     })
     .then(() => {
         renderTeams();
@@ -226,16 +228,18 @@ function addTeam(name)
 function removeTeam(index)
 {
     new Promise((resolve, reject) => {
-        if (index >= 0 && index < teams.length)
-        {
-            teams.splice(index, 1);
-            saveTeams();
-            resolve();
-        }
-        else
-        {
-            reject('Неверный индекс команды');
-        }
+        setTimeout(() => {
+            if (index >= 0 && index < teams.length)
+            {
+                teams.splice(index, 1);
+                saveTeams();
+                resolve();
+            }
+            else
+            {
+                reject('Неверный индекс команды');
+            }
+        }, 100);
     })
     .then(() => {
         renderTeams();
@@ -248,22 +252,24 @@ function removeTeam(index)
 function addMember(teamIndex, member)
 {
     new Promise((resolve, reject) => {
-        if (teamIndex >= 0 && teamIndex < teams.length) {
-            try
-            {
-                teams[teamIndex].addMember(member);
-                saveTeams();
-                resolve();
+        setTimeout(() => {
+            if (teamIndex >= 0 && teamIndex < teams.length) {
+                try
+                {
+                    teams[teamIndex].addMember(member);
+                    saveTeams();
+                    resolve();
+                }
+                catch (error)
+                {
+                    reject(error);
+                }
             }
-            catch (error)
+            else
             {
-                reject(error);
+                reject('Неверный индекс команды');
             }
-        }
-        else
-        {
-            reject('Неверный индекс команды');
-        }
+        }, 100);
     })
     .then(() => {
         renderTeams();
@@ -276,22 +282,24 @@ function addMember(teamIndex, member)
 function removeMember(teamIndex, name)
 {
     new Promise((resolve, reject) => {
-        if (teamIndex >= 0 && teamIndex < teams.length) {
-            try
-            {
-                teams[teamIndex].removeMember(name);
-                saveTeams();
-                resolve();
+        setTimeout(() => {
+            if (teamIndex >= 0 && teamIndex < teams.length) {
+                try
+                {
+                    teams[teamIndex].removeMember(name);
+                    saveTeams();
+                    resolve();
+                }
+                catch (error)
+                {
+                    reject(error);
+                }
             }
-            catch (error)
+            else
             {
-                reject(error);
+                reject('Неверный индекс команды');
             }
-        }
-        else
-        {
-            reject('Неверный индекс команды');
-        }
+        }, 100);
     })
     .then(() => {
         renderTeams();
