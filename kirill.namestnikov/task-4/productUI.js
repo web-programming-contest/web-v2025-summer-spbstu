@@ -1,4 +1,6 @@
 class ProductUI {
+    productManager;
+    
     constructor(productManager) {
         this.productManager = productManager;
         this.initElements();
@@ -32,7 +34,7 @@ class ProductUI {
         const price = parseFloat(this.productPriceInput.value);
         
         if (isNaN(id) || name === '' || isNaN(price)) {
-            alert('Заполните все поля корректно');
+            alert('Пожалуйста, заполните все поля корректно');
             return;
         }
         
@@ -54,7 +56,7 @@ class ProductUI {
         const category = this.categoryNameInput.value.trim();
         
         if (isNaN(productId) || category === '') {
-            alert('Выберите товар и введите категорию');
+            alert('Пожалуйста, выберите товар и введите категорию');
             return;
         }
         
@@ -73,7 +75,7 @@ class ProductUI {
         const category = this.categoryNameInput.value.trim();
         
         if (isNaN(productId) || category === '') {
-            alert('Выберите товар и введите категорию');
+            alert('Пожалуйста, выберите товар и введите категорию');
             return;
         }
         
