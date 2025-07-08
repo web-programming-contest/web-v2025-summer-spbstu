@@ -1,6 +1,6 @@
 class ProductManager {
     products;
-    
+
     constructor() {
         this.products = [];
         this.loadFromLocalStorage();
@@ -66,11 +66,23 @@ class ProductManager {
     }
     
     getProductsByCategory(category) {
-        return this.products.filter(product => product.categories.includes(category));
+        let result = [];
+        for (product of this.products){
+            if (product.categories.includes(category)){
+                result.push(product);
+            }
+        }
+        return result;
     }
     
     getProductsAbovePrice(price) {
-        return this.products.filter(product => product.price > price);
+        let result = [];
+        for (product of this.products){
+            if (product.price > price){
+                result.push(product);
+            }
+        }
+        return result;
     }
     
     getGroupedByCategories() {
