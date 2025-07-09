@@ -1,0 +1,29 @@
+.score-board {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .score, .level {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin: 8px 0;
+    text-align: center;
+  }
+  
+  .paused-indicator {
+    margin-top: 12px;
+    padding: 8px;
+    background: linear-gradient(to right, #3a7bd5, #00d2ff);
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }

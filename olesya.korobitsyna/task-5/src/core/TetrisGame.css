@@ -1,0 +1,194 @@
+.tetris-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    padding: 20px;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+  
+  .side-panel {
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .left-panel {
+    margin-top: 60px;
+    padding-right: 20px;
+  }
+  
+  .right-panel {
+    margin-top: 60px;
+    padding-left: 20px;
+  }
+  
+  .controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+  }
+  
+  .arrow-controls {
+    display: grid;
+    grid-template-areas:
+      ". up ."
+      "left down right";
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .arrow-btn {
+    width: 50px;
+    height: 50px;
+    color: white;
+    border: 2px solid white;
+    border-radius: 8px;
+    font-size: 18px;
+    padding: 0;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .arrow-btn:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  .up-btn { grid-area: up; }
+  .left-btn { grid-area: left; }
+  .down-btn { grid-area: down; }
+  .right-btn { grid-area: right; }
+  
+  .drop-btn-container {
+    margin: 15px 0;
+    width: 100%;
+  }
+  
+  .drop-btn {
+    width: 100%;
+    height: 50px;
+    color: white;
+    border: 2px solid #00c8ff;
+    border-radius: 8px;
+    font-size: 20px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    background: rgba(0, 200, 255, 0.3);
+    transition: all 0.2s;
+  }
+  
+  .drop-btn:hover {
+    background: rgba(0, 200, 255, 0.5);
+  }
+  
+  .action-btns {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 15px;
+  }
+  
+  .pause-btn {
+    flex: 1;
+    height: 50px;
+    color: white;
+    border: 2px solid #ffd700;
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 0 12px;
+    cursor: pointer;
+    background: rgba(255, 215, 0, 0.3);
+    transition: all 0.2s;
+  }
+  
+  .pause-btn:hover {
+    background: rgba(255, 215, 0, 0.5);
+  }
+  
+  .reset-btn {
+    flex: 1;
+    height: 50px;
+    color: white;
+    border: 2px solid #ff5555;
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 0 12px;
+    cursor: pointer;
+    background: rgba(255, 50, 50, 0.3);
+    transition: all 0.2s;
+  }
+  
+  .reset-btn:hover {
+    background: rgba(255, 50, 50, 0.5);
+  }
+  
+  .game-area {
+    margin: 0 20px;
+    position: relative;
+  }
+  
+  .panel-spacer {
+    height: 30px;
+  }
+  
+  .pause-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, rgba(30, 60, 114, 0.9) 0%, rgba(42, 82, 152, 0.9) 100%);
+    color: white;
+    font-size: 3em;
+    font-weight: bold;
+    padding: 30px 50px;
+    border-radius: 15px;
+    z-index: 10;
+    animation: pulse 1.5s infinite;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+  }
+  
+  @keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.05); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+  }
+  
+  @media (max-width: 768px) {
+    .tetris-container {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .side-panel {
+      width: 100%;
+      margin-top: 20px;
+    }
+    
+    .left-panel, .right-panel {
+      padding: 0;
+    }
+    
+    .arrow-btn {
+      width: 45px;
+      height: 45px;
+      font-size: 16px;
+    }
+    
+    .action-btns {
+      gap: 10px;
+    }
+    
+    .pause-btn, .reset-btn {
+      font-size: 14px;
+    }
+  }
