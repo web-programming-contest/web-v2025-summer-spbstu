@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import './Timer.css';
 
 function Timer() {
     const [mitutes, setMinutes] = useState(0);
@@ -37,7 +38,7 @@ function Timer() {
             <button type="submit">Запустить</button>
         </form>
     }
-    return <div className=".Timer">
+    return <div className="Timer">
         <h2>Таймер:</h2>
         {display}
     </div>
