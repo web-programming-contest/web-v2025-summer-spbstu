@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User managment</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>User list</h1>
+
+  <form id="addUserForm">
+    <h2>Add user</h2>
+    <input type="number" id="userId" placeholder="ID" required />
+    <input type="text" id="userName" placeholder="Name" required />
+    <button type="submit">Add</button>
+  </form>
+
+  <div id="userList"></div>
+
+  <hr />
+<h2>Filter analisys</h2>
+
+<div id="analytics">
+  <button onclick="showNoFriends()">User without friends</button>
+  <button onclick="showGroupedByFriendCount()">Grouping by number of friends</button>
+
+  <form onsubmit="showMoreThanNFriends(event)">
+    <label>User with friends more than:
+      <input type="number" id="moreThanInput" required />
+    </label>
+    <button type="submit">Show</button>
+  </form>
+
+  <form onsubmit="showUsersWithCommonFriend(event)">
+    <label>Mutual friends with ID:
+      <input type="number" id="commonFriendInput" required />
+    </label>
+    <button type="submit">Show</button>
+  </form>
+
+  <div id="analysisResults"></div>
+</div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
