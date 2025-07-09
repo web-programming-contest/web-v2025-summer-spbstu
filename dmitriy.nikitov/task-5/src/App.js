@@ -2,73 +2,131 @@ import './App.css';
 import { useState } from 'react';
 
 function App() {
-  const [books, setBooks] = useState([
-    { "title": "War and Piece", "rate": "5.0", "description": "Novel by Tolstoy", "price": "300$" },
-    { "title": "1984", "rate": "4.8", "description": "Dystopian novel by George Orwell", "price": "250$" },
-    { "title": "The Great Gatsby", "rate": "4.7", "description": "Classic novel by F. Scott Fitzgerald", "price": "220$" },
-    { "title": "Crime and Punishment", "rate": "4.9", "description": "Psychological thriller by Dostoevsky", "price": "280$" },
-    { "title": "Moby Dick", "rate": "4.5", "description": "Adventure novel by Herman Melville", "price": "190$" }
-  ]);
+  const books = [
+    { "title": "Война и мир", "author": "Л.Н. Толстой", "rate": 5, "description": "Роман", "price": 530, "image": "images/War and Piece.jpg" },
+    { "title": "1984", "author": "Дж. Оруэл", "rate": 4, "description": "Роман-антиутопия", "price": 600, "image": "images/1984.jpg" },
+    { "title": "Великий Гэтсби", "author": "Ф.С. Фицджеральд", "rate": 4, "description": "Роман", "price": 500, "image": "images/The Great Gatsby.jpg" },
+    { "title": "Преступление и наказание", "author": "Ф.М. Достоевский", "rate": 3, "description": "Триллер", "price": 480, "image": "./images/Crime and Punishment.jpg" },
+    { "title": "Моби Дик, или белый кит", "author": "Г. Мелвилл", "rate": 5, "description": "Приключенческий роман", "price": 360, "image": "images/Moby Dick.jpg" }
+  ]
+  const [displayBooks, setBooks] = useState(books);
 
   const booksButtons = [
-    "title",
-    "price",
-    "rate"
+    { "attribute": "title", "text": "Названию"},
+    { "attribute": "rate", "text": "Рейтингу"},
+    { "attribute": "price", "text": "Цене"}
   ];
 
   const sortBooks = (attribute, rightOrder) => {
     const sortedBooks = [...books];
     if (attribute === "title") {
-       sortedBooks.sort((a, b) => rightOrder ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title));
+      sortedBooks.sort((a, b) => rightOrder ? b.title.localeCompare(a.title) : a.title.localeCompare(b.title));
     }
     else if (attribute === "rate") {
-      sortedBooks.sort((a, b) => rightOrder ? a.rate.localeCompare(b.rate) : b.rate.localeCompare(a.rate));
+      sortedBooks.sort((a, b) => rightOrder ? b.rate - a.rate : a.rate - b.rate);
     }
-    else {
-      sortedBooks.sort((a, b) => rightOrder ? a.price.localeCompare(b.price) : b.price.localeCompare(a.price));
+    else if (attribute === "price") {
+      sortedBooks.sort((a, b) => rightOrder ? b.price - a.price : a.price - b.price);
     }
     setBooks(sortedBooks);
-}
+  };
 
   return (
     <div className="app">
-      <h1>Library</h1>
-      <BooksControls sortBooks={ sortBooks } booksButtons={ booksButtons } />
-      <BooksList books={ books } />
+      <header>
+        <span class="header-title">ЛУЧШИЕ КНИГИ</span>
+      </header>
+      <div className="buttons-container">
+        <span>Сортировать по:</span>
+        <BooksControls sortBooks={ sortBooks } booksButtons={ booksButtons } />
+      </div>
+      <div className="books-container">
+        <BooksList books={ displayBooks } />
+      </div>
     </div>
   );
 }
 
-function BooksList({ books }) {
-  const listItems = books.map(book =>
-    <div className="bookCard">
-      <p>Title: { book.title }</p>
-      <p>Rate: { book.rate }</p>
-      <p>Description { book.description }</p>
-      <p>Price: { book.price }</p>
+const Rating = ({ rate }) => {
+  const maxRating = 5;
+  return (
+    <div className="rating-result">
+      {[...Array(maxRating)].map((_, index) => (
+        <span key={ index } className={ index < rate ? "active" : "disable" }>★</span>
+      ))}
     </div>
   );
-  return <div className="booksContainer">{ listItems }</div>
+};
+
+function BooksList({ books }) {
+  const listItems = books.map(book => BookCard(book));
+  return <div className="books-list">{ listItems }</div>
+}
+
+function BookCard(book) {
+  return (
+    <div className="book-card">
+      <div className="book-image">
+        <img src={ book.image } alt={ book.title } />
+      </div>
+      <span className="book-price">{ book.price + " ₽" }</span>
+      <span className="book-title">{ book.title }</span>
+      <span className="book-author">{ book.author }</span>
+      <Rating rate={ book.rate } />
+      <span className="book-description">{ book.description }</span>
+    </div>
+  );
+}
+
+const SortDirection = {
+  "forward": 0,
+  "reverse": 1,
+  "default": 2
 }
 
 function BooksControls({ sortBooks, booksButtons }) {
-  const [sortDirection, setSortDirection] = useState(true);
+  const [sortType, setSortType] = useState("none");
+  const [sortDirection, setSortDirection] = useState(SortDirection.default);
 
   const handleSort = (attribute) => {
-    sortBooks(attribute, sortDirection);
-    setSortDirection(prev => !prev);
+    if (attribute === sortType) {
+      if (sortDirection === SortDirection.default) {
+        setSortType("none");
+        sortBooks("none", sortDirection);
+      }
+      else
+      {
+        sortBooks(sortType, sortDirection);
+        setSortDirection(SortDirection.default);
+      }
+    }
+    else {
+      sortBooks(attribute, SortDirection.forward);
+      setSortType(attribute);
+      setSortDirection(SortDirection.reverse);
+    }
   };
 
+  const getSortIndicator = (attribute) => {
+    if (sortType !== attribute) return null;
+    if (sortDirection === SortDirection.reverse) {
+      return " ↑";
+    }
+    else if (sortDirection === SortDirection.default) {
+      return " ↓";
+    }
+    else {
+      return null;
+    }
+  }
+
   const listItems = booksButtons.map(button =>
-    <button
-      key={ button }
-      id={ button }
-      onClick={ () => handleSort(button) }
-    >
-      { button }
+    <button key={ button.attribute } id={ button.attribute }
+      onClick={ () => handleSort(button.attribute) }>
+      { button.text } { getSortIndicator(button.attribute) }
     </button>
   )
-  return <div className="booksControls">{ listItems }</div>
+  return <div className="books-controls">{ listItems }</div>
 }
 
 export default App;
