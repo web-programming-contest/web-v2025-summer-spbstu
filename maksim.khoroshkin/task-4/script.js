@@ -189,11 +189,3 @@ function loadFromLocalStorage() {
     }
     return gamesArr;
 }
-
-// const common = ["PC", "PS4", "PS5", "XBOX"];
-
-// const games = [new Game("Witcher 3", 2015, common.concat("NINTENDO")), new Game("Elden Ring", 2022, common), new Game("Mario", 1985, ["NINTENDO"]),
-//    new Game("GTA V", 2013, common), new Game("God of War: Ragnarek", 2022, common.slice(0,3)), new Game("The Last of Us", 2013, common.slice(0,3))];
-
-// saveToLocalStorage(games);
-
