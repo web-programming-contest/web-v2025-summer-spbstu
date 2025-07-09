@@ -22,7 +22,7 @@ function Timer() {
     const startTimer = event => {
         event.preventDefault();
         setActive(true);
-        setTime(new Time(mitutes, 0));
+        setTime(new Time(Number(mitutes), 0));
     };
     
     let display;
@@ -32,7 +32,7 @@ function Timer() {
         display = <form onSubmit={startTimer}>
             <input
                 value={mitutes}
-                onChange={event => setMinutes(+event.target.value)}
+                onChange={event => setMinutes(event.target.value)}
                 pattern="\d+"
             />
             <button type="submit">Запустить</button>
