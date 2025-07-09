@@ -27,32 +27,32 @@ button {
   border: none;
 }
 
-#removeLibButton, .removeButton {
+#remove-lib-button, .remove-button {
   background-color: #f44336;
 }
 
-.formGroup {
+.form-group {
   margin-bottom: 15px;
   display: flex;
   gap: 10px;
 }
 
-.formGroup input, .formGroup select {
+.form-group input, .form-group select {
   flex: 1;
   min-width: 0;
 }
 
-.formGroup button {
+.form-group button {
   flex-shrink: 0;
 }
 
-.booksContainer {
+.books-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
 }
 
-.bookCard {
+.book-card {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 15px;
@@ -60,16 +60,16 @@ button {
   position: relative;
 }
 
-.bookCard h3 {
+.book-card h3 {
   margin-top: 0;
 }
 
-.bookCard p {
+.book-card p {
   margin: 5px 0;
   color: #666;
 }
 
-.removeButton {
+.remove-button {
   position: absolute;
   top: 10px;
   right: 10px;

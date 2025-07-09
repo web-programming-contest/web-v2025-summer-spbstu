@@ -14,16 +14,16 @@ class LibraryManager {
 
   initElements() {
     this.elements = {
-      libraryName: document.getElementById("libraryName"),
-      librarySelect: document.getElementById("librarySelect"),
-      addLibButton: document.getElementById("addLibButton"),
-      removeLibButton: document.getElementById("removeLibButton"),
-      bookTitle: document.getElementById("bookTitle"),
-      bookAuthor: document.getElementById("bookAuthor"),
-      bookYear: document.getElementById("bookYear"),
-      bookGenre: document.getElementById("bookGenre"),
-      addBookButton: document.getElementById("addBookButton"),
-      booksContainer: document.getElementById("booksContainer")
+      libraryName: document.getElementById("library-name"),
+      librarySelect: document.getElementById("library-select"),
+      addLibButton: document.getElementById("add-lib-button"),
+      removeLibButton: document.getElementById("remove-lib-button"),
+      bookTitle: document.getElementById("book-title"),
+      bookAuthor: document.getElementById("book-author"),
+      bookYear: document.getElementById("book-year"),
+      bookGenre: document.getElementById("book-genre"),
+      addBookButton: document.getElementById("add-book-button"),
+      booksContainer: document.getElementById("books-container")
     }
   }
 
@@ -51,9 +51,9 @@ class LibraryManager {
       const newLibrary = new Library(name);
       this.libraries.push(newLibrary);
       this.saveToLocalStorage();
-      this.renderLibrariesSelect();
       this.elements.libraryName.value = "";
       this.currentLibraryName = newLibrary.name;
+      this.renderLibrariesSelect();
       localStorage.setItem("currentLibraryName", this.currentLibraryName);
       this.renderBooks();
     } catch (error) {
@@ -64,6 +64,10 @@ class LibraryManager {
   async removeLibrary() {
     try {
       await new Promise(resolve => setTimeout(resolve, 10));
+
+      if (!this.currentLibraryName) {
+        throw new Error("No library selected to remove");
+      }
 
       this.libraries = this.libraries.filter(lib => lib.name !== this.currentLibraryName);
       if (this.libraries.length !== 0) {
@@ -177,9 +181,9 @@ class LibraryManager {
 
     library.books.forEach(book => {
       const card = document.createElement("div");
-      card.className = "bookCard";
+      card.className = "book-card";
       card.innerHTML = `
-        <button class="removeButton" dataBookTitle="${ book.title }">×</button>
+        <button class="remove-button" data-book-title="${ book.title }">×</button>
         <h3>${ book.title }</h3>
         <p><strong>Author:</strong> ${ book.author }</p>
         <p><strong>Year:</strong> ${ book.year }</p>
@@ -188,9 +192,9 @@ class LibraryManager {
       container.appendChild(card);
     });
 
-    document.querySelectorAll(".removeButton").forEach(button => {
+    document.querySelectorAll(".remove-button").forEach(button => {
       button.addEventListener("click", (e) => {
-        const title = e.target.getAttribute("dataBookTitle");
+        const title = e.target.getAttribute("data-book-title");
         this.removeBook(title);
       });
     });
