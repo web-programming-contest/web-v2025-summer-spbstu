@@ -1,7 +1,22 @@
 import './App.css';
 import { useState } from 'react';
+import { useRef } from 'react';
 
 function App() {
+  const booksListRef = useRef(null);
+
+  const scrollLeft = () => {
+    if (booksListRef.current) {
+      booksListRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (booksListRef.current) {
+      booksListRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+  };
+
   const books = [
     { "title": "Война и мир", "author": "Л.Н. Толстой", "rate": 5, "description": "Роман", "price": 530, "image": "images/War and Piece.jpg" },
     { "title": "1984", "author": "Дж. Оруэл", "rate": 4, "description": "Роман-антиутопия", "price": 600, "image": "images/1984.jpg" },
@@ -44,8 +59,16 @@ function App() {
         <span>Сортировать по:</span>
         <BooksControls sortBooks={ sortBooks } booksButtons={ booksButtons } />
       </div>
-      <div className={ `books-container ${ sortState ? "hidden" : "" }` }>
-        <BooksList books={ displayBooks } />
+      <div className="books-scroll-container">
+        <button className="scroll-button left" onClick={scrollLeft}>
+          &lt;
+        </button>
+        <div className={ `books-container ${ sortState ? "hidden" : "" }` }>
+          <BooksList books={ displayBooks } ref={booksListRef} />
+        </div>
+        <button className="scroll-button right" onClick={scrollRight}>
+          &gt;
+        </button>
       </div>
     </div>
   );
@@ -62,9 +85,9 @@ const Rating = ({ rate }) => {
   );
 };
 
-function BooksList({ books }) {
+function BooksList({ books, ref }) {
   const listItems = books.map(book => BookCard(book));
-  return <div className="books-list">{ listItems }</div>
+  return <div className="books-list" ref={ ref }>{ listItems }</div>
 }
 
 function BookCard(book) {
@@ -130,7 +153,7 @@ function BooksControls({ sortBooks, booksButtons }) {
       { button.text } { getSortIndicator(button.attribute) }
     </button>
   )
-  return <div className="books-controls">{ listItems }</div>
+  return <div className="sort-buttons">{ listItems }</div>
 }
 
 export default App;
