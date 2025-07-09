@@ -1,0 +1,220 @@
+/* App.css */
+
+/* Фон всей страницы */
+body {
+  background-color: #f9fafb;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  margin: 0;
+  padding: 1rem;
+}
+
+/* Контейнер приложения */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 2rem 3rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Заголовок главной страницы */
+h1 {
+  text-align: center;
+  color: #1e293b; /* темно-синий */
+  margin-bottom: 2rem;
+  font-weight: 700;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Контейнер визуализации */
+.visualization {
+  background-color: #fefefe;
+  padding: 30px 40px;
+  margin-top: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Заголовки внутри визуализации */
+.visualization h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #334155; /* синий-антрацит */
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: 0.05em;
+}
+
+.visualization h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #475569;
+  font-weight: 600;
+  border-bottom: 3px solid #60a5fa; /* голубая линия под заголовком */
+  padding-bottom: 0.4rem;
+}
+
+/* Центрируем графики */
+.chart-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+/* Подписи к пустым состояниям */
+.visualization p {
+  text-align: center;
+  font-style: italic;
+  color: #94a3b8;
+  margin-top: 1rem;
+}
+
+
+
+
+/* --- Форма добавления транзакций --- */
+form {
+  max-width: 720px;
+  margin: 0 auto 3rem;
+  background: #fff;
+  padding: 25px 35px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 2rem;
+  align-items: center;
+}
+
+form label {
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.3rem;
+  display: block;
+  font-size: 1rem;
+}
+
+form input[type="number"],
+form input[type="date"],
+form input[type="text"],
+form select {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1.5px solid #cbd5e1;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+form input[type="number"]:focus,
+form input[type="date"]:focus,
+form input[type="text"]:focus,
+form select:focus {
+  border-color: #3b82f6;
+  outline: none;
+}
+
+form button {
+  grid-column: 1 / -1;
+  padding: 12px 20px;
+  font-weight: 700;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s;
+}
+
+form button:hover {
+  background-color: #2563eb;
+}
+
+/* --- История транзакций --- */
+.transaction-history {
+  max-width: 720px;
+  margin: 0 auto 3rem;
+  background: #fff;
+  padding: 25px 35px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.transaction-history h2 {
+  color: #334155;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.filters {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+
+.filters label {
+  font-weight: 600;
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.filters select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1.5px solid #cbd5e1;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.filters select:hover,
+.filters select:focus {
+  border-color: #3b82f6;
+  outline: none;
+}
+
+.transaction-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.transaction-list li {
+  background: #f9fafb;
+  border-left: 5px solid transparent;
+  margin-bottom: 1rem;
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+  transition: border-color 0.3s;
+}
+
+.transaction-list li.income {
+  border-left-color: #22c55e; /* зеленый */
+}
+
+.transaction-list li.expense {
+  border-left-color: #ef4444; /* красный */
+}
+
+.transaction-list li strong {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #1e293b;
+}
+
+.transaction-list li small {
+  color: #64748b;
+  font-size: 0.85rem;
+  display: block;
+  margin-top: 0.3rem;
+}
