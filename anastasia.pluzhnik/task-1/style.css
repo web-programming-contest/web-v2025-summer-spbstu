@@ -1,0 +1,62 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0px 300px 20px 300px;
+    background-color: #f0f7ff;
+    text-align: center;
+}
+
+h1 {
+    color: rgb(77, 100, 141);
+}
+
+ul {
+    font-size: large;
+    width: auto; 
+    height: auto; 
+    margin: 10px;
+    padding: 10px 15px 10px 40px;
+    position: relative; 
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
+}
+
+.completed {
+    color: rgb(105, 158, 98);
+    background-color: rgba(115, 255, 0, 0.1);
+}
+
+.process {
+    color: sandybrown;
+    background-color: rgba(255, 238, 0, 0.1);
+}
+
+.cancelled {
+    color: crimson;
+    background-color: rgba(216, 121, 140, 0.1);
+}
+
+.completed::before {
+    content: "✅";
+    position: absolute;
+    left: 8px; 
+    font-size: 1.2em;
+}
+
+.process::before {
+    content: "⏳";
+    position: absolute;
+    left: 8px;
+    font-size: 1.2em;
+}
+
+.cancelled::before {
+    content: "❌";
+    position: absolute;
+    left: 8px;
+    font-size: 1.2em;
+}
+
+
+::selection {
+    background-color: rgb(77, 100, 141);
+    color: white; 
+}
