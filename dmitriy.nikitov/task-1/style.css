@@ -1,0 +1,16 @@
+nav li {
+  display: inline;
+  margin-right: 50px;
+}
+
+nav a {
+  color: #000000;
+  text-decoration: none;
+  font-size: 15pt;
+  font-family: "Consolas";
+}
+
+nav li:nth-child(3):active a {
+  color: #FF0000;
+  font-weight: bold;
+}

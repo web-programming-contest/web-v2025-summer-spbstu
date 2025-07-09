@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>task 3</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Сдвиг массива вправо</h2>
+
+  <label for="arrayInput">Введите массив (через запятую):</label>
+  <input type="text" id="arrayInput" placeholder="например: 1,2,3,4,5">
+
+  <label for="stepsInput">Количество шагов вправо:</label>
+  <input type="number" id="stepsInput" placeholder="например: 2" min="0">
+
+  <button onclick="rotateAndShow()">Сдвинуть массив</button>
+
+  <label>Результат:</label>
+  <div class="output" id="resultOutput"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
