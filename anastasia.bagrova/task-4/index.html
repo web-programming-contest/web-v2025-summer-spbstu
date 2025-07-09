@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Библиотеки</title>
+        <link rel="stylesheet" href="all.css" />
+    </head>
+    <body>
+        <header>
+            <h1>Управление библиотеками</h1>
+        </header>
+
+        <div id="page">
+            <aside>
+                <h2>Добавить библиотеку</h2>
+                <input type="text" id="library-name" placeholder="Название библиотеки" maxlength="50"/>
+                <button>Добавить библиотеку</button>
+            </aside>
+            <main>
+                <h2>Список библиотек</h2>
+                <div id="librariesContainer"></div>
+            </main>
+        </div>
+        
+        <script src="library.js"></script>
+        <script src="localStorage.js"></script>
+        <script src="userInterface.js"></script>
+    </body>
+</html>

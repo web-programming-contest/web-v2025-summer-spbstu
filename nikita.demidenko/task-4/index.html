@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>task-4</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="recipe.js"></script>
+    <script src="functions.js"></script>
+    <script src="interface.js", defer></script>
+</head>
+
+<body>
+    <div class="center">
+        <div class="card">
+            <h1>Создать новый рецепт</h1>
+            <form id="newRecipeForm">
+                <label>
+                    Название рецепта:
+                    <input id="title">
+                </label><br>
+                Ингредиенты:
+                <ol id="ingredients">
+                    <li><input></li>
+                </ol>
+                Шаги:
+                <ol id="steps">
+                    <li><input></li>
+                </ol>
+                <button id="newRecipe">Добавить рецепт</button>
+            </form>
+        </div>
+    </div>
+    
+    
+    <div id="recipes"></div>
+
+    <template id="recipeCard">
+        <div class="card">
+            <h1></h1>
+            Ингредиенты:<br>
+            <ol></ol>
+            <button>Добавить ингредиент:</button><input>
+            Шаги:<br>
+            <ol></ol>
+            <button>Добавить шаг:</button><input>
+            <button>Удалить рецепт</button>
+        </div>
+    </template>
+    <template id="recipeCardItem">
+        <li>
+            <div class="spacer">
+                <button>Убрать</button>
+            </div>
+        </li>
+    </template>
+</body>
+
+</html>

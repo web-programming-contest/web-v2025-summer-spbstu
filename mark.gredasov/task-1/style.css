@@ -1,0 +1,28 @@
+.page:hover {
+    background: #a2a2a2;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+.page {
+    background: #e3e3e3;
+    padding: 10px;
+    border: 3px solid white;
+}
+
+.active {
+    background: #2f89ff;
+    color: white;
+}
+
+.active:hover {
+    background: #2f89ff;
+}
+
+.navigation {
+    display: flex;
+    justify-content: center;
+}
