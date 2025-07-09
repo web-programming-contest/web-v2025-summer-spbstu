@@ -9,15 +9,12 @@ function App() {
     { "title": "Преступление и наказание", "author": "Ф.М. Достоевский", "rate": 3, "description": "Триллер", "price": 480, "image": "./images/Crime and Punishment.jpg" },
     { "title": "Моби Дик, или белый кит", "author": "Г. Мелвилл", "rate": 5, "description": "Приключенческий роман", "price": 360, "image": "images/Moby Dick.jpg" }
   ]
-  const [displayBooks, setBooks] = useState(books);
+  const [displayBooks, setDisplayBooks] = useState(books);
+  const [sortState, setSortState] = useState(false);
 
-  const booksButtons = [
-    { "attribute": "title", "text": "Названию"},
-    { "attribute": "rate", "text": "Рейтингу"},
-    { "attribute": "price", "text": "Цене"}
-  ];
-
-  const sortBooks = (attribute, rightOrder) => {
+  const sortBooks = async (attribute, rightOrder) => {
+    setSortState(true);
+    await new Promise(resolve => setTimeout(resolve, 300));
     const sortedBooks = [...books];
     if (attribute === "title") {
       sortedBooks.sort((a, b) => rightOrder ? b.title.localeCompare(a.title) : a.title.localeCompare(b.title));
@@ -28,8 +25,15 @@ function App() {
     else if (attribute === "price") {
       sortedBooks.sort((a, b) => rightOrder ? b.price - a.price : a.price - b.price);
     }
-    setBooks(sortedBooks);
+    setDisplayBooks(sortedBooks);
+    setSortState(false);
   };
+
+  const booksButtons = [
+    { "attribute": "title", "text": "Названию"},
+    { "attribute": "rate", "text": "Рейтингу"},
+    { "attribute": "price", "text": "Цене"}
+  ];
 
   return (
     <div className="app">
@@ -40,7 +44,7 @@ function App() {
         <span>Сортировать по:</span>
         <BooksControls sortBooks={ sortBooks } booksButtons={ booksButtons } />
       </div>
-      <div className="books-container">
+      <div className={ `books-container ${ sortState ? "hidden" : "" }` }>
         <BooksList books={ displayBooks } />
       </div>
     </div>
