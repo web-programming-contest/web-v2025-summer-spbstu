@@ -1,0 +1,83 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
+}
+
+h1, h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+#event-list > div {
+  border: 1px solid #ddd;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: #f9f9f9;
+  margin-bottom: 12px;
+}
+
+button {
+  padding: 7px 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #3f51b5;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+button:hover {
+  background-color: #2c3e9f;
+}
+
+input {
+  padding: 7px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+#create-event-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#analytics-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+#analytics-controls .row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+#analytics-output {
+  background: #eef1f5;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+  max-height: 320px;
+  overflow: auto;
+  white-space: pre-wrap;
+}
