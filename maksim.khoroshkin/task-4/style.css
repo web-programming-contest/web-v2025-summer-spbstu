@@ -1,0 +1,65 @@
+.main {
+    display: flex;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+}
+
+.gameManager {
+    border: 1px solid black;
+    border-radius: 5%;
+    height: 700px;
+    width: 600px;
+    margin: 1% 1% 1% ;
+}
+
+#cards {
+    display: flex;
+    width: 1300px;
+    margin: 1% 0% 1% 1%;
+    flex-wrap: wrap;
+}
+
+#cards > div {
+    border: 1px solid black;
+    border-radius: 5%;
+    width: 200px;
+    height: 350px;
+    margin: 10px;
+    padding: 1%;
+    overflow: auto;
+}
+
+.titleOfManager {
+    font: 30px Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+
+.titleForAction {
+    display: block;
+    padding-top: 2%;
+    text-align: center;
+    font-weight: bold;
+}
+
+input, select {
+    background-color: aliceblue;
+}
+
+.submitButton {
+    margin: 2%;
+    text-align: center;
+}
+
+.submitButton > * {
+    font: 15px Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.inputAction {
+    text-align: center;
+    padding-top: 2%;
+}
+
+
+.actionFrame {
+    margin: 2%;
+}

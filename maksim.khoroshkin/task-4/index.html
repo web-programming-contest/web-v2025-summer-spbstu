@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Game Cards</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main">
+        <div id="cards"></div>
+        <div class="gameManager">
+            <p class="titleOfManager">Управление играми</p>
+
+            <div class="actionFrame">
+                <span class="titleForAction">Добавить игру</span>
+                <div class="inputAction">
+                    <label for="inputName">Введите название:</label>
+                    <input id="inputName" type="text">
+                </div>
+                <div class="inputAction">
+                    <label for="inputYear">Введите год выпуска:</label>
+                    <input id="inputYear" type="number">
+                </div>
+                <div class="submitButton">
+                    <button id="processNewGame">Добавить</button>
+                </div>
+            </div>
+
+            <div class="actionFrame">
+                <span class="titleForAction">Удалить игру</span>
+                <div class="inputAction">
+                    <label for="gameToDelete">Выберите игру:</label>
+                    <select id="gameToDelete"></select>
+                </div>
+   
+                <div class="submitButton">
+                    <button id="processDeleteGame">Удалить</button>
+                </div>
+            </div>
+
+            <div class="actionFrame">
+                <span class="titleForAction">Добавить платформу</span>
+                <div class="inputAction">
+                    <label for="selectGame">Выберите игру:</label>
+                    <select id="selectGame"></select>
+                </div>
+                
+                <div class="inputAction">
+                    <label for="selectPlatform">Выберите платформу:</label>
+                    <select id="selectPlatform">
+                        <option value="PC">PC</option>
+                        <option value="PS5">PlayStation 5</option>
+                        <option value="PS4">PlayStation 4</option>
+                        <option value="PS3">PlayStation 3</option>
+                        <option value="XBOX">Xbox</option>
+                        <option value="NINTENDO">Nintendo</option>
+                        <option value="ANDROID">Android</option>
+                        <option value="IOS">iOS</option>
+                    </select>
+                </div>
+                <div class="submitButton">
+                    <button id="processNewPlatform">Добавить</button>
+                </div>
+            </div>
+
+            <div class="actionFrame">
+                <span class="titleForAction">Удалить платформу</span>
+                <div class="inputAction">
+                    <label for="deleteGamePlatform">Выберите игру:</label>
+                    <select id="deleteGamePlatform"></select>
+                </div>
+                
+                <div class="inputAction">
+                    <label for="selectPlatformDelete">Выберите платформу:</label>
+                    <select id="selectPlatformDelete">
+                        <option value="PC">PC</option>
+                        <option value="PS5">PlayStation 5</option>
+                        <option value="PS4">PlayStation 4</option>
+                        <option value="PS3">PlayStation 3</option>
+                        <option value="XBOX">Xbox</option>
+                        <option value="NINTENDO">Nintendo</option>
+                        <option value="ANDROID">Android</option>
+                        <option value="IOS">iOS</option>
+                    </select>
+                </div>
+                <div class="submitButton">
+                    <button id="processDeletePlatform">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="script.js"></script>
+</body>
