@@ -1,0 +1,19 @@
+body {
+    padding: 16px;
+    text-align: center;
+    font-family: Arial;
+}
+
+.input {
+    padding: 4px 8px;
+}
+
+.result {
+    margin-top: 16px;
+    word-break: break-all;
+}
+
+.input,
+.result {
+    letter-spacing: 2px;
+}

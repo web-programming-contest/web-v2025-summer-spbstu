@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Управление событиями</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Список событий</h1>
+    <div id="event-list"></div>
+
+    <h2>Создать событие</h2>
+    <form id="create-event-form">
+      <input type="text" placeholder="Название" required id="event-title">
+      <input type="text" placeholder="Место проведения" required id="event-location">
+      <button type="submit">Добавить событие</button>
+    </form>
+
+   <h2>Аналитика (задание 4.2)</h2>
+
+    <div id="analytics-controls">
+    <div class="row">
+        <button id="btn-group-location">Группировать по месту</button>
+        <button id="btn-all-organizers">Уникальные организаторы</button>
+    </div>
+
+    <div class="row">
+        <input id="filter-organizer" placeholder="Имя организатора">
+        <button id="btn-filter-organizer">По организатору</button>
+    </div>
+
+    <div class="row">
+        <button id="btn-group-orgcount">Группировать по кол‑ву орг.</button>
+    </div>
+
+    <div class="row">
+        <input id="filter-city" placeholder="Город">
+        <button id="btn-filter-city">По городу</button>
+    </div>
+    </div>
+
+
+    <!-- Вывод результата -->
+    <pre id="analytics-output"></pre>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
