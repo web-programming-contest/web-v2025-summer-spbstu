@@ -43,58 +43,54 @@ export class Library {
   }
 }
 
-function groupByGenre(libs) {
-  let map = new Map();
-  for (let i = 0; i !== libs.length(); ++i) {
-    for (let j = 0; j !== libs[i].length(); ++j) {
-      if (!map.has(libs[i][j].genre)) {
-        map.set(libs[i][j].genre, []);
+function groupByProperty(libs, property) {
+  const map = new Map();
+  libs.forEach(library => {
+    library.books.forEach(book => {
+      const key = book[property];
+      if (!map.has(key)) {
+        map.set(key, []);
       }
-      map.get(libs[i][j].genre).push(libs[i][j]);
-    }
-  }
+      map.get(key).push(book);
+    });
+  });
+  return map;
+}
+
+function groupByGenre(libs) {
+  return groupByProperty(libs, 'genre');
 }
 
 function groupByYear(libs) {
-  let map = new Map();
-  for (let i = 0; i !== libs.length(); ++i) {
-    for (let j = 0; j !== libs[i].length(); ++j) {
-      if (!map.has(libs[i][j].year)) {
-        map.set(libs[i][j].year, []);
-      }
-      map.get(libs[i][j].year).push(libs[i][j]);
-    }
-  }
+  return groupByProperty(libs, 'year');
+}
+
+function getUniqueValues(libs, property) {
+  const values = new Set();
+  libs.forEach(library => {
+    library.books.forEach(book => {
+      values.add(book[property]);
+    });
+  });
+  return Array.from(values);
 }
 
 function getAuthors(libs) {
-  let authors = new Set();
-  for (let i = 0; i !== libs.length(); ++i) {
-    for (let j = 0; j !== libs[i].length(); ++j) {
-      authors.add(libs[i][j].author);
-    }
-  }
-  return Array.from(authors);
+  return getUniqueValues(libs, 'author');
 }
 
 function getYears(libs) {
-  let years = new Set();
-  for (let i = 0; i !== libs.length(); ++i) {
-    for (let j = 0; j !== libs[i].length(); ++j) {
-      years.add(libs[i][j].year);
-    }
-  }
-  return Array.from(years);
+  return getUniqueValues(libs, 'year');
 }
 
 function getBooksByAuthor(libs, author) {
-  let books = new Set();
-  for (let i = 0; i !== libs.length(); ++i) {
-    for (let j = 0; j !== libs[i].length(); ++j) {
-      if (libs[i][j].author == author) {
-        books.add(libs[i][j]);
+  const books = new Set();
+  libs.forEach(library => {
+    library.books.forEach(book => {
+      if (book.author === author) {
+        books.add(book);
       }
-    }
-  }
+    });
+  });
   return Array.from(books);
 }
