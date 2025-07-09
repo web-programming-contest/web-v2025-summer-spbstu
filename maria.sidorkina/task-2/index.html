@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Find Longest Palindromic Substring</h1>
+
+<label>
+    <input class="input" id="input" placeholder="Enter a string..." oninput="handleFind()">
+</label>
+
+<div class="result" id="result"/>
+
+<script src="index.js"></script>
+<script>
+    function handleFind() {
+        const input = document.getElementById('input').value;
+        document.getElementById('result').textContent = findLongestPalindrome(input);
+    }
+</script>
+</body>
+</html>
