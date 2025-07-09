@@ -1,46 +1,54 @@
 import React, { useMemo } from 'react';
 import './GameBoard.css';
 
-const Cell = React.memo(({ isFilled, color }) => (
-  <div 
-    className={`cell ${isFilled ? 'filled' : ''}`}
-    style={{ backgroundColor: isFilled ? color : 'transparent' }}
-  />
-));
+const Cell = React.memo(({ 
+  cellValue, 
+  currentTetromino, 
+  position, 
+  x, 
+  y 
+}) => {
+  const isCurrentTetrominoCell = useMemo(() => {
+    if (!currentTetromino) return false;
+    
+    const relX = x - position.x;
+    const relY = y - position.y;
+    
+    return (
+      relX >= 0 &&
+      relY >= 0 &&
+      relX < currentTetromino.shape[0].length &&
+      relY < currentTetromino.shape.length &&
+      currentTetromino.shape[relY][relX]
+    );
+  }, [currentTetromino, position, x, y]);
+
+  const color = isCurrentTetrominoCell ? currentTetromino.color : cellValue;
+  const isFilled = Boolean(cellValue) || isCurrentTetrominoCell;
+
+  return (
+    <div 
+      className={`cell ${isFilled ? 'filled' : ''}`}
+      style={{ backgroundColor: isFilled ? color : 'transparent' }}
+    />
+  );
+});
 
 const GameBoard = ({ board, currentTetromino, position }) => {
-  const tetrominoCells = useMemo(() => {
-    const cells = {};
-    if (currentTetromino) {
-      currentTetromino.shape.forEach((row, ty) => {
-        row.forEach((cell, tx) => {
-          if (cell) {
-            const x = position.x + tx;
-            const y = position.y + ty;
-            cells[`${y}-${x}`] = currentTetromino.color;
-          }
-        });
-      });
-    }
-    return cells;
-  }, [currentTetromino, position]);
-
   return (
     <div className="game-board">
       {board.map((row, y) => (
         <div key={`row-${y}`} className="row">
-          {row.map((cell, x) => {
-            const cellKey = `${y}-${x}`;
-            const isCurrentTetrominoCell = tetrominoCells[cellKey];
-            
-            return (
-              <Cell
-                key={cellKey}
-                isFilled={Boolean(cell) || Boolean(isCurrentTetrominoCell)}
-                color={cell || isCurrentTetrominoCell}
-              />
-            );
-          })}
+          {row.map((cell, x) => (
+            <Cell
+              key={`${y}-${x}`}
+              cellValue={cell}
+              currentTetromino={currentTetromino}
+              position={position}
+              x={x}
+              y={y}
+            />
+          ))}
         </div>
       ))}
     </div>
