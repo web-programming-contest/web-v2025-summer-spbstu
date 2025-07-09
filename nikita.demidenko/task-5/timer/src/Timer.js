@@ -2,28 +2,31 @@ import { useState, useEffect } from "react";
 
 function Timer() {
     const [mitutes, setMinutes] = useState(0);
-    const [time, setTime] = useState(new Time(0, 0));
+    const [time, setTime] = useState(null);
     const [isActive, setActive] = useState(false);
     useEffect(() => {
         if (isActive) {
-            const timerId = setTimeout(() => {
-                try {
-                    setTime(t => t.tickDown());
-                } catch {
-                    alert("Время истекло");
-                }
+            const timerId = setInterval(() => {
+                setTime(t => t?.tickDown());
             }, 1000);
-            return () => clearTimeout(timerId);
+            return () => clearInterval(timerId);
         }
     }, [isActive]);
+
+    if (isActive && !time) {
+        setActive(false);
+        alert("Время вышло!");
+    }
+
     const startTimer = event => {
         event.preventDefault();
         setActive(true);
-    }
+        setTime(new Time(mitutes, 0));
+    };
     
     let display;
     if (isActive) {
-        display = <h1>{time}</h1>
+        display = <h1>{time?.toString()}</h1>
     } else {
         display = <form onSubmit={startTimer}>
             <input
@@ -40,7 +43,7 @@ function Timer() {
     </div>
 }
 export default Timer;
-const NUMBER_OF_SECONDS_IN_MINUTE = 5;
+const NUMBER_OF_SECONDS_IN_MINUTE = 60;
 class Time {
     minutes;
     seconds;
@@ -50,8 +53,8 @@ class Time {
     }
     tickDown() {
         if (this.seconds === 0) {
-            if (this.mitutes === 0) {
-                throw new Error("Time out");
+            if (this.minutes === 0) {
+                return null;
             } else {
                 return new Time(this.minutes - 1, NUMBER_OF_SECONDS_IN_MINUTE - 1);
             }
