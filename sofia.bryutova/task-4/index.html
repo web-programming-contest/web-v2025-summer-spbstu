@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task 4</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Фильмотека</h1>
+</header>
+<main>
+    <div class="controls-container card">
+        <h2>Добавление нового фильма</h2>
+        <form id="add-movie-form">
+            <input type="text" id="new-movie-title" placeholder="Название фильма" required>
+            <input type="text" id="new-movie-director" placeholder="Режиссёр" required>
+            <button type="submit">Добавить фильм</button>
+        </form>
+    </div>
+    <h2>Список фильмов</h2>
+    <div id="movie-list" class="movie-grid">
+    </div>
+</main>
+<script type="module" src="script.js"></script>
+</body>
+</html>
