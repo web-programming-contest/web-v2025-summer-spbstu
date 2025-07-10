@@ -19,9 +19,9 @@ export function HistoryContainer({ref}: {ref: React.RefObject<HTMLDivElement | n
         <div 
           id="forHistory" 
           ref={ref} 
-          onClick={() => {
+          onClick={(e) => {
             if(ref.current) {
-                ref.current.classList.toggle("clicked");
+                e.currentTarget.classList.toggle("clicked");
             }
           }}>
             {/* кнопка очистки истории */}
@@ -33,7 +33,7 @@ export function HistoryContainer({ref}: {ref: React.RefObject<HTMLDivElement | n
                     <span>Удалить записи</span>
                 </div>
             </button>
-            {/* кнопки записей истории */}
+            
             {historyRecords.map((record, index) => (
                 <HistoryRecordButon record={record} index={index} />
             ))}

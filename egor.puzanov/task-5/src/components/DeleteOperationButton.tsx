@@ -15,7 +15,10 @@ export function DeleteOperationButton({ operation }: { operation: string }) {
     setExpression, 
     setResult, 
     isSecondOperand,
-    isError } = context;
+    setIsSecondOperand,
+    isError,
+    setIsError
+   } = context;
 
   const buttons = useContext(ButtonsContext);
   if (!buttons) {
@@ -40,7 +43,9 @@ export function DeleteOperationButton({ operation }: { operation: string }) {
           setValue: setArgument,
           setResult: setResult,
           isSecondOperand: isSecondOperand,
-          isError
+          setIsSecondOperand: setIsSecondOperand,
+          isError: isError,
+          setIsError: setIsError
         })
       }
     >

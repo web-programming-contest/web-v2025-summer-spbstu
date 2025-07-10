@@ -12,7 +12,7 @@ export function UnaryOperationButton({ operation }: { operation: string }) {
     argument, 
     setArgument, 
     isSecondOperand, 
-    calculateArgument, 
+    setCalculateArgument, 
     setExpression,
     isError 
   } = context;
@@ -31,7 +31,7 @@ export function UnaryOperationButton({ operation }: { operation: string }) {
   return (
     <button
       ref={buttonRef}
-      disabled={isError.current}
+      disabled={isError}
       onClick={() =>
         unaryOperation({
           operation: operation,
@@ -39,7 +39,7 @@ export function UnaryOperationButton({ operation }: { operation: string }) {
           setValue: setArgument,
           setExpression: setExpression,
           isSecondOperand: isSecondOperand,
-          isCalculatable: calculateArgument,
+          setCalculateArgument: setCalculateArgument,
         })
       }
     >

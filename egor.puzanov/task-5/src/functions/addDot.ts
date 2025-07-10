@@ -1,7 +1,8 @@
 type addDotArgs = {
   value: string;
   setValue: (value: string) => void;
-  dotPlaced: React.MutableRefObject<boolean>;
+  dotPlaced: boolean;
+  setDotPlaced: React.Dispatch<React.SetStateAction<boolean>>;
  }
  
 //функция добавляет точку к числу
@@ -9,9 +10,9 @@ type addDotArgs = {
  export function addDot(args: addDotArgs) {
     if (args.value === "") { //нажали точку после того как нажали операцию
       args.setValue(args.value + "0.");
-      args.dotPlaced.current = true;
-    } else if (!args.dotPlaced.current) {
+      args.setDotPlaced(true);
+    } else if (!args.dotPlaced) {
       args.setValue(args.value + ".");
-      args.dotPlaced.current = true;
+      args.setDotPlaced(true);
     }
   }

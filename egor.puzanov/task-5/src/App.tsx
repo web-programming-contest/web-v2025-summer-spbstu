@@ -32,10 +32,10 @@ function App() {
   const [historyRecords, setHistoryRecords] = useState<historyRecord[]>([]);
 
   //все что не может отображаться
-  const isSecondOperand = useRef<boolean>(false);
-  const dotPlaced = useRef<boolean>(false);
-  const calculateArgument = useRef<boolean>(false);
-  const isError = useRef<boolean>(false);
+  const [isSecondOperand, setIsSecondOperand] = useState(false);
+  const [dotPlaced, setDotPlaced] = useState(false);
+  const [calculateArgument, setCalculateArgument] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   //ссылки на элеметы для отображения
   const pRefArgument = useRef<HTMLParagraphElement>(null);
@@ -53,9 +53,13 @@ function App() {
     shownValue,
     setShownValue,
     isSecondOperand,
+    setIsSecondOperand,
     dotPlaced,
+    setDotPlaced,
     calculateArgument,
+    setCalculateArgument,
     isError,
+    setIsError,
     historyRecords,
     setHistoryRecords
   };
@@ -65,21 +69,21 @@ function App() {
 
   //обновление отображения когда меняется аргумент или результат
   useEffect(() => {
-    if (calculateArgument.current) { //если операция только над аргументом
-      const temp: string = calculate(argument, isError);
+    if (calculateArgument) { //если операция только над аргументом
+      const temp: string = calculate(argument, setIsError);
       setShownValue(temp);
-      calculateArgument.current = false;
+      setCalculateArgument(false);
       if (temp.includes(".")) {
-        dotPlaced.current = true;
+        setDotPlaced(true);
       } else {
-        dotPlaced.current = false;
+        setDotPlaced(false);
       }
     } else {
       setShownValue(argument);
       if (argument.includes(".")) {
-        dotPlaced.current = true;
+        setDotPlaced(true);
       } else {
-        dotPlaced.current = false;
+        setDotPlaced(false);
       }
     }
   }, [argument]);
@@ -89,9 +93,9 @@ function App() {
     if(expression[expression.length -1] !== "="){ //не выводить result тк они поменялись местами с argument
       setShownValue(result);
       if (argument.includes(".")) {
-        dotPlaced.current = true;
+        setDotPlaced(true);
       } else {
-        dotPlaced.current = false;
+        setDotPlaced(false);
       }
     }
   }, [result]);
@@ -116,14 +120,14 @@ function App() {
     const storedHistory: historyRecord[] = JSON.parse(localStorage.getItem("historyRecords") || "[]")
     setList(storedHistory, setHistoryRecords)
 
-    return () => { //чтобы не применялось дважды
+    return () => { 
+      //чтобы когда удаляется компонент, с него снимался EventListener,
+      //и на одном компоненте не было несколько одинаковых обработчиков
       document.removeEventListener("keydown", handlekeys); 
-      // clearList(setHistoryRecords);
     };
   }, []);
 
   return (
-    <>
       <VariablesContext value={context}>
         <ButtonsContext value={buttons}>
         <h1>Калькулятор</h1>
@@ -151,7 +155,6 @@ function App() {
         <HistoryContainer ref={forHistoryRef}/>
         </ButtonsContext>
       </VariablesContext>
-    </>
   );
 }
 

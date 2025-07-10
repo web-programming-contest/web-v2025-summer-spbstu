@@ -5,26 +5,28 @@ type deleteOperationArgs = {
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
   setResult: React.Dispatch<React.SetStateAction<string>>;
-  isSecondOperand: React.MutableRefObject<boolean>;
-  isError: React.MutableRefObject<boolean>;
+  isSecondOperand: boolean;
+  setIsSecondOperand: React.Dispatch<React.SetStateAction<boolean>>;
+  isError: boolean;
+  setIsError: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 //обрабатывает разные способы удаления
 
 export function deleteOperation(args: deleteOperationArgs) {
   //если  ошибка или получили результат - удалить всё
-  if(args.expression[args.expression.length - 1] === "=" || args.isError.current){
+  if(args.expression[args.expression.length - 1] === "=" || args.isError){
       args.setValue("0");
       args.setExpression("");
       args.setResult("0");
-      args.isSecondOperand.current = false;
-      args.isError.current = false;
+      args.setIsSecondOperand(false);
+      args.setIsError(false);
     return;
   }
   switch (args.operation) {
     case "CE": {
       args.setValue("0");
-      if(!args.isSecondOperand.current){
+      if(!args.isSecondOperand){
         args.setExpression("");
       }
       break;
@@ -33,7 +35,7 @@ export function deleteOperation(args: deleteOperationArgs) {
       args.setValue("0");
       args.setExpression("");
       args.setResult("0");
-      args.isSecondOperand.current = false;
+      args.setIsSecondOperand(false);
       break;
     }
     case "<=": {

@@ -8,18 +8,31 @@ export function PlaceDotButton() {
   if (!context) {
     throw new Error("что-то не так с контекстом переменных");
   }
-  const { argument, setArgument, dotPlaced, isError } = context;
+  const { 
+    argument, 
+    setArgument, 
+    dotPlaced, 
+    isError, 
+    setDotPlaced
+   } = context;
 
   const buttons = useContext(ButtonsContext);
   if (!buttons) {
-      throw new Error("что-то не так с контекстом кнопок");
-    }
+    throw new Error("что-то не так с контекстом кнопок");
+  }
 
   return (
     <button
       ref={buttons.placeDotBtn}
-      disabled={isError.current}
-      onClick={() => addDot({ value: argument, setValue: setArgument, dotPlaced: dotPlaced })}
+      disabled={isError}
+      onClick={() =>
+        addDot({
+          value: argument,
+          setValue: setArgument,
+          dotPlaced: dotPlaced,
+          setDotPlaced: setDotPlaced,
+        })
+      }
     >
       .
     </button>

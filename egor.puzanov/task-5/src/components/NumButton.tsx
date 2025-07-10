@@ -31,7 +31,7 @@ export function NumButton({ num }: { num: number }) {
 
   return (
     <button
-      disabled={isError.current}
+      disabled={isError}
       onClick={() =>
         addDigit({
           num: num,

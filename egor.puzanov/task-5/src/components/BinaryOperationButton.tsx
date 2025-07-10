@@ -12,12 +12,13 @@ export function BinaryOperationButton({ operation }: { operation: string }) {
     argument,
     setArgument,
     isSecondOperand,
+    setIsSecondOperand,
     expression,
     setExpression,
     result,
     setResult,
-    dotPlaced,
-    isError
+    isError,
+    setIsError
   } = context;
 
   const buttons = useContext(ButtonsContext);
@@ -36,19 +37,19 @@ export function BinaryOperationButton({ operation }: { operation: string }) {
   return (
     <button
       ref={buttonRef}
-      disabled={isError.current}
+      disabled={isError}
       onClick={() =>
         binaryOperation({
             operation: operation,
             value: argument,
             setValue: setArgument,
             isSecondOperand: isSecondOperand,
+            setIsSecondOperand,
             expression: expression,
             setExpression: setExpression,
             result: result,
             setResult: setResult,
-            dotPlaced: dotPlaced,
-            isError: isError
+            setIsError: setIsError
         })
       }
     >

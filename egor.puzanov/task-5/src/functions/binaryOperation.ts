@@ -4,13 +4,13 @@ type binaryOperationArgs = {
   operation: string;
   value: string;
   setValue: (value: string) => void;
-  isSecondOperand: React.MutableRefObject<boolean>;
+  isSecondOperand: boolean;
+  setIsSecondOperand: React.Dispatch<React.SetStateAction<boolean>>;
   expression: string;
   setExpression: (value: string) => void;
   result: string;
   setResult: (value: string) => void;
-  dotPlaced: React.MutableRefObject<boolean>;
-  isError: React.MutableRefObject<boolean>;
+  setIsError: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 //обработка операций с двумя аргументами
@@ -25,9 +25,9 @@ export function binaryOperation(args: binaryOperationArgs) {
       args.setValue("");
     }
     else if (args.operation === "%"){
-      args.setValue(calculate(args.value+"/100", args.isError))
-      args.setExpression(calculate(args.value+"/100", args.isError));
-      args.isSecondOperand.current = false;
+      args.setValue(calculate(args.value+"/100", args.setIsError));
+      args.setExpression(calculate(args.value+"/100", args.setIsError));
+      args.setIsSecondOperand(false);
     }
     else{
       throw new Error("что-то пошло не так");
@@ -44,15 +44,15 @@ export function binaryOperation(args: binaryOperationArgs) {
               args.expression + ' + ' //если в выражении поледним стоит число
             );
             args.setValue("");
-            if (args.isSecondOperand.current) {
+            if (args.isSecondOperand) {
               args.setResult( //посчитать число слева от знака если кнопку нажимают несколько раз
-                calculate(args.result + ` ${previousOperation} ` + tempValue, args.isError) 
+                calculate(args.result + ` ${previousOperation} ` + tempValue, args.setIsError) 
               );
             } 
             else {
-              args.setResult(calculate(tempValue, args.isError)); //посчитать введеное число
+              args.setResult(calculate(tempValue, args.setIsError)); //посчитать введеное число
             }
-            args.isSecondOperand.current = true;
+            args.setIsSecondOperand(true);
           } 
           else { //если решили поменять операцию
             if("/*".includes(previousOperation)){
@@ -72,15 +72,15 @@ export function binaryOperation(args: binaryOperationArgs) {
               args.expression + ' - '
             );
             args.setValue("");
-            if (args.isSecondOperand.current) {
+            if (args.isSecondOperand) {
               args.setResult(
-                calculate(args.result + ` ${previousOperation} ` + tempValue, args.isError)
+                calculate(args.result + ` ${previousOperation} ` + tempValue, args.setIsError)
               );
             } 
             else {
-              args.setResult(calculate(tempValue, args.isError));
+              args.setResult(calculate(tempValue, args.setIsError));
             }
-            args.isSecondOperand.current = true;
+            args.setIsSecondOperand(true);
           } 
           else {
             if("/*".includes(previousOperation)){
@@ -100,15 +100,15 @@ export function binaryOperation(args: binaryOperationArgs) {
               '(' + args.expression  + ') * '
             );
             args.setValue("");
-            if (args.isSecondOperand.current) {
+            if (args.isSecondOperand) {
               args.setResult(
-                calculate(args.result + ` ${previousOperation} ` + tempValue, args.isError)
+                calculate(args.result + ` ${previousOperation} ` + tempValue, args.setIsError)
               );
             } 
             else {
-              args.setResult(calculate(tempValue, args.isError));
+              args.setResult(calculate(tempValue, args.setIsError));
             }
-            args.isSecondOperand.current = true;
+            args.setIsSecondOperand(true);
           } 
           else {
             if("/*".includes(previousOperation)){
@@ -128,15 +128,15 @@ export function binaryOperation(args: binaryOperationArgs) {
               '(' + args.expression  + ') / '
             );
             args.setValue("");
-            if (args.isSecondOperand.current) {
+            if (args.isSecondOperand) {
               args.setResult(
-                calculate(args.result + ` ${previousOperation} ` + tempValue, args.isError)
+                calculate(args.result + ` ${previousOperation} ` + tempValue, args.setIsError)
               );
             } 
             else {
-              args.setResult(calculate(tempValue, args.isError));
+              args.setResult(calculate(tempValue, args.setIsError));
             }
-            args.isSecondOperand.current = true;
+            args.setIsSecondOperand(true);
           } 
           else {
             if("/*".includes(previousOperation)){
@@ -151,15 +151,15 @@ export function binaryOperation(args: binaryOperationArgs) {
         case "%": {
           if(args.value){
             if("+-".includes(args.expression[args.expression.length-2])) { //если сложение/вычитание - прибавить n процентов
-              args.setValue(calculate(args.expression.slice(0, args.expression.length - 3) + "/100*" + args.value, args.isError))
+              args.setValue(calculate(args.expression.slice(0, args.expression.length - 3) + "/100*" + args.value, args.setIsError))
             }
             else if ("*/".includes(args.expression[args.expression.length-2])) {
-              args.setValue(calculate(args.value+"/100", args.isError));
+              args.setValue(calculate(args.value+"/100", args.setIsError));
             }
             else{ //если умножение/деление - взять n процентов
-              args.setValue(calculate(args.value+"/100", args.isError))
-              args.setExpression(calculate(args.value+"/100", args.isError));
-              args.isSecondOperand.current = false;
+              args.setValue(calculate(args.value+"/100", args.setIsError))
+              args.setExpression(calculate(args.value+"/100", args.setIsError));
+              args.setIsSecondOperand(false);
 
             }
           }

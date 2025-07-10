@@ -17,6 +17,7 @@ export function GetResultButton() {
     setResult,
     isSecondOperand,
     isError,
+    setIsError,
     historyRecords,
     setHistoryRecords
   } = context;
@@ -29,7 +30,7 @@ export function GetResultButton() {
   return (
     <button
       ref={buttons.calculateBtn}
-      disabled={isError.current}
+      disabled={isError}
       onClick={() =>
         getResult({
           expression: expression,
@@ -40,6 +41,7 @@ export function GetResultButton() {
           setResult: setResult,
           isSecondOperand: isSecondOperand,
           isError: isError,
+          setIsError: setIsError,
           historyRecords: historyRecords,
           setHistoryRecords: setHistoryRecords
         })
