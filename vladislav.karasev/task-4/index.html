@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Car Manager</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Car Manager</h1>
+
+<form id="addCarForm">
+  <input type="text" name="make" placeholder="Make" required>
+  <input type="text" name="model" placeholder="Model" required>
+  <button type="submit">Add Car</button>
+</form>
+
+<div id="carList"></div>
+<h2>Аналитика</h2>
+<div id="analytics">
+  <button id="showByMake">Группировка по марке</button>
+  <button id="showByOwnerCount">Группировка по числу владельцев</button>
+  <button id="showUniqueOwners">Уникальные владельцы</button>
+
+  <form id="carsByOwnerForm">
+    <input type="text" name="owner" placeholder="Имя владельца" required>
+    <button type="submit">Авто по владельцу</button>
+  </form>
+
+  <form id="modelsByMakeForm">
+    <input type="text" name="make" placeholder="Марка" required>
+    <button type="submit">Модели по марке</button>
+  </form>
+
+  <div id="output"></div>
+</div>
+
+<script type="module" src="index.js"></script>
+</body>
+</html>
