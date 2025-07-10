@@ -24,5 +24,4 @@ function zipArrays(...arrays) {
 
   return result;
 }
-
 console.log(zipArrays([1, 2, 3, 4], ['a', 'b'], [11, 12]));
