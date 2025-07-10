@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>TASK-4</title>
+</head>
+<body>
+    <link rel="stylesheet" href="/style.css">
+    <div id="teamCreationForm">
+        <div id="teamSettingName">
+            <h2> Команда </h2>
+            <input id="teamName" type="text" placeholder="Введите название">
+            <div class="buttonContainer">
+                <input class="teamButton" id="addTeam" type="submit" value="Добавить команду">
+                <input class="teamButton" id="deleteTeam" type="submit" value="Удалить команду">
+            </div>
+        </div>
+        <div id="teamSettingMembers">
+            <h2> Участники </h2>
+            <div class="memberInputsContainer">
+                <input class="memberForm" id="memberName" type="text" placeholder="Введите имя"> 
+                <input class="memberForm" id="memberRole" type="text" placeholder="Введите роль"> 
+            </div>
+            <div class="buttonContainer">
+                <input class="teamButton" id="addMember" type="submit" value="Добавить участника">
+                <input class="teamButton" id="deleteMember" type="submit" value="Удалить участника">
+            </div>
+        </div>
+    </div>
+    <div id="createdTeams"> </div>
+    <script src="./index.js"> </script>
+</body>
+</html>
