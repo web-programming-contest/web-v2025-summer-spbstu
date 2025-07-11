@@ -1,0 +1,51 @@
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+.game-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.filters {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filters select {
+  padding: 5px;
+}
+
+form {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+form input {
+  padding: 5px;
+  flex: 1;
+  min-width: 150px;
+}
+
+form button {
+  padding: 5px 10px;
+}  
+
+button.action {
+  margin-right: 5px;
+  padding: 5px;
+  font-size: 12px;
+}
+
+#output h3 {
+  margin-top: 30px;
+}
+
