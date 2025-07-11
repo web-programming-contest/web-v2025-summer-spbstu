@@ -1,0 +1,9 @@
+.ratingContainer .star {
+    color: #dcdcdc;
+    font-size: 1.4rem;
+}
+
+.ratingContainer .filled {
+    color: #f39c12;
+    font-size: 1.4rem;
+}
