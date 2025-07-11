@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление заказами</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Заказы</h1>
+        
+        <!-- Управление заказами -->
+        <div class="order-section">
+            <h2>Управление заказами</h2>
+            <div class="input-group">
+                <input type="number" id="order-id-input" placeholder="ID заказа" min="1">
+            </div>
+            <div class="button-group">
+                <button id="add-order-btn">Добавить заказ</button>
+                <button id="delete-order-btn">Удалить заказ</button>
+            </div>
+        </div>
+        
+        <!-- Управления товарами -->
+        <div class="product-section">
+            <h2>Управление товарами</h2>
+            <div class="input-group">
+                <input type="number" id="item-order-id-input" placeholder="ID заказа" min="1">
+                <input type="text" id="item-name-input" placeholder="Название товара">
+                <input type="number" id="item-price-input" placeholder="Цена" min="0" step="1">
+            </div>
+            <div class="button-group">
+                <button id="add-item-btn">Добавить товар</button>
+                <button id="remove-item-btn">Удалить товар</button>
+            </div>
+        </div>
+        
+        <!-- Список заказов -->
+        <div id="orders-container"></div>
+        
+        <!-- Сортировка товаров и заказов -->
+        <div class="filter-section">
+            <h2>Аналитика заказов</h2>
+            <div class="button-group">
+                <div class="button-group">
+                    <button id="group-by-status">Группировка по статусу</button>
+                    <button id="show-unique-products">Уникальные товары</button>
+                    <button id="show-by-price-range">Группировка по сумме</button>
+                    <button id="filter-by-product">Фильтр по товару</button>
+                    <button id="filter-by-status">Фильтр по статусу</button>
+                </div>
+            </div>
+            <div id="analytics-container"></div>
+        </div>
+    </div>
+    
+    <script type="module" src="script.js"></script>
+</body>
+</html>
