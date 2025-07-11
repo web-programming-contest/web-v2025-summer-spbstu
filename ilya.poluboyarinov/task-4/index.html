@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Задание 4</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Управление командами</h1>
+    <button id="addTeamBtn" class="add-team-btn">Добавить команду</button>
+    <div id="teamsContainer" class="teams-container"></div>
+
+    <div id="teamModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Добавить команду</h2>
+            <div class="form-group">
+                <label for="teamName">Название команды:</label>
+                <input type="text" id="teamName" required>
+            </div>
+            <div class="form-actions">
+                <button id="cancelTeamBtn">Отмена</button>
+                <button id="saveTeamBtn" class="add-member-btn">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="memberModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Добавить участника</h2>
+            <div class="form-group">
+                <label for="memberName">Имя участника:</label>
+                <input type="text" id="memberName" required>
+            </div>
+            <div class="form-group">
+                <label for="memberRole">Роль:</label>
+                <input type="text" id="memberRole" required>
+            </div>
+            <div class="form-actions">
+                <button id="cancelMemberBtn">Отмена</button>
+                <button id="saveMemberBtn" class="add-member-btn">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="removeMemberModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Удалить участника</h2>
+            <div class="form-group">
+                <label for="removeMemberName">Имя участника:</label>
+                <input type="text" id="removeMemberName" required>
+            </div>
+            <div class="form-actions">
+                <button id="cancelRemoveMemberBtn">Отмена</button>
+                <button id="confirmRemoveMemberBtn" class="remove-member-btn">Удалить</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="team.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
