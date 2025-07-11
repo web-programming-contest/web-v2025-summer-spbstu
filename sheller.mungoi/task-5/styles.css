@@ -1,0 +1,46 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f7f7f7;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.book-list, .cart-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.book, .cart-item {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 16px;
+  border-radius: 10px;
+  width: 200px;
+}
+
+.book button, .cart-item button {
+  margin-top: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.cart-item button {
+  margin-right: 6px;
+}
+
+.total-amount {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-top: 20px;
+}
+
+hr {
+  margin: 20px 0;
+  border: 0;
+  border-top: 1px solid #ddd;
+}
