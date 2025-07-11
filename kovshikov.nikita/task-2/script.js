@@ -4,7 +4,7 @@ function findMissingNumber(arr) {
     let prev = 0;
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] - prev != 1) {
-            return arr[i];
+            return arr[i] - 1;
         }
         else {
             prev = arr[i];
