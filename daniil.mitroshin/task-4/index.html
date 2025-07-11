@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Игры</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div style="display: flex; justify-content: space-between; align-items: center">
+    <h1>Список игр</h1>
+    <button onclick="showUniquePlatforms()">Показать платформы</button>
+  </div>
+
+  <div class="filters">
+    <select onchange="handleMenu(this.value)">
+      <option selected disabled>Выберите действие</option>
+      <option value="groupByYear">Группировать по году</option>
+      <option value="groupByPlatformCount">Группировать по числу платформ</option>
+      <option value="getGamesByPlatform">Игры по платформе</option>
+      <option value="getGamesAfterYear">Игры после года</option>
+    </select>
+  </div>
+
+  <form id="createForm" onsubmit="createGame(event)">
+    <h3>Добавить игру</h3>
+    <input type="text" id="title" placeholder="Название" required>
+    <input type="number" id="year" placeholder="Год выпуска" required>
+    <input type="text" id="platforms" placeholder="Платформы через запятую" required>
+    <button type="submit">Добавить игру</button>
+  </form>
+
+  <div id="gameList"></div>
+  <div id="output"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
