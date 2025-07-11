@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.movie-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: white;
+}
+
+.movie-card h3 {
+    margin-top: 0;
+}
+
+.actors-list {
+    padding: 0;
+    list-style: none;
+}
+
+.actor-item {
+    padding: 5px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.delete-actor-btn {
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    margin-left: 10px;
+}
+
+.add-actor-btn {
+    background-color: #33cc33;
+    color: white;
+    border: none;
+    margin-top: 10px;
+}
+
+.delete-movie-btn {
+    background-color: #ff4444;
+    color: white;
+    border: none;
+}
+
+#add-movie-btn {
+    background-color: #337ab7;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+.form-container {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    background-color: #337ab7;
+    color: white;
+    border: none;
+}
+
+button[type="button"] {
+    background-color: #ccc;
+    border: none;
+}

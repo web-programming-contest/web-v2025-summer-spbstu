@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Управление фильмами</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Управление фильмами</h1>
+        
+        <div id="movies-list"></div>
+
+        <div class="controls">
+            <button id="add-movie-btn">Добавить фильм</button>
+        </div>
+        
+        <div id="movie-form-container" class="hidden">
+            <h2>Добавить новый фильм</h2>
+            <form id="movie-form">
+                <div class="form-group">
+                    <label for="title">Название:</label>
+                    <input type="text" id="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="director">Режиссер:</label>
+                    <input type="text" id="director" required>
+                </div>
+                <button type="submit">Сохранить</button>
+                <button type="button" id="cancel-movie-btn">Отмена</button>
+            </form>
+        </div>
+
+        <div id="actor-form-container" class="hidden">
+            <h2>Добавить нового актера</h2>
+            <form id="actor-form">
+                <div class="form-group">
+                    <label for="actor-name">Имя актера:</label>
+                    <input type="text" id="actor-name" required>
+                </div>
+                <button type="submit">Добавить</button>
+                <button type="button" id="cancel-actor-btn">Отмена</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="/js/app.js"></script>
+</body>
+</html>
