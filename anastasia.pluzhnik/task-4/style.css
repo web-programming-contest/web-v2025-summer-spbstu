@@ -144,16 +144,17 @@ button:hover {
     font-size: 1.1rem;
 }
 
+.error-message, .success-message {
+    margin: 10px;
+    font-size: 16px;
+}
+
 .error-message {
-    color: #f1343a;
-    margin-top: 5px;
-    font-size: 20px;
+    color: #c62828;
 }
 
 .success-message {
-    font-size: 20px;
-    color: #2b8412;
-    margin-top: 5px;
+    color: #2e7d32;
 }
 
 .product-list {

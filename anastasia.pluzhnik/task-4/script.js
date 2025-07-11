@@ -1,4 +1,5 @@
 import { Order } from './order.js';
+import { StorageService } from './storage-service.js';
 import { 
     groupOrdersByStatus, 
     getUniqueProducts, 
@@ -7,34 +8,24 @@ import {
     filterOrdersByStatus
 } from './filter.js';
 
+const storageService = new StorageService('orders');
 
 document.addEventListener('DOMContentLoaded', () => {
-
-    Order.loadFromLocalStorage();
-
     renderOrders();
-
     setupEventListeners();
 });
 
-
 function setupEventListeners() {
-    // Управление заказами
     document.getElementById('add-order-btn').addEventListener('click', addNewOrder);
     document.getElementById('delete-order-btn').addEventListener('click', deleteOrder);
-    
-    // Управление товарами
     document.getElementById('add-item-btn').addEventListener('click', addItemToOrder);
     document.getElementById('remove-item-btn').addEventListener('click', removeItemFromOrder);
-    
-    // Аналитические функции
     document.getElementById('group-by-status').addEventListener('click', showOrdersByStatus);
     document.getElementById('show-unique-products').addEventListener('click', showUniqueProducts);
     document.getElementById('show-by-price-range').addEventListener('click', showByPriceRange);
     document.getElementById('filter-by-product').addEventListener('click', filterByProduct);
     document.getElementById('filter-by-status').addEventListener('click', filterByStatus);
 }
-
 
 async function addNewOrder() {
     const orderIdInput = document.getElementById('order-id-input');
@@ -43,27 +34,26 @@ async function addNewOrder() {
     clearMessages();
     
     if (isNaN(orderId)) {
-        showError(orderIdInput, 'Пожалуйста, введите корректный номер заказа');
+        showError('Пожалуйста, введите корректный номер заказа');
         return;
     }
     
     if (orderId <= 0) {
-        showError(orderIdInput, 'ID заказа должен быть положительным числом');
+        showError('ID заказа должен быть положительным числом');
         return;
     }
     
-    if (Order.allOrders.some(elem => elem.orderId === orderId)) {
-        showError(orderIdInput, 'Заказ с таким ID уже существует');
+    if (storageService.orderExists(orderId)) {
+        showError('Заказ с таким ID уже существует');
         return;
     }
     
-
-    new Order(orderId);
+    const newOrder = new Order(orderId);
+    storageService.addOrder(newOrder);
     orderIdInput.value = '';
     showSuccess('Заказ успешно создан');
     renderOrders();
 }
-
 
 async function deleteOrder() {
     const orderIdInput = document.getElementById('order-id-input');
@@ -71,28 +61,21 @@ async function deleteOrder() {
     
     clearMessages();
     
-    // Валидация ввода
     if (isNaN(orderId)) {
-        showError(orderIdInput, 'Пожалуйста, введите корректный номер заказа');
+        showError('Пожалуйста, введите корректный номер заказа');
         return;
     }
     
-    // Проверка существования заказа
-    const orderExists = Order.allOrders.some(elem => elem.orderId === orderId);
-    if (!orderExists) {
-        showError(orderIdInput, 'Заказ с таким ID не найден');
+    if (!storageService.orderExists(orderId)) {
+        showError('Заказ с таким ID не найден');
         return;
     }
     
-    // Удаление заказа
-    await Order.deleteOrder(orderId);
+    storageService.deleteOrder(orderId);
     orderIdInput.value = '';
     showSuccess('Заказ успешно удален');
     renderOrders();
 }
-
-
-// ==================== УПРАВЛЕНИЕ ТОВАРАМИ ====================
 
 async function addItemToOrder() {
     const orderIdInput = document.getElementById('item-order-id-input');
@@ -106,35 +89,37 @@ async function addItemToOrder() {
     clearMessages();
     
     if (isNaN(orderId)) {
-        showError(orderIdInput, 'Введите корректный ID заказа');
+        showError('Введите корректный ID заказа');
         return;
     }
     
     if (!name) {
-        showError(nameInput, 'Введите название товара');
+        showError('Введите название товара');
         return;
     }
     
     if (isNaN(price) || price <= 0) {
-        showError(priceInput, 'Введите корректную цену (положительное число)');
+        showError('Введите корректную цену (положительное число)');
         return;
     }
     
-
-    const order = Order.allOrders.find(elem => elem.orderId === orderId);
+    const order = storageService.getOrderById(orderId);
     if (!order) {
-        showError(orderIdInput, 'Заказ не найден');
+        showError('Заказ не найден');
         return;
     }
     
- 
-    await order.addItem({ name, price });
+    const orderInstance = new Order(order.orderId, order.status);
+    orderInstance.items = [...order.items];
+    
+    await orderInstance.addItem({ name, price });
+    
+    storageService.updateOrder(orderInstance);
     nameInput.value = '';
     priceInput.value = '';
     showSuccess('Товар успешно добавлен');
     renderOrders();
 }
-
 
 async function removeItemFromOrder() {
     const orderIdInput = document.getElementById('item-order-id-input');
@@ -145,44 +130,44 @@ async function removeItemFromOrder() {
     
     clearMessages();
     
-
     if (isNaN(orderId)) {
-        showError(orderIdInput, 'Введите корректный ID заказа');
+        showError('Введите корректный ID заказа');
         return;
     }
     
     if (!name) {
-        showError(nameInput, 'Введите название товара');
+        showError('Введите название товара');
         return;
     }
     
-    const order = Order.allOrders.find(elem => elem.orderId === orderId);
+    const order = storageService.getOrderById(orderId);
     if (!order) {
-        showError(orderIdInput, 'Заказ не найден');
+        showError('Заказ не найден');
         return;
     }
     
-    // Проверка существования товара (без учета регистра)
     const itemExists = order.items.some(item => 
         item.name.toLowerCase() === name.toLowerCase()
     );
     
     if (!itemExists) {
-        showError(nameInput, 'Товар не найден в заказе');
+        showError('Товар не найден в заказе');
         return;
     }
     
-    // Удаление товара
-    await order.removeItem(name);
+    const orderInstance = new Order(order.orderId, order.status);
+    orderInstance.items = [...order.items];
+    
+    await orderInstance.removeItem(name);
+    storageService.updateOrder(orderInstance);
     nameInput.value = '';
     showSuccess('Товар успешно удален');
     renderOrders();
 }
 
-// ==================== 4.2 Сортировки и группировки ====================
-
 function showOrdersByStatus() {
-    const grouped = groupOrdersByStatus(Order.allOrders);
+    const orders = storageService.getAllOrders();
+    const grouped = groupOrdersByStatus(orders);
     let html = '<div class="analytics-result"><h3>Группировка заказов по статусу</h3>';
     
     for (const [status, orders] of Object.entries(grouped)) {
@@ -196,9 +181,9 @@ function showOrdersByStatus() {
     document.getElementById('analytics-container').innerHTML = html;
 }
 
-
 function showUniqueProducts() {
-    const products = getUniqueProducts(Order.allOrders);
+    const orders = storageService.getAllOrders();
+    const products = getUniqueProducts(orders);
     const html = `
         <div class="analytics-result">
             <h3>Уникальные товары (${products.length})</h3>
@@ -212,28 +197,33 @@ function showUniqueProducts() {
     document.getElementById('analytics-container').innerHTML = html;
 }
 
-
 function showByPriceRange() {
-    const ranges = groupOrdersByPriceRange(Order.allOrders);
+    const orders = storageService.getAllOrders();
+    const ranges = orders.reduce((result, order) => {
+        const total = order.items.reduce((sum, item) => sum + item.price, 0);
+        if (total <= 1000) result['0-1000'].push(order);
+        else if (total <= 5000) result['1001-5000'].push(order);
+        else result['5001+'].push(order);
+        return result;
+    }, {'0-1000': [], '1001-5000': [], '5001+': []});
+
     let html = '<div class="analytics-result"><h3>Группировка заказов по сумме</h3>';
-    
     for (const [range, orders] of Object.entries(ranges)) {
         html += `<div class="analytics-item">
-            <div class="analytics-title">${range} руб. (${orders.length} заказов):</div>
+            <div class="analytics-title">${range} руб. (${orders.length}):</div>
             ${orders.map(o => `#${o.orderId}`).join(', ')}
         </div>`;
     }
-    
     html += '</div>';
     document.getElementById('analytics-container').innerHTML = html;
 }
-
 
 function filterByProduct() {
     const product = prompt('Введите название товара:');
     if (product && product.trim()) {
         const searchTerm = product.trim().toLowerCase();
-        const filtered = Order.allOrders.filter(order => 
+        const orders = storageService.getAllOrders();
+        const filtered = orders.filter(order => 
             order.items.some(item => 
                 item.name.toLowerCase().includes(searchTerm)
             )
@@ -241,7 +231,6 @@ function filterByProduct() {
         renderFilteredResults(filtered, `Заказы, содержащие "${product}"`);
     }
 }
-
 
 function filterByStatus() {
     const status = prompt('Введите статус (created, processing, sent, completed, cancelled):');
@@ -254,11 +243,45 @@ function filterByStatus() {
             return;
         }
         
-        const filtered = filterOrdersByStatus(Order.allOrders, normalizedStatus);
+        const orders = storageService.getAllOrders();
+        const filtered = filterOrdersByStatus(orders, normalizedStatus);
         renderFilteredResults(filtered, `Заказы со статусом "${normalizedStatus}"`);
     }
 }
 
+function renderOrders() {
+    const container = document.getElementById('orders-container');
+    const orders = storageService.getAllOrders();
+    
+    container.innerHTML = orders.length ? '' : '<p class="no-orders">Нет заказов</p>';
+
+    orders.forEach(order => {
+        const total = order.items.reduce((sum, item) => sum + item.price, 0);
+        const card = document.createElement('div');
+        card.className = 'order-card';
+        card.innerHTML = `
+            <h3>Заказ #${order.orderId}</h3>
+            <div class="status-control">
+                <span>Статус: </span>
+                <select class="status-select" data-order-id="${order.orderId}">
+                    ${['created', 'processing', 'sent', 'completed', 'cancelled'].map(s => 
+                        `<option value="${s}" ${order.status === s ? 'selected' : ''}>${s}</option>`
+                    ).join('')}
+                </select>
+            </div>
+            <div class="items-list">
+                <h4>Товары (${order.items.length}):</h4>
+                <ul>
+                    ${order.items.map(i => `<li>${i.name} - ${i.price.toFixed(2)} руб.</li>`).join('') || '<li>Нет товаров</li>'}
+                </ul>
+            </div>
+            <div class="total">Итого: ${total.toFixed(2)} руб.</div>
+        `;
+        container.appendChild(card);
+    });
+
+    setupStatusChangeHandlers();
+}
 
 function renderFilteredResults(orders, title) {
     const html = `<div class="analytics-result">
@@ -279,87 +302,58 @@ function renderFilteredResults(orders, title) {
     document.getElementById('analytics-container').innerHTML = html;
 }
 
-// ==================== Дополнительно ====================
-
-
-function renderOrders() {
-    const container = document.getElementById('orders-container');
-    container.innerHTML = '';
-
-    if (Order.allOrders.length === 0) {
-        container.innerHTML = '<p class="no-orders">Нет заказов</p>';
-        return;
-    }
-
-    Order.allOrders.forEach(order => {
-        const card = document.createElement('div');
-        card.className = 'order-card';
-        card.innerHTML = `
-            <h3>Заказ #${order.orderId}</h3>
-            <div class="status-control">
-                <span>Статус: </span>
-                <select class="status-select" data-order-id="${order.orderId}">
-                    <option value="created" ${order.status === 'created' ? 'selected' : ''}>Создан</option>
-                    <option value="processing" ${order.status === 'processing' ? 'selected' : ''}>В обработке</option>
-                    <option value="sent" ${order.status === 'sent' ? 'selected' : ''}>Отправлен</option>
-                    <option value="completed" ${order.status === 'completed' ? 'selected' : ''}>Завершен</option>
-                    <option value="cancelled" ${order.status === 'cancelled' ? 'selected' : ''}>Отменен</option>
-                </select>
-            </div>
-            <div class="items-list">
-                <h4>Товары (${order.items.length}):</h4>
-                <ul>
-                    ${order.items.length > 0 ? 
-                        order.items.map(item => `
-                            <li>${item.name} - ${item.price.toFixed(2)} руб.</li>
-                        `).join('') : 
-                        '<li>Нет товаров</li>'}
-                </ul>
-            </div>
-            <div class="total">Итого: ${order.getTotal().toFixed(2)} руб.</div>
-        `;
-        container.appendChild(card);
-    });
-
-
-    setupStatusChangeHandlers();
-}
-
 function setupStatusChangeHandlers() {
     document.querySelectorAll('.status-select').forEach(select => {
         select.addEventListener('change', async (e) => {
             const orderId = parseInt(e.target.dataset.orderId);
             const newStatus = e.target.value;
-            const order = Order.allOrders.find(o => o.orderId === orderId);
+            const order = storageService.getOrderById(orderId);
             
             if (order) {
-                await order.setStatus(newStatus);
+                const orderInstance = new Order(order.orderId, order.status);
+                orderInstance.items = [...order.items];
+                
+                await orderInstance.setStatus(newStatus);
+                orderInstance.status = newStatus;
+                storageService.updateOrder(orderInstance);
                 renderOrders();
             }
         });
     });
 }
 
-
-
-function showError(inputElement, message) {
+function showError(message, inputElement = null) {
+    clearMessages();
+    
+    const container = document.querySelector('.container');
     const errorElement = document.createElement('div');
     errorElement.className = 'error-message';
-    errorElement.textContent = message;
-    inputElement.parentNode.appendChild(errorElement);
-    inputElement.focus();
+    errorElement.textContent = message; 
+    
+    container.prepend(errorElement);
+    
+    if (inputElement) {
+        inputElement.classList.add('error-highlight');
+        inputElement.focus();
+        setTimeout(() => {
+            inputElement.classList.remove('error-highlight');
+        }, 3000);
+    }
+    
+    setTimeout(() => errorElement.remove(), 5000);
 }
 
-
 function showSuccess(message) {
+    clearMessages();
+    
     const container = document.querySelector('.container');
     const successElement = document.createElement('div');
     successElement.className = 'success-message';
     successElement.textContent = message;
+    
     container.prepend(successElement);
     setTimeout(() => successElement.remove(), 3000);
 }
-
 
 function clearMessages() {
     document.querySelectorAll('.error-message, .success-message').forEach(elem => elem.remove());
