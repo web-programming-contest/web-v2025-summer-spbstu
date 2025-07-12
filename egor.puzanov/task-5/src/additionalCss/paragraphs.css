@@ -1,0 +1,23 @@
+
+/* стили для отображения выражения и аргумента калькулятора */
+
+.argumentParagraph, .expression {
+  width: calc(20vw + 2px);
+  margin: 0 auto 10px auto;
+  text-align: end;
+  min-width: 200px;
+  white-space: nowrap;
+}
+
+.argumentParagraph{
+  height: 45px;
+  font-size: 40px;
+}
+
+.expression{
+  padding-right: 30px;
+  margin-bottom: 0;
+  height: 25px;
+  font-size: 15px;
+  color: #797a81;
+}
